@@ -14,9 +14,13 @@ public class ProjectListing {
 	private ArrayList<HDBOfficer> officers = new ArrayList<HDBOfficer>();
 	private int officerCount;
 	
+	private boolean visibility = true;
+	
+	// constructors
+	
+	
 	// getters
 	public String getProjectName() { return projectName; }
-	// still considering if neighbourhood should be enum or class(I dont think so) or string (most likely?)
 	public String getNeighbourhood() { return neighbourhood; } 
 	public ArrayList<Unit> getUnitTypes() { return unitTypes; } 
 	
@@ -27,19 +31,42 @@ public class ProjectListing {
 	public ArrayList<HDBOfficer> getOfficers() { return officers; }
 	public int getOfficerCount() { return officerCount; }
 	
+	public boolean getVisibility() { return visibility; }
+	
 	// setters
 	public void setProjectName(String newProjectName) { projectName = newProjectName; }
 	public void setNeighbourhood(String newNeighbourhood) { neighbourhood = newNeighbourhood; }
 	
-	public void addUnitType(Unit newUnit, int count) {
+	public void addUnitType(Unit newUnit) {
 		// check if unit already exists in unitType
-		// if yes, add to unitCount in the unitType
+		for (int i=0; i<unitTypes.size(); i++) {
+
+			// if yes, add to unitCount in the unitType
+			if (newUnit.getRoomType() == unitTypes.get(i).getRoomType()) {
+				unitTypes.get(i).setUnitCount(newUnit.getUnitCount() + unitTypes.get(i).getUnitCount());
+				return;
+			}
+		}
 		// else initialise and add newUnit to unitType
+		unitTypes.add(newUnit);
+		
 	}
-	public void removeUnitType(Unit oldUnit, int count) {
+	public void removeUnitType(Unit oldUnit) {
 		// make sure oldUnit exists
-		// if originally > removeCount, remove oldUnit entirely
-		// else subtract from unitCount
+		for (int i=0; i<unitTypes.size(); i++) {
+
+			if (oldUnit.getRoomType() == unitTypes.get(i).getRoomType()) {
+				int newCount = oldUnit.getUnitCount() - unitTypes.get(i).getUnitCount();
+
+				// if originally > removeCount, remove oldUnit entirely
+				if (newCount <= 0) unitTypes.remove(i);
+
+				// else subtract from unitCount
+				else unitTypes.get(i).setUnitCount(newCount);
+				return;
+			}
+		}
+		// unit does not exist
 	}
 	
 	public void setAppOpenDate(String newOpenDate) { AppOpenDate = newOpenDate; }
@@ -54,6 +81,8 @@ public class ProjectListing {
 		// get officer name
 		// loop through officers list and delete oldOfficer
 	}
+	
+	public void setVisibility(boolean vis) { visibility = vis; }
 	
 	// other methods
 }
