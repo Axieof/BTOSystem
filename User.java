@@ -9,7 +9,7 @@ public class User {
     private String maritalStatus;
     private String password;
 
-    // Constructor
+    // Constructor for User
     // (Default password to "password")
     public User(String name, String nric, int age, String maritalStatus) {
         this.name = name;
