@@ -1,4 +1,4 @@
-package sc2002.project;
+package BTOSystem;
 
 enum RoomType{
 	_2Room,
