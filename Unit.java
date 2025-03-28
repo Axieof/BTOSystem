@@ -1,9 +1,5 @@
 package BTOSystem;
 
-enum RoomType{
-	_2Room,
-	_3Room
-}
 
 public class Unit {
 	// variables
