@@ -3,10 +3,10 @@ package BTOSystem;
 public class User {
 
     // Variables
-    private String name;
+    public String name;
     private String nric;
-    private int age;
-    private String maritalStatus;
+    public int age;
+    public String maritalStatus;
     private String password;
 
     // Constructor for User
@@ -17,6 +17,10 @@ public class User {
         this.age = age;
         this.maritalStatus = maritalStatus;
         this.password = "password";
+    }
+
+    public User() {
+
     }
 
     // Password changing method
