@@ -18,15 +18,33 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         boolean programRunning = true;
-        System.out.print("===== Welcome to the BTO Management System! =====");
+        System.out.println("===== Welcome to the BTO Management System! =====");
         
+        System.out.println("Loading Users...");
+        loadUsers();
+        System.out.println("Users Loaded!");
+
         while (programRunning) {
-            System.out.println(null);
-            System.out.println(null);
-            System.out.println(null);
-            System.out.println(null);
-            System.out.println(null);
-            System.out.println(null);
+            System.out.println("\n----- Main Menu -----");
+            System.out.println("1) Login");
+            System.out.println("2) Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    loginUser(scanner);
+                    break;
+                case 2:
+                    programRunning = false;
+                    break;
+            
+                default:
+                    System.out.println("Invalid Option. Please try again!");
+                    break;
+            }
         }
 
     }
@@ -92,16 +110,15 @@ public class Main {
         }
     }
 
-    private static void loginUser() {
-        Scanner scanner = new Scanner(System.in);
+    private static void loginUser(Scanner scanner) {
 
-        System.out.print("Welcome User!");
-        System.out.print("---LOGIN---");
+        System.out.println("\nWelcome User!");
+        System.out.println("---LOGIN---");
 
-        System.out.print("Enter NRIC: ");
+        System.out.println("Enter NRIC: ");
         String nricInput = scanner.nextLine();
 
-        System.out.print("Enter Password: ");
+        System.out.println("Enter Password: ");
         String passwordInput = scanner.nextLine();
 
 
