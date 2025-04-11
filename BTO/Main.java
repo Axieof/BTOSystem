@@ -20,7 +20,7 @@ public class Main {
         boolean programRunning = true;
         System.out.println("===== Welcome to the BTO Management System! =====");
         
-        System.out.println("Loading Users...");
+        System.out.println("\nLoading Users...");
         loadUsers();
         System.out.println("Users Loaded!");
 
@@ -50,10 +50,11 @@ public class Main {
     }
 
     // Function: Load Users
+    // Initialization process to load users from csv files
     private static void loadUsers() {
-        // Step 1 - Initialize lists for 3 user types
+
         try {
-            // Create empty lists
+            // Step 1 - Create empty lists
             List<Applicant> applicants = new ArrayList<>();
             List<HDBOfficer> hdbOfficers = new ArrayList<>();
             List<HDBManager> hdbManagers = new ArrayList<>();
@@ -98,6 +99,7 @@ public class Main {
     }
 
     // Function: Read CSV Files
+    // To read from provided csv files and populate user lists
     private static <T> void readCSV(String fileName, List<T> list, UserProcessor<T> processor) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -112,17 +114,26 @@ public class Main {
         }
     }
 
-    private static void loginUser(Scanner scanner) {
+    // Function: LoginUser
+    // To provide the user with an interface to login with credentials
+    // as well as verify and let the system know the user's type
+    private static String loginUser(Scanner scanner) {
 
+        // Step 1 - Provide Interface
         System.out.println("\nWelcome User!");
         System.out.println("---LOGIN---");
 
+        // Step 2 - Get Input
         System.out.println("Enter NRIC: ");
         String nricInput = scanner.nextLine();
 
         System.out.println("Enter Password: ");
         String passwordInput = scanner.nextLine();
 
+        // Step 3 - Verify
+
+        // Step 4 - Return User Type
+        return "Applicant"; // Temporary
 
     }
 }
