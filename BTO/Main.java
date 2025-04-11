@@ -75,6 +75,7 @@ public class Main {
             });
 
             // Step 3 - Print out the lists to verify their contents
+            /*
             System.out.println("Applicants List:");
             for (Applicant applicant : applicants) {
                 System.out.println(applicant);
@@ -89,6 +90,7 @@ public class Main {
             for (HDBManager manager : hdbManagers) {
                 System.out.println(manager);
             }
+            */
 
         } catch (IOException e) {
             e.printStackTrace();
