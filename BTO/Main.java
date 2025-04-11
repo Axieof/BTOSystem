@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 interface UserProcessor<T> {
     void process(String[] columns, List<T> list);
@@ -15,6 +16,23 @@ public class Main {
     // To contain code for main program flow
     public static void main(String[] args) {
 
+        Scanner scanner = new Scanner(System.in);
+        boolean programRunning = true;
+        System.out.print("===== Welcome to the BTO Management System! =====");
+        
+        while (programRunning) {
+            System.out.println(null);
+            System.out.println(null);
+            System.out.println(null);
+            System.out.println(null);
+            System.out.println(null);
+            System.out.println(null);
+        }
+
+    }
+
+    // Function: Load Users
+    private static void loadUsers() {
         // Step 1 - Initialize lists for 3 user types
         try {
             // Create empty lists
@@ -72,5 +90,20 @@ public class Main {
                 processor.process(columns, list);
             }
         }
+    }
+
+    private static void loginUser() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Welcome User!");
+        System.out.print("---LOGIN---");
+
+        System.out.print("Enter NRIC: ");
+        String nricInput = scanner.nextLine();
+
+        System.out.print("Enter Password: ");
+        String passwordInput = scanner.nextLine();
+
+
     }
 }
