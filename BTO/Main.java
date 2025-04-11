@@ -18,6 +18,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         boolean programRunning = true;
+        String userType = null;
         System.out.println("===== Welcome to the BTO Management System! =====");
         
         System.out.println("\nLoading Users...");
@@ -35,7 +36,7 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    loginUser(scanner);
+                    userType = loginUser(scanner);
                     break;
                 case 2:
                     programRunning = false;
@@ -43,6 +44,20 @@ public class Main {
             
                 default:
                     System.out.println("Invalid Option. Please try again!");
+                    break;
+            }
+
+            switch (userType) {
+                case "Applicant":
+                    break;
+
+                case "HDBOfficer":
+                    break;
+
+                case "HDBManager":
+                    break;
+            
+                default:
                     break;
             }
         }
