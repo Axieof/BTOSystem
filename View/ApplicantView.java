@@ -9,7 +9,10 @@ public class ApplicantView implements ILandingPageView{
 		while (choice != -1) {
 			switch (choice) {
 			case 1-> viewProjects();
-			case 2-> 
+			case 2-> applyProject();
+			case 3-> viewAppliedProject();
+			case 4-> requestAppWithdrawal();
+			case 5-> handleEnquiry();
 			}
 		}
 	}
