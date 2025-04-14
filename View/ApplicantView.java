@@ -1,5 +1,6 @@
 package View;
 import BTO.*;
+import Filter.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -60,9 +61,13 @@ public class ApplicantView implements ILandingPageView{
 	public void viewProjects() {
 		System.out.println("List of projects:");
 		
-		// FILTER PROJECTS INTO filteredProjs
+		// THIS IS A GENERAL VISIBILITY FILTER:
+		FilterVisibility filterObject = new FilterVisibility();
+		ArrayList<ProjectListing> filtered = filterObject.filter(projects);
 		
-		for (ProjectListing proj : projects) {
+		// FILTER APPLICANT'S GROUP
+		
+		for (ProjectListing proj : filtered) {
 			if (proj.getVisibility()) {
 				System.out.println(proj);
 				System.out.println();
