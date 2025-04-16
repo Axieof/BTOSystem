@@ -1,5 +1,8 @@
 package BTO;
 import java.util.ArrayList;
+
+import Enums.RoomType;
+
 import java.time.LocalDate;
 
 public class ProjectListing {
@@ -52,35 +55,27 @@ public class ProjectListing {
 	public void setNeighbourhood(String newNeighbourhood) { neighbourhood = newNeighbourhood; }
 	
 	public void addUnitType(Unit newUnit) {
-		// check if unit already exists in unitType
-		for (int i=0; i<unitTypes.size(); i++) {
-
-			// if yes, add to unitCount in the unitType
-			if (newUnit.getRoomType() == unitTypes.get(i).getRoomType()) {
-				unitTypes.get(i).setUnitCount(newUnit.getUnitCount() + unitTypes.get(i).getUnitCount());
-				return;
-			}
-		}
-		// else initialise and add newUnit to unitType
-		unitTypes.add(newUnit);
-		
-	}
-	public void removeUnitType(Unit oldUnit) {
-		// make sure oldUnit exists
-		for (int i=0; i<unitTypes.size(); i++) {
-
-			if (oldUnit.getRoomType() == unitTypes.get(i).getRoomType()) {
-				int newCount = oldUnit.getUnitCount() - unitTypes.get(i).getUnitCount();
-
-				// if originally > removeCount, remove oldUnit entirely
-				if (newCount <= 0) unitTypes.remove(i);
-
-				// else subtract from unitCount
-				else unitTypes.get(i).setUnitCount(newCount);
+		for (Unit unit : unitTypes) {
+			if (newUnit.getRoomType() == unit.getRoomType()) { // found, update newUnit values
+				unit.setRoomType(newUnit.getRoomType());
+				unit.setSellingPrice(newUnit.getSellingPrice());
+				unit.setUnitCount(newUnit.getUnitCount());
 				return;
 			}
 		}
 		// unit does not exist
+		unitTypes.add(newUnit);
+	}
+	public void removeUnitType(Unit oldUnit) {
+		// make sure oldUnit exists
+		boolean found = false;
+		for (Unit unit : unitTypes) {
+			if (oldUnit == unit) { // found, update newUnit values
+				found = true;
+				break;
+			}
+		}
+		if (found) { unitTypes.remove(oldUnit); }
 	}
 	
 	public void setAppOpenDate(LocalDate newOpenDate) { AppOpenDate = newOpenDate; }

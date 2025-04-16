@@ -1,4 +1,4 @@
-package BTO;
+package Enums;
 
 public enum ApplicationStatus{
 	PENDING,

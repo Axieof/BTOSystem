@@ -1,11 +1,17 @@
 package BTO;
-
+import Enums.RoomType;
 
 public class Unit {
 	// variables
 	private RoomType roomType;
 	private int sellingPrice;
 	private int unitCount;
+	
+	public Unit(RoomType room, int price, int count) {
+		roomType = room;
+		sellingPrice = price;
+		unitCount = count;
+	}
 	
 	// setters
 	public RoomType getRoomType() { return roomType; }

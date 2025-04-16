@@ -1,6 +1,7 @@
 package View;
 import BTO.*;
-import Filter.*;
+import Enums.RoomType;
+import Services.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -58,14 +59,34 @@ public class ApplicantView implements ILandingPageView{
 		}
 	}
 	
+	private ArrayList<ProjectListing> filterProjects() { return filterProjects(this.projects); }
+	private ArrayList<ProjectListing> filterProjects(ArrayList<ProjectListing> projs) {
+		ArrayList<ProjectListing> filtered;
+		
+		// FILTER THE COMPULSORY STUFF
+		
+		// THIS IS A GENERAL VISIBILITY FILTER:
+		FilterVisibility filterVis = new FilterVisibility(); 
+		filtered = filterVis.filter(projects);
+		
+		// FILTER APPLICANT'S GROUP:
+		FilterFlatType filterFlat = new FilterFlatType();
+		if (applicant.maritalStatus == "SINGLE") {
+			filterFlat.setFlatType(RoomType.TWOROOM); // only gets two room
+			filtered = filterFlat.filter(filtered);
+		}
+		
+		
+		// THEN FILTER ACCORDING TO PREFERENCE (SHOULD BE STORED PER USER)
+		// INCOMPLETE
+		
+		return filtered;
+	}
+	
 	public void viewProjects() {
 		System.out.println("List of projects:");
 		
-		// THIS IS A GENERAL VISIBILITY FILTER:
-		FilterVisibility filterObject = new FilterVisibility();
-		ArrayList<ProjectListing> filtered = filterObject.filter(projects);
-		
-		// FILTER APPLICANT'S GROUP
+		ArrayList<ProjectListing> filtered = filterProjects();
 		
 		for (ProjectListing proj : filtered) {
 			if (proj.getVisibility()) {
