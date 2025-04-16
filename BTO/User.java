@@ -3,25 +3,28 @@ package BTO;
 public class User {
 
     // Variables
-    public String name;
+    private String name;
     private String nric;
-    public int age;
-    public String maritalStatus;
+    private int age;
+    private String maritalStatus;
     private String password;
+    private String role;
 
     // Constructor for User
     // (Default password to "password")
-    public User(String name, String nric, int age, String maritalStatus, String password) {
+    public User(String name, String nric, int age, String maritalStatus, String password， String role) {
         this.name = name;
         this.nric = nric;
         this.age = age;
         this.maritalStatus = maritalStatus;
         this.password = password;
+        this.role = role;
     }
 
     public User() {
 
     }
+
     // getter
     public String getName() {return name;}
     public String getNric() {return nric;}
