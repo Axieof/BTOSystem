@@ -71,10 +71,17 @@ public class ApplicantView implements ILandingPageView{
 		
 		// FILTER APPLICANT'S GROUP:
 		FilterFlatType filterFlat = new FilterFlatType();
-		if (applicant.maritalStatus == "SINGLE") {
+		if (applicant.maritalStatus == "SINGLE" && applicant.age >= 35) {
 			filterFlat.setFlatType(RoomType.TWOROOM); // only gets two room
-			filtered = filterFlat.filter(filtered);
 		}
+		else if (applicant.maritalStatus == "MARRIED" && applicant.age >= 21) {
+			filterFlat.setFlatType(null); // no limit
+		}
+		else {
+			// Should technically show nothing?
+			return filtered; 
+		}
+		filtered = filterFlat.filter(filtered);
 		
 		
 		// THEN FILTER ACCORDING TO PREFERENCE (SHOULD BE STORED PER USER)
