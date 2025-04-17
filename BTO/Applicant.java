@@ -6,8 +6,8 @@ public class Applicant extends User {
     private int flatType;
 
     // Constructor for Applicant
-    public Applicant (String name, String nric, int age, String maritalStatus, String password, String role) {
-        super(name, nric, age, maritalStatus, password, role);
+    public Applicant (String name, String nric, int age, String maritalStatus, String password) { 
+        super(name, nric, age, maritalStatus, password, "APPLICANT");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package View;
 import BTO.*;
+
 import Enums.RoomType;
 import Services.*;
 
@@ -70,18 +71,9 @@ public class ApplicantView implements ILandingPageView{
 		filtered = filterVis.filter(projects);
 		
 		// FILTER APPLICANT'S GROUP:
-		FilterFlatType filterFlat = new FilterFlatType();
-		if (applicant.maritalStatus == "SINGLE" && applicant.age >= 35) {
-			filterFlat.setFlatType(RoomType.TWOROOM); // only gets two room
-		}
-		else if (applicant.maritalStatus == "MARRIED" && applicant.age >= 21) {
-			filterFlat.setFlatType(null); // no limit
-		}
-		else {
-			// Should technically show nothing?
-			return filtered; 
-		}
-		filtered = filterFlat.filter(filtered);
+		FilterUserGroup filterGrp = new FilterUserGroup(); 
+		filterGrp.setApplicant(applicant);
+		filtered = filterGrp.filter(filtered);
 		
 		
 		// THEN FILTER ACCORDING TO PREFERENCE (SHOULD BE STORED PER USER)
@@ -105,13 +97,17 @@ public class ApplicantView implements ILandingPageView{
 	
 	public void applyProject() {
 		System.out.println("Applying for project...");
-
+		
+		// CHECK IF APPLICANT ALREADY APPLIED BEFORE
+		// IF YES: RETURN ERROR MESSAGE, CAN ONLY APPLY FOR ONE
+		
 		System.out.println("Which would you like to apply for?");
 		
-		// FILTER PROJECTS INTO filteredProjs
+		// Choose a project
+		ArrayList<ProjectListing> filtered = filterProjects();
 		
 		ProjectListing proj;
-		for (int i=0; i<projects.size(); i++) {
+		for (int i=0; i<filtered.size(); i++) {
 			proj = projects.get(i);
 			if (proj.getVisibility()) {
 				System.out.println(i + ". " + proj.getProjectName());
@@ -119,11 +115,26 @@ public class ApplicantView implements ILandingPageView{
 		}
 		
 		int choice = sc.nextInt();
-		proj = projects.get(choice);
+		proj = filtered.get(choice);
+		System.out.println();
 		
+		// Choose a unit
 		ArrayList<Unit> allUnits = proj.getUnitTypes();
-		// THEN CHOOSE UNIT TYPE (FILTER)
-		// CREATE AND SEND APPLICATION
+		
+		Unit u;
+		for (int i=0; i<allUnits.size(); i++) {
+			u = allUnits.get(i);
+			System.out.println(i + ". " + u.getRoomType());
+		}
+
+		choice = sc.nextInt();
+		u = allUnits.get(choice);
+		System.out.println();
+		
+		// Create and send application
+		Application appl = new Application(proj, u, applicant);
+		// STORE APPLICATION IN DATABASE (CSV)
+		// STORE APPLICATION IN APPLICANT ATTRIBUTE
 	}
 	
 	public void viewAppliedProject() {
@@ -141,11 +152,13 @@ public class ApplicantView implements ILandingPageView{
 	}
 	
 	public void handleEnquiry() {
-		// Possible things to do
+		// Possible things to do 
 		// SEND ENQUIRY
 		// EDIT ENQUIRY
 		// DELETE ENQUIRY
 		// GET RESPONSE TO ENQURIY
 		// MIGHT NEED FILTER TOO (answered/ unanswered)
+		
+		// MIGHT WANT TO HAVE A NEW CLASS TO HANDLE ENQUIRY
 	}
 }
