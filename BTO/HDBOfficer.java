@@ -3,8 +3,9 @@ package BTO;
 public class HDBOfficer extends Applicant {
     
     // Constructor for HDB Officer
-    public HDBOfficer(String name, String nric, int age, String maritalStatus, String password, String role) {
-        super(name, nric, age, maritalStatus, password, role);
+    public HDBOfficer(String name, String nric, int age, String maritalStatus, String password) {
+        super(name, nric, age, maritalStatus, password);
+        this.setRole("HDBOFFICER");
     }
 
     @Override
