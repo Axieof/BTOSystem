@@ -1,34 +1,35 @@
 package BTO;
 
 public class Enquiry {
-	private String question;
+	// variables
+	private int enquiryID; 
+
+	private String message;
 	private String reply;
 	
-	private Applicant sender;
+	private Applicant applicantName;
 	private User respondent;
+	private Applicant projectName;
 	
+	//need date and time?
+
 	private boolean answered;
 	
-	public Enquiry(String q, Applicant send) {
-		question = q;
-		sender = send;
-		answered = false;
+	public Enquiry(String message, Applicant applicantName) {
+		this.message = message;
+		this.applicantName = applicantName;
+		this.answered = false;
 	}
 	
-	public String getEnquiry() { return question; }
-	public Applicant getSender() { return sender; }
+	// getters
+	public String getEnquiry() { return message; }
+	public Applicant getSender() { return applicantName; }
 	
 	public String getResponse() { return reply; }
 	public User getRespondent() { return respondent; }
+
+
 	public boolean isAnswered() { return answered; }
 	
-	public void editEnquiry(String edited) { 
-		if (!answered) question = edited;
-		else System.out.println("ERROR: Enquiry closed. Unable to edit.");
-	}
-	public void respondEnquiry(String repl, User resp) {
-		reply = repl;
-		respondent = resp;
-		answered = true;
-	}
+
 }
