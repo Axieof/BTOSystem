@@ -21,11 +21,9 @@ public class FilterUserGroup implements IFilterViewProject{
 		
 		FilterFlatType filterFlat = new FilterFlatType();
 		if (applicant.getMaritalStatus().equals("SINGLE") && applicant.getAge() >= 35) {
-			System.out.println("FILTERING SINGLE");
 			filterFlat.setFlatType(RoomType.TWOROOM); // only gets two room
 		}
 		else if (applicant.getMaritalStatus().equals("MARRIED") && applicant.getAge() >= 21) {
-			System.out.println("FILTERING MARRIED");
 			filterFlat.setFlatType(null); // no limit
 		}
 		else {
