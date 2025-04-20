@@ -1,4 +1,4 @@
-package Enums;
+package src.com.BTO.Model.Enums;
 
 public enum ApplicationStatus{
 	PENDING,
