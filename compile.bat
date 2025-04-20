@@ -4,7 +4,7 @@
 cd /d "%~dp0"
 
 :: Compile all Java files in the BTO directory
-javac BTO\*.java
+javac src\com\BTO\*.java
 
 :: Run the Main class from the BTO package (with correct classpath)
 java BTO.Main
