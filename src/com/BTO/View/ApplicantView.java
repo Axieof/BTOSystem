@@ -1,6 +1,7 @@
 package src.com.BTO.View;
-import Enums.RoomType;
 import src.com.BTO.*;
+import src.com.BTO.Model.Enums.RoomType;
+import src.com.BTO.Model.Applicant;
 import src.com.BTO.Services.*;
 
 import java.util.ArrayList;
