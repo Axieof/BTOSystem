@@ -1,12 +1,1 @@
-/Applicant.class
-/Application.class
-/ApplicationStatus.class
-/HDBManager.class
-/HDBOfficer.class
-/Main.class
-/ProjectListing.class
-/RoomType.class
-/Unit.class
-/User.class
-/UserProcessor.class
-/Enquiry.class
+*.class
