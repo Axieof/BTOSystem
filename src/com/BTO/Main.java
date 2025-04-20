@@ -18,15 +18,18 @@ public class Main {
     // To contain code for main program flow
     public static void main(String[] args) {
 
+        // TODO: REFACTOR INTO Landing Page
         Scanner scanner = new Scanner(System.in);
         boolean programRunning = true;
         String userType = null;
         System.out.println("===== Welcome to the BTO Management System! =====");
         
+        // TODO: REFACTOR INTO CSVLOADER
         System.out.println("\nLoading Users...");
         loadUsers();
         System.out.println("Users Loaded!");
 
+        // TODO: REFACTOR? OR REDO IN AUTHSERVICE
         while (programRunning) {
             System.out.println("\n----- Main Menu -----");
             System.out.println("1) Login");
@@ -63,6 +66,26 @@ public class Main {
                     break;
             }
         }
+
+        // Initialization
+        //List<User> users = CSVLoader.loadusers("../../../data/users.csv")
+        //List<ProjectListing> projects = CSVLoader.loadProjects("../../../data/projects.csv")
+
+        //AuthService authSvc = new AuthService
+
+        // Login 
+        //AuthController authC = new AuthController(AuthService?...)
+        //User authorisedUser = authc.login();
+
+        // Dispatch according to role
+
+        //if (currentUser instanceof HDBManager) {
+        // TODO: CALL HDBManager Controller
+        //} else if (currentUser instanceof HDBOfficer) {
+        // TODO: CALL HDBOfficer Controller
+        //} else {
+        // TODO: CALL Applicant Controller
+        //}
 
     }
 
