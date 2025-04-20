@@ -1,4 +1,4 @@
-package BTO;
+package src.com.BTO;
 import Enums.RoomType;
 
 public class Unit {

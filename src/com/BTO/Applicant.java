@@ -1,4 +1,4 @@
-package BTO;
+package src.com.BTO;
 
 public class Applicant extends User {
     private String appliedProjectName;

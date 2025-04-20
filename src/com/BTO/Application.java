@@ -1,4 +1,4 @@
-package BTO;
+package src.com.BTO;
 import Enums.ApplicationStatus;
 
 public class Application {

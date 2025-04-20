@@ -1,4 +1,4 @@
-package BTO;
+package src.com.BTO;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
