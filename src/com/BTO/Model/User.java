@@ -1,4 +1,4 @@
-package src.com.BTO;
+package src.com.BTO.Model;
 
 public class User {
 
@@ -12,7 +12,7 @@ public class User {
 
     // Constructor for User
     // (Default password to "password")
-    public User(String name, String nric, int age, String maritalStatus, String password， String role) {
+    public User(String name, String nric, int age, String maritalStatus, String password, String role) {
         this.name = name;
         this.nric = nric;
         this.age = age;

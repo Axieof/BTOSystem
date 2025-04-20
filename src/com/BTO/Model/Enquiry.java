@@ -1,4 +1,4 @@
-package src.com.BTO;
+package src.com.BTO.Model;
 
 import src.com.BTO.Model.Applicant;
 

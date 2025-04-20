@@ -1,4 +1,4 @@
-package src.com.BTO;
+package src.com.BTO.Model;
 
 public class HDBManager extends User {
     // Constructor for Applicant

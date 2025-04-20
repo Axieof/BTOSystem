@@ -1,4 +1,4 @@
-package src.com.BTO;
+package src.com.BTO.Model;
 import java.util.ArrayList;
 
 import Enums.RoomType;
