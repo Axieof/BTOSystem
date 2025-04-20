@@ -1,10 +1,10 @@
-package Services;
-import BTO.ProjectListing;
-import BTO.Unit;
-
+package src.com.BTO.Services;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import src.com.BTO.ProjectListing;
+import src.com.BTO.Unit;
 
 public class FilterVisibility implements IFilterViewProject{
 	public ArrayList<ProjectListing> filter(ArrayList<ProjectListing> projects) {

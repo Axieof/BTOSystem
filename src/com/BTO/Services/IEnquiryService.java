@@ -1,4 +1,4 @@
-package Services;
+package src.com.BTO.Services;
 
 public interface IEnquiryService{
 	public boolean createEnquiry();

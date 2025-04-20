@@ -1,10 +1,10 @@
-package Services;
+package src.com.BTO.Services;
 
 import java.util.ArrayList;
 
-import BTO.ProjectListing;
-import BTO.Applicant;
 import Enums.RoomType;
+import src.com.BTO.Applicant;
+import src.com.BTO.ProjectListing;
 
 public class FilterUserGroup implements IFilterViewProject{
 	private Applicant applicant = null; 

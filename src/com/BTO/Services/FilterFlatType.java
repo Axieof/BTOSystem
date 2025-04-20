@@ -1,12 +1,12 @@
-package Services;
+package src.com.BTO.Services;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import Enums.RoomType;
-import BTO.ProjectListing;
-import BTO.Unit;
+import src.com.BTO.ProjectListing;
+import src.com.BTO.Unit;
 
 public class FilterFlatType implements IFilterViewProject{
 	private RoomType flatType = null;

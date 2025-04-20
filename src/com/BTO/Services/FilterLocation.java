@@ -1,10 +1,10 @@
-package Services;
+package src.com.BTO.Services;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import BTO.ProjectListing;
+import src.com.BTO.ProjectListing;
 
 public class FilterLocation implements IFilterViewProject{
 	private String location; 
