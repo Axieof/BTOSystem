@@ -1,5 +1,6 @@
 package src.com.BTO;
 import Enums.ApplicationStatus;
+import src.com.BTO.Model.Applicant;
 
 public class Application {
 	// variables

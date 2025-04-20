@@ -1,5 +1,7 @@
 package src.com.BTO;
 
+import src.com.BTO.Model.Applicant;
+
 public class HDBOfficer extends Applicant {
     
     // Constructor for HDB Officer

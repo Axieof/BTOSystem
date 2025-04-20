@@ -1,4 +1,6 @@
-package src.com.BTO;
+package src.com.BTO.Model;
+
+import src.com.BTO.User;
 
 public class Applicant extends User {
     private String appliedProjectName;

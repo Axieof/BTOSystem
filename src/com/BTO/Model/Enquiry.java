@@ -1,5 +1,7 @@
 package src.com.BTO;
 
+import src.com.BTO.Model.Applicant;
+
 public class Enquiry {
 	// variables
 	private int enquiryID; 
