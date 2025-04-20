@@ -3,8 +3,8 @@ package src.com.BTO.Services;
 import java.util.ArrayList;
 
 import Enums.RoomType;
-import src.com.BTO.Applicant;
-import src.com.BTO.ProjectListing;
+import src.com.BTO.Model.ProjectListing;
+import src.com.BTO.Model.Applicant;
 
 public class FilterUserGroup implements IFilterViewProject{
 	private Applicant applicant = null; 

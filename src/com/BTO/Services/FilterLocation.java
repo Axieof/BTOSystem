@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import src.com.BTO.ProjectListing;
+import src.com.BTO.Model.ProjectListing;
 
 public class FilterLocation implements IFilterViewProject{
 	private String location; 

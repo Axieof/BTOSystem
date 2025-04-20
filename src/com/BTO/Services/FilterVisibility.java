@@ -3,8 +3,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import src.com.BTO.ProjectListing;
-import src.com.BTO.Unit;
+import src.com.BTO.Model.ProjectListing;
+import src.com.BTO.Model.Unit;
 
 public class FilterVisibility implements IFilterViewProject{
 	public ArrayList<ProjectListing> filter(ArrayList<ProjectListing> projects) {
