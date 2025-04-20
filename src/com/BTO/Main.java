@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import src.com.BTO.Model.Applicant;
+
 interface UserProcessor<T> {
     void process(String[] columns, List<T> list);
 }
