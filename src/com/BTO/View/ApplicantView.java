@@ -1,8 +1,7 @@
-package View;
-import BTO.*;
-
+package src.com.BTO.View;
 import Enums.RoomType;
-import Services.*;
+import src.com.BTO.*;
+import src.com.BTO.Services.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
