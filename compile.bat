@@ -7,7 +7,7 @@ cd /d "%~dp0"
 javac src\com\BTO\*.java
 
 :: Run the Main class from the BTO package (with correct classpath)
-java BTO.Main
+java src.com.BTO.Main
 
 :: Pause to keep the terminal open
 pause

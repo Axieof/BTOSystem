@@ -22,14 +22,14 @@ public class CSVLoaderService {
             }
 
         } catch (IOException e) {
-            System.out.println("Error loading file: " + filePath)
+            System.out.println("Error loading file: " + filePath);
             e.printStackTrace();
         }
 
         return results;
     }
 
-    @FunctionalInteface
+    @FunctionalInterface
     public interface CSVProcessor<T> {
         T process(String[] columns);
     }
