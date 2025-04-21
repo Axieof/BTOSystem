@@ -1,28 +1,62 @@
 package src.com.BTO.Model;
 
+// Imports
 import src.com.BTO.Model.Enums.MaritalStatus;
 
 public class User {
-    protected String name;
+
+    // Attributes
+    private String name;
     private String nric;
-    protected int age;
-    protected MaritalStatus maritalStatus;
+    private int age;
+    private MaritalStatus maritalStatus;
     private String password;
 
-    public User(String nameArg, String nricArg, int ageArg, MaritalStatus maritalStatusArg, String passwordArg) {
-        this.name = nameArg;
-        this.nric = nricArg;
-        this.age = ageArg;
-        this.maritalStatus = maritalStatusArg;
-        this.password = passwordArg;
+    // Constructor
+    public User(String name, String nric, int age, MaritalStatus maritalStatus, String password) {
+        this.name = name;
+        this.nric = nric;
+        this.age = age;
+        this.maritalStatus = maritalStatus;
+        this.password = password;
+    }
+
+    // === Getters ===
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public MaritalStatus getMaritalStatus() {
         return maritalStatus;
     }
 
-    public void setMaritalStatus(MaritalStatus maritalStatusArg) {
-        this.maritalStatus = maritalStatusArg;
+    public String getMaskedNric() {
+        return "****" + nric.substring(nric.length() - 4);
+    }
+
+    public boolean checkPassword(String input) {
+        return password.equals(input);
+    }
+
+    // === Setters ===
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
     }
 
 }
