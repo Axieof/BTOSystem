@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import Enums.RoomType;
 import src.com.BTO.Model.ProjectListing;
 import src.com.BTO.Model.Unit;
+import src.com.BTO.Model.Enums.RoomType;
 
 public class FilterFlatType implements IFilterViewProject{
 	private RoomType flatType = null;

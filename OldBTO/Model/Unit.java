@@ -1,5 +1,5 @@
 package src.com.BTO.Model;
-import Enums.RoomType;
+import src.com.BTO.Model.Enums.RoomType;
 
 public class Unit {
 	// variables

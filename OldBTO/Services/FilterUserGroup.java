@@ -2,8 +2,8 @@ package src.com.BTO.Services;
 
 import java.util.ArrayList;
 
-import Enums.RoomType;
 import src.com.BTO.Model.ProjectListing;
+import src.com.BTO.Model.Enums.RoomType;
 import src.com.BTO.Model.Applicant;
 
 public class FilterUserGroup implements IFilterViewProject{

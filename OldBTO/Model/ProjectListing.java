@@ -1,7 +1,7 @@
 package src.com.BTO.Model;
 import java.util.ArrayList;
 
-import Enums.RoomType;
+import src.com.BTO.Model.Enums.RoomType;
 
 import java.time.LocalDate;
 
