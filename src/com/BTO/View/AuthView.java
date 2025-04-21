@@ -17,7 +17,7 @@ public class AuthView {
     }
 
     public void showSuccess(String name) {
-        System.out.println("Welcome, " + name + "!");
+        System.out.println("\nWelcome, " + name + "!");
     }
 
     public void showError(String message) {

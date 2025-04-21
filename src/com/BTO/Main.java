@@ -39,13 +39,13 @@ public class Main {
         // TODO - Refactor error messages into landing view
         // TODO? - Dispatch in its own service?
         if (loggedInUser instanceof Applicant) {
-            System.out.println("Redirecting to Applicant Dashboard...");
+            System.out.println("\nRedirecting to Applicant Dashboard...");
             // new ApplicantController((Applicant) loggedInUser).run();
         } else if (loggedInUser instanceof HDBOfficer) {
-            System.out.println("Redirecting to HDB Officer Dashboard...");
+            System.out.println("\nRedirecting to HDB Officer Dashboard...");
             // new OfficerController((HDBOfficer) loggedInUser).run();
         } else if (loggedInUser instanceof HDBManager) {
-            System.out.println("Redirecting to HDB Manager Dashboard...");
+            System.out.println("\nRedirecting to HDB Manager Dashboard...");
             // new ManagerController((HDBManager) loggedInUser).run();
         } else {
             System.out.println("No User has logged in. Exiting program");
