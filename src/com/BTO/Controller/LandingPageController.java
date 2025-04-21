@@ -51,7 +51,7 @@ public class LandingPageController {
 
                 default:
                     landingView.showInvalidOption();
-                    return null;
+                    break;
             }
         }
 
