@@ -2,6 +2,7 @@ package src.com.BTO.Model;
 
 // Imports
 import src.com.BTO.Model.Enums.MaritalStatus;
+import java.util.HashMap;
 
 public class User {
 
@@ -11,6 +12,9 @@ public class User {
     private int age;
     private MaritalStatus maritalStatus;
     private String password;
+    
+    private static final String[] FILTERTYPES = {"FLATTYPE", "LOCATION"};
+    private HashMap<String, String> filters = new HashMap<>(); 
 
     // Constructor
     public User(String name, String nric, int age, MaritalStatus maritalStatus, String password) {
@@ -42,6 +46,11 @@ public class User {
         return password.equals(input);
     }
 
+    public String[] getAllFilterTypes() { return FILTERTYPES; }
+    public void setFilter(String filterType, String key) {
+    	filters.put(filterType, key);
+    }
+
     // === Setters ===
     public void setName(String name) {
         this.name = name;
@@ -58,5 +67,6 @@ public class User {
     public void changePassword(String newPassword) {
         this.password = newPassword;
     }
-
+    
+    public HashMap<String, String> getFilters() { return filters; }
 }

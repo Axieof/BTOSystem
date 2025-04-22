@@ -20,6 +20,7 @@ public class ApplicantController {
 	
 	// Tools
 	private UserSettingsController settings;
+	private Scanner sc = new Scanner(System.in);
 
     // Constructor
     public ApplicantController(Applicant appl, ArrayList<Project> projs) {
@@ -42,7 +43,7 @@ public class ApplicantController {
     		}
 
     		ApplicantView.displayOptions();
-    		choice = MenuInputService.getMenuInput();
+    		choice = MenuInputService.getMenuInput(sc);
     	}
     	
     	System.out.println("Exiting applicant view...");
@@ -110,7 +111,7 @@ public class ApplicantController {
     		}
     	}
     	
-    	int choice = MenuInputService.getMenuInput();
+    	int choice = MenuInputService.getMenuInput(sc);
     	proj = filtered.get(choice);
     	System.out.println();
     	
@@ -123,7 +124,7 @@ public class ApplicantController {
     		System.out.println(i + ". " + u.getRoomType());
     	}
 
-    	choice = MenuInputService.getMenuInput();
+    	choice = MenuInputService.getMenuInput(sc);
     	u = allUnits.get(choice);
     	System.out.println();
     	
@@ -154,7 +155,7 @@ public class ApplicantController {
     	}
     	
     	System.out.println("Are you sure? (YES = 1/ NO = 0)");
-    	int choice = MenuInputService.getMenuInput(); 
+    	int choice = MenuInputService.getMenuInput(sc); 
     	
     	if (choice == 0) {
     		System.out.println("Terminating...\n");

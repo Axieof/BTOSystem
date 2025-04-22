@@ -1,7 +1,6 @@
 package src.com.BTO.View;
 
 import src.com.BTO.Model.User;
-import src.com.BTO.Service.MenuInputService;
 
 import java.util.HashMap;
 
@@ -22,10 +21,10 @@ public class UserView {
 				+ "0) RETURN\n");
 	}
 	
-	public static void displayFilters(HashMap<String, String> filters) {
-		System.out.println("Which filter to edit? (Enter specifically)");
-		for (String key : filters.keySet()) {
-			System.out.println(key);
+	public static void displayFilters(String[] all) {
+		System.out.println("Which filter to edit?");
+		for (int i=0; i<all.length; i++) {
+			System.out.println(i + ". " + all[i]);
 		}
 	}
 }

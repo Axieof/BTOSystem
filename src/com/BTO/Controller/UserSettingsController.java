@@ -28,7 +28,7 @@ public class UserSettingsController  {
     		}
 
     		UserView.displayOptions();
-    		choice = MenuInputService.getMenuInput();
+    		choice = MenuInputService.getMenuInput(sc);
     	}
     	
     	System.out.println("Exiting user settings...\n");
@@ -58,19 +58,19 @@ public class UserSettingsController  {
 		if (user instanceof Applicant) {
 			Scanner sc = new Scanner(System.in);
 			
-			Applicant appl = (Applicant) user;
-			HashMap<String, String> filters = appl.getFilters();
-			UserView.displayFilters(filters);
+			HashMap<String, String> filters = user.getFilters();
+			String[] ALLFILTERS = user.getAllFilterTypes();
+			UserView.displayFilters(ALLFILTERS);
 			
-			String key = sc.next();
+			int i = MenuInputService.getMenuInput(sc);
 			System.out.println();
 			
-			System.out.println("Currently filter key set to: " + filters.get(key));
+			System.out.println("Currently filter key set to: " + filters.get(ALLFILTERS[i]));
 			
 			System.out.println("What to change key to? (set NULL for none)");
 			String newKey = sc.next();
 			
-			appl.setFilter(key, newKey);
+			user.setFilter(ALLFILTERS[i], newKey.toUpperCase());
 			System.out.println("Filter added!");
 			
 			System.out.println();
