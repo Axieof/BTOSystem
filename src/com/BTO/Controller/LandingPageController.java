@@ -12,12 +12,10 @@ public class LandingPageController {
     
     private final AuthService authService;
     private final LandingPageView landingView;
-    private final MenuInputService menuInputService;
 
     public LandingPageController(List<User> users) {
         this.authService = new AuthService(users);
         this.landingView = new LandingPageView();
-        this.menuInputService = new MenuInputService();
     }
 
     public User run(Scanner scanner) {
@@ -32,7 +30,7 @@ public class LandingPageController {
             landingView.showMainMenu();
 
             // Step [3] Get User Input
-            int choice = menuInputService.getMenuInput(scanner);
+            int choice = MenuInputService.getMenuInput(scanner);
 
             // Step [4] Handle User Choice
             switch(choice) {
