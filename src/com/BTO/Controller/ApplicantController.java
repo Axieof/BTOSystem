@@ -1,12 +1,12 @@
 package src.com.BTO.Controller;
 
 import src.com.BTO.Model.*;
-import src.com.BTO.Service.Filter.*;
 
-import src.com.BTO.Model.Applicant;
+import src.com.BTO.Service.Filter.*;
+import src.com.BTO.Service.MenuInputService;
+
 import src.com.BTO.View.ApplicantView;
 import src.com.BTO.View.ProjectView;
-import src.com.BTO.Service.MenuInputService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,11 +17,15 @@ public class ApplicantController {
 	// General attributes
 	private ArrayList<Project> projects = new ArrayList<Project>();
 	private Applicant applicant;
+	
+	// Tools
+	private UserSettingsController settings;
 
     // Constructor
     public ApplicantController(Applicant appl, ArrayList<Project> projs) {
     	applicant = appl;
     	projects = projs;
+    	settings = new UserSettingsController(appl);
     }
 
     public void viewLandingPage() {
@@ -29,7 +33,7 @@ public class ApplicantController {
     	
     	while (choice != 0) {
     		switch (choice) {
-    		case 1-> ApplicantView.displayApplicant(applicant);
+    		case 1-> settings.viewLandingPage();
     		case 2-> viewProjects();
     		case 3-> applyProject();
     		case 4-> viewAppliedProject();
@@ -68,7 +72,7 @@ public class ApplicantController {
     	return filtered;
     }
 
-    public void viewProjects() {
+    private void viewProjects() {
     	System.out.println("List of projects:");
     	
     	ArrayList<Project> filtered = filterProjects();
@@ -84,7 +88,7 @@ public class ApplicantController {
     	}
     }
 
-    public void applyProject() {
+    private void applyProject() {
     	System.out.println("Applying for project...");
     	
     	Application applied = applicant.getApplied();
@@ -130,7 +134,7 @@ public class ApplicantController {
     	System.out.println("Applied for project!\n");
     }
 
-    public void viewAppliedProject() {
+    private void viewAppliedProject() {
     	System.out.println("Viewing applied project...");
     	Application applied = applicant.getApplied();
     	if (applied == null) {
@@ -141,7 +145,7 @@ public class ApplicantController {
     	ApplicantView.displayAppliedProject(applied);
     }
 
-    public void requestAppWithdrawal() {
+    private void requestAppWithdrawal() {
     	System.out.println("Withdrawing from applied project...");
     	Application applied = applicant.getApplied();
     	if (applied == null) {
@@ -162,7 +166,7 @@ public class ApplicantController {
     	}
     }
 
-    public void handleEnquiry() {
+    private void handleEnquiry() {
     	// Possible things to do 
     	// SEND ENQUIRY
     	// EDIT ENQUIRY

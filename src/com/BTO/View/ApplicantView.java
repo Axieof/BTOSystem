@@ -6,16 +6,9 @@ import src.com.BTO.Model.Project;
 
 public class ApplicantView {
     
-    public static void displayApplicant(Applicant appli) {
-    	 System.out.println("--- Applicant information ---\n"
-  				+ "Name: \t\t" + appli.getName() + "\n"
- 				+ "NRIC: \t\t" + appli.getMaskedNric() + "\n"
- 				+ "Age: \t\t" + appli.getAge() + "\n"
- 		 		+ "Marital Status: " + appli.getMaritalStatus() + "\n");
-     }
 	public static void displayOptions() {
 		System.out.println("--- Applicant Options ---\n"
-				+ "1) View personal information\n"
+				+ "1) Personal settings\n"
 				+ "2) View projects\n"
 				+ "3) Apply for project\n"
 				+ "4) View your applied project\n"
