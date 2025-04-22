@@ -3,17 +3,17 @@ TO-DO LIST + who is doing what at the moment
 (Add what else we need to do + what you are currently working on if you'd like)
 
 - View
-  - ApplicantView **[JQ]**
-  - OfficerView (Might inherit off ApplicantView)
-  - ManagerView **[Preethev??]**
-  - EnquiryView
-  - ProjectView (Only using toString atm)
+  - ApplicantView **[Done]**
+  - OfficerView 
+  - ManagerView 
+  - EnquiryView 
+  - ProjectView (For editing project)
 - Filter
-  - ProjectFilter **[JQ]**
+  - ProjectFilter **[Done]**
   - EnquiryFilter
     - Answered/ unanswered
-  - ApplicantFilter
-  - Idk if officer or manager need filter
+  - ApplicationFilter (So officer and manager can view)
+  - Idk if applicant, officer or manager need filter
 - Storage
   - SaveUsers
     - Their attributes
