@@ -21,7 +21,7 @@ public class Project {
 	private boolean visibility;
 	
 	// constructors
-	Project(String projName, String neighbourhood, 
+	public Project(String projName, String neighbourhood, 
 					LocalDate appOpen, LocalDate appClose, 
 					HDBManager manager){
 		// Set dates with LocalDate.of( (INT)YEAR , (INT)MONTH , (INT)DATE );
