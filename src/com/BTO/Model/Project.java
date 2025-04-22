@@ -5,7 +5,7 @@ import src.com.BTO.Model.Enums.RoomType;
 
 import java.time.LocalDate;
 
-public class ProjectListing {
+public class Project {
 	// variable declaration
 	private String projectName;
 	private String neighbourhood;
@@ -21,7 +21,7 @@ public class ProjectListing {
 	private boolean visibility;
 	
 	// constructors
-	ProjectListing(String projName, String neighbourhood, 
+	Project(String projName, String neighbourhood, 
 					LocalDate appOpen, LocalDate appClose, 
 					HDBManager manager){
 		// Set dates with LocalDate.of( (INT)YEAR , (INT)MONTH , (INT)DATE );
