@@ -1,14 +1,16 @@
 package src.com.BTO.Controller;
 
 import src.com.BTO.Model.*;
-import src.com.BTO.Service.Filter.*;
 
-import src.com.BTO.Model.Applicant;
+import src.com.BTO.Service.Filter.*;
+import src.com.BTO.Service.MenuInputService;
+
 import src.com.BTO.View.ApplicantView;
 import src.com.BTO.View.ProjectView;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class ApplicantController {
     
@@ -16,46 +18,35 @@ public class ApplicantController {
 	private ArrayList<Project> projects = new ArrayList<Project>();
 	private Applicant applicant;
 	
-    // Tools
-    Scanner sc = new Scanner(System.in);
+	// Tools
+	private UserSettingsController settings;
 
     // Constructor
     public ApplicantController(Applicant appl, ArrayList<Project> projs) {
     	applicant = appl;
     	projects = projs;
+    	settings = new UserSettingsController(appl);
     }
 
     public void viewLandingPage() {
-    	int choice = getChoice();
+    	int choice = -1;
     	
     	while (choice != 0) {
     		switch (choice) {
-    		case 1-> ApplicantView.displayApplicant(applicant);
+    		case 1-> settings.viewLandingPage();
     		case 2-> viewProjects();
     		case 3-> applyProject();
     		case 4-> viewAppliedProject();
     		case 5-> requestAppWithdrawal();
     		case 6-> handleEnquiry();
     		}
-    		
-    		choice = getChoice();
+
+    		ApplicantView.displayOptions();
+    		choice = MenuInputService.getMenuInput();
     	}
     	
     	System.out.println("Exiting applicant view...");
     	// RETURN SOMEWHERE IF NEEDED?
-    }
-
-    private int getChoice() {
-    	int choice = -1;
-
-    	ApplicantView.displayOptions();
-    	choice = sc.nextInt();
-    	
-    	if (0 <= choice && choice <= 5) return choice;
-    	else {
-    		System.out.println("ERROR: Invalid choice.");
-    		return -1;
-    	}
     }
 
     private ArrayList<Project> filterProjects() { return filterProjects(this.projects); }
@@ -75,12 +66,13 @@ public class ApplicantController {
     	
     	
     	// THEN FILTER ACCORDING TO PREFERENCE (SHOULD BE STORED PER USER)
-    	// INCOMPLETE
+    	HashMap<String, String> filters = applicant.getFilters();
+    	// DEAL WITH FILTERS
     	
     	return filtered;
     }
 
-    public void viewProjects() {
+    private void viewProjects() {
     	System.out.println("List of projects:");
     	
     	ArrayList<Project> filtered = filterProjects();
@@ -96,11 +88,14 @@ public class ApplicantController {
     	}
     }
 
-    public void applyProject() {
+    private void applyProject() {
     	System.out.println("Applying for project...");
     	
-    	// CHECK IF APPLICANT ALREADY APPLIED BEFORE
-    	// IF YES: RETURN ERROR MESSAGE, CAN ONLY APPLY FOR ONE
+    	Application applied = applicant.getApplied();
+    	if (applied != null) {
+    		System.out.println("ERROR: Can only apply for one project!");
+    		return;
+    	}
     	
     	System.out.println("Which would you like to apply for?");
     	
@@ -115,7 +110,7 @@ public class ApplicantController {
     		}
     	}
     	
-    	int choice = sc.nextInt();
+    	int choice = MenuInputService.getMenuInput();
     	proj = filtered.get(choice);
     	System.out.println();
     	
@@ -128,31 +123,50 @@ public class ApplicantController {
     		System.out.println(i + ". " + u.getRoomType());
     	}
 
-    	choice = sc.nextInt();
+    	choice = MenuInputService.getMenuInput();
     	u = allUnits.get(choice);
     	System.out.println();
     	
     	// Create and send application
     	Application appl = new Application(proj, u, applicant);
-    	// STORE APPLICATION IN DATABASE (CSV)
-    	// STORE APPLICATION IN APPLICANT ATTRIBUTE
+    	// UPDATE APPLICATION IN DATABASE (CSV) YET TO DO
+    	applicant.setApplied(appl);
+    	System.out.println("Applied for project!\n");
     }
 
-    public void viewAppliedProject() {
-    	// IF PROJECTAPPLICATION EXISTS
-    	// GET PROJECTAPPLICATION FROM APPLICANT
-    	// THEN VIEW
-    	// ELSE RETURN HAVE NOT APPLIED FOR PROJECT
+    private void viewAppliedProject() {
+    	System.out.println("Viewing applied project...");
+    	Application applied = applicant.getApplied();
+    	if (applied == null) {
+    		System.out.println("ERROR: Yet to apply for project!");
+    		return;
+    	}
+
+    	ApplicantView.displayAppliedProject(applied);
     }
 
-    public void requestAppWithdrawal() {
-    	// IF PROJECTAPPLICATION EXISTS
-    	// GET PROJECTAPPLICATION FROM APPLICANT
-    	// SEND WITHDRAWAL REQUEST
-    	// ELSE RETURN HAVE NOT APPLIED FOR PROJECT
+    private void requestAppWithdrawal() {
+    	System.out.println("Withdrawing from applied project...");
+    	Application applied = applicant.getApplied();
+    	if (applied == null) {
+    		System.out.println("ERROR: Yet to apply for project!\\n");
+    		return;
+    	}
+    	
+    	System.out.println("Are you sure? (YES = 1/ NO = 0)");
+    	int choice = MenuInputService.getMenuInput(); 
+    	
+    	if (choice == 0) {
+    		System.out.println("Terminating...\n");
+    	}
+    	else {
+    		WithdrawalApplication w = new WithdrawalApplication(applied);
+    		// SAVE APPLICATION WITHDRAWAL SOMEWHERE
+        	System.out.println("Sent withdrawal application!\\n");
+    	}
     }
 
-    public void handleEnquiry() {
+    private void handleEnquiry() {
     	// Possible things to do 
     	// SEND ENQUIRY
     	// EDIT ENQUIRY
