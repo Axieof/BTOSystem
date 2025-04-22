@@ -13,7 +13,16 @@ public class FilterFlatType implements IFilterViewProject{
 	private RoomType flatType = null;
 	
 	// set flat type to null if want no effect
-	public void setFlatType(RoomType roomtype) { flatType = roomtype; }
+	public void setCondition(String roomtype) {
+		try {
+			RoomType rt = RoomType.valueOf(roomtype);
+			setRoomType(rt);
+		}
+		catch (IllegalArgumentException e){
+			System.out.println("ERROR: Invalid RoomType!");
+		}
+	}
+	public void setRoomType(RoomType roomtype) { flatType = roomtype; }
 	
 	public ArrayList<Project> filter(ArrayList<Project> projects) {
 		ArrayList<Unit> toDelete;

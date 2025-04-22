@@ -10,7 +10,7 @@ import src.com.BTO.Model.Project;
 public class FilterLocation implements IFilterViewProject{
 	private String location; 
 	
-	public void setLocation(String loc) { location = loc; }
+	public void setCondition(String loc) { location = loc; }
 	
 	public ArrayList<Project> filter(ArrayList<Project> projects) {
 		List<Project> filteredList = projects.stream()

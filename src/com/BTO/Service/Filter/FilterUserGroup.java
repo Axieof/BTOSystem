@@ -9,7 +9,7 @@ import src.com.BTO.Model.Applicant;
 public class FilterUserGroup implements IFilterViewProject{
 	private Applicant applicant = null; 
 	
-	public void setApplicant(Applicant a) { applicant = a; }
+	public void setCondition(Applicant a) { applicant = a; }
 	
 	public ArrayList<Project> filter(ArrayList<Project> projects) {
 		if (applicant == null) {
@@ -21,10 +21,10 @@ public class FilterUserGroup implements IFilterViewProject{
 		
 		FilterFlatType filterFlat = new FilterFlatType();
 		if (applicant.getMaritalStatus() == MaritalStatus.SINGLE && applicant.getAge() >= 35) {
-			filterFlat.setFlatType(RoomType.TWOROOM); // only gets two room
+			filterFlat.setRoomType(RoomType.TWOROOM); // only gets two room
 		}
 		else if (applicant.getMaritalStatus() == MaritalStatus.MARRIED && applicant.getAge() >= 21) {
-			filterFlat.setFlatType(null); // no limit
+			filterFlat.setRoomType(null); // no limit
 		}
 		else {
 			System.out.println("Error: Cannot apply for any!");

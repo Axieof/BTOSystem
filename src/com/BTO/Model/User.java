@@ -13,7 +13,7 @@ public class User {
     private MaritalStatus maritalStatus;
     private String password;
     
-    private static final String[] FILTERTYPES = {"FLATTYPE", "LOCATION"};
+    private static final String[] FILTERTYPES = {"FilterFlatType", "FilterLocation"};
     private HashMap<String, String> filters = new HashMap<>(); 
 
     // Constructor
@@ -26,17 +26,11 @@ public class User {
     }
 
     // === Getters ===
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public int getAge() {
-        return age;
-    }
+    public int getAge() { return age; }
 
-    public MaritalStatus getMaritalStatus() {
-        return maritalStatus;
-    }
+    public MaritalStatus getMaritalStatus() {  return maritalStatus; }
 
     public String getMaskedNric() {
         return "****" + nric.substring(nric.length() - 4);
@@ -46,19 +40,15 @@ public class User {
         return password.equals(input);
     }
 
-    public String[] getAllFilterTypes() { return FILTERTYPES; }
+    public static String[] getAllFilterTypes() { return FILTERTYPES; }
     public void setFilter(String filterType, String key) {
     	filters.put(filterType, key);
     }
 
     // === Setters ===
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+    public void setAge(int age) {  this.age = age; }
 
     public void setMaritalStatus(MaritalStatus maritalStatus) {
         this.maritalStatus = maritalStatus;
@@ -69,4 +59,5 @@ public class User {
     }
     
     public HashMap<String, String> getFilters() { return filters; }
+
 }

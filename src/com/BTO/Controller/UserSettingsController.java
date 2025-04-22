@@ -55,29 +55,23 @@ public class UserSettingsController  {
 	}
 	
 	private void editFilter() {
-		if (user instanceof Applicant) {
-			Scanner sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 			
-			HashMap<String, String> filters = user.getFilters();
-			String[] ALLFILTERS = user.getAllFilterTypes();
-			UserView.displayFilters(ALLFILTERS);
+		HashMap<String, String> filters = user.getFilters();
+		String[] ALLFILTERS = User.getAllFilterTypes();
+		UserView.displayFilters(ALLFILTERS);
 			
-			int i = MenuInputService.getMenuInput(sc);
-			System.out.println();
+		int i = MenuInputService.getMenuInput(sc);
+		System.out.println();
 			
-			System.out.println("Currently filter key set to: " + filters.get(ALLFILTERS[i]));
+		System.out.println("Currently filter key set to: " + filters.get(ALLFILTERS[i]));
 			
-			System.out.println("What to change key to? (set NULL for none)");
-			String newKey = sc.next();
+		System.out.println("What to change key to? (set NULL for none)");
+		String newKey = sc.next();
 			
-			user.setFilter(ALLFILTERS[i], newKey.toUpperCase());
-			System.out.println("Filter added!");
+		user.setFilter(ALLFILTERS[i], newKey.toUpperCase());
+		System.out.println("Filter added!");
 			
-			System.out.println();
-		}
-		else {
-			System.out.println("Not applicant so i havent added functionality");
-			// HAVENT ADDED FOR NON APPLICANTS, WILL GIVE THEM LATER
-		}
+		System.out.println();
 	}
 }

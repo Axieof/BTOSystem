@@ -47,30 +47,11 @@ public class ApplicantController {
     	}
     	
     	System.out.println("Exiting applicant view...");
-    	// RETURN SOMEWHERE IF NEEDED?
     }
 
     private ArrayList<Project> filterProjects() { return filterProjects(this.projects); }
     private ArrayList<Project> filterProjects(ArrayList<Project> projs) {
-    	ArrayList<Project> filtered;
-    	
-    	// FILTER THE COMPULSORY STUFF
-    	
-    	// THIS IS A GENERAL VISIBILITY FILTER:
-    	FilterVisibility filterVis = new FilterVisibility(); 
-    	filtered = filterVis.filter(projects);
-    	
-    	// FILTER APPLICANT'S GROUP:
-    	FilterUserGroup filterGrp = new FilterUserGroup(); 
-    	filterGrp.setApplicant(applicant);
-    	filtered = filterGrp.filter(filtered);
-    	
-    	
-    	// THEN FILTER ACCORDING TO PREFERENCE (SHOULD BE STORED PER USER)
-    	HashMap<String, String> filters = applicant.getFilters();
-    	// DEAL WITH FILTERS
-    	
-    	return filtered;
+    	return FilterProjectManager.applFilterProjects(projs, applicant);
     }
 
     private void viewProjects() {

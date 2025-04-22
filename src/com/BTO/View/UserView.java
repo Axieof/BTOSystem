@@ -24,7 +24,9 @@ public class UserView {
 	public static void displayFilters(String[] all) {
 		System.out.println("Which filter to edit?");
 		for (int i=0; i<all.length; i++) {
-			System.out.println(i + ". " + all[i]);
+			System.out.print(i + ". " + all[i]);
+			if (all[i] == "FilterFlatType") System.out.println(" (TWOROOM/ THREEROOM)");
+			else System.out.println();
 		}
 	}
 }
