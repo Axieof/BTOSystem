@@ -2,17 +2,16 @@ package src.com.BTO.Service;
 
 import java.util.Scanner;
 
-public class UserEnquiryService(){
+public class UserEnquiryService{
+    Scanner sc = new Scanner(System.in);
 
-    public static void getInteger(Scanner sc){
+    public int getInteger(){
         int tempInt = sc.nextInt();
         return tempInt;        
     }
 
-    public static void getString(Scanner sc){
+    public String getString(){
         String tempString = sc.nextLine();
-        return tempInt; 
+        return tempString; 
     }
-
-    
 }
