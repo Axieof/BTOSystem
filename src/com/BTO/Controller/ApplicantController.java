@@ -127,10 +127,11 @@ public class ApplicantController {
     	Application appl = new Application(proj, u, applicant);
     	// UPDATE APPLICATION IN DATABASE (CSV) YET TO DO
     	applicant.setApplied(appl);
-    	System.out.println("Success!\n");
+    	System.out.println("Applied for project!\n");
     }
 
     public void viewAppliedProject() {
+    	System.out.println("Viewing applied project...");
     	Application applied = applicant.getApplied();
     	if (applied == null) {
     		System.out.println("ERROR: Yet to apply for project!");
@@ -141,10 +142,24 @@ public class ApplicantController {
     }
 
     public void requestAppWithdrawal() {
-    	// IF PROJECTAPPLICATION EXISTS
-    	// GET PROJECTAPPLICATION FROM APPLICANT
-    	// SEND WITHDRAWAL REQUEST
-    	// ELSE RETURN HAVE NOT APPLIED FOR PROJECT
+    	System.out.println("Withdrawing from applied project...");
+    	Application applied = applicant.getApplied();
+    	if (applied == null) {
+    		System.out.println("ERROR: Yet to apply for project!\\n");
+    		return;
+    	}
+    	
+    	System.out.println("Are you sure? (YES = 1/ NO = 0)");
+    	int choice = MenuInputService.getMenuInput(); 
+    	
+    	if (choice == 0) {
+    		System.out.println("Terminating...\n");
+    	}
+    	else {
+    		WithdrawalApplication w = new WithdrawalApplication(applied);
+    		// SAVE APPLICATION WITHDRAWAL SOMEWHERE
+        	System.out.println("Sent withdrawal application!\\n");
+    	}
     }
 
     public void handleEnquiry() {
