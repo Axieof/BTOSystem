@@ -1,7 +1,5 @@
 package src.com.BTO.View;
 
-import java.util.Scanner;
-
 public class AuthView {
 
     public void showLoginPrompt() {

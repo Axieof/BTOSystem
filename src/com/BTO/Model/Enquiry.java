@@ -4,34 +4,34 @@ import src.com.BTO.Model.Applicant;
 
 public class Enquiry {
 	// variables
-	private int enquiryID; 
-
+	private int enquiryID;
 	private String message;
-	private String reply;
-	
-	private Applicant applicantName;
+	private String response = null;
+	private Applicant applicant;
 	private User respondent;
-	private Applicant projectName;
+	private int projectID;
 	
 	//need date and time?
 
 	private boolean answered;
 	
-	public Enquiry(String message, Applicant applicantName) {
+	public Enquiry(String message, Applicant applicant) {
 		this.message = message;
-		this.applicantName = applicantName;
+		this.applicant = applicant;
 		this.answered = false;
 	}
 	
 	// getters
-	public String getEnquiry() { return message; }
-	public Applicant getSender() { return applicantName; }
+	public int getEnquiryID() {return enquiryID;}
+	public String getMessage() {return message;}
+	public String getResponse() {return response;}
+	public User getRespondent() {return respondent;}
+	public Applicant getApplicant() {return applicant;}
+	public int getProjectID() {return projectID;}
 	
-	public String getResponse() { return reply; }
-	public User getRespondent() { return respondent; }
-
-
-	public boolean isAnswered() { return answered; }
+	// setters
+	public void setMessage(String message) {this.message = message;}
+	public void setResponse(String response) {this.response = response;}
 	
-
+	
 }
