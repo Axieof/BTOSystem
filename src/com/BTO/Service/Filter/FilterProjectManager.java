@@ -35,7 +35,6 @@ public class FilterProjectManager {
 	    		Class<?> filterClass = Class.forName("src.com.BTO.Service.Filter." + filtName);
 	    		IFilterViewProject filterObj = (IFilterViewProject) filterClass.getDeclaredConstructor().newInstance();    		
 	    		
-	    		System.out.println(filters.get(filtName));
 	    		if (filters.get(filtName) != "NULL") {
 	    			filterObj.setCondition(filters.get(filtName));
 		    		filtered = filterObj.filter(projs);

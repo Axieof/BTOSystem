@@ -10,7 +10,7 @@ public class ApplicantView {
 		System.out.println("--- Applicant Options ---\n"
 				+ "1) Personal settings\n"
 				+ "2) View projects\n"
-				+ "3) Apply for project\n"
+				+ "3) Apply/ Book project\n"
 				+ "4) View your applied project\n"
 				+ "5) Request application withdrawal\n"
 				+ "6) Handle your enquiries\n"

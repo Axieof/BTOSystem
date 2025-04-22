@@ -1,6 +1,7 @@
 package src.com.BTO.Controller;
 
 import src.com.BTO.Model.*;
+import src.com.BTO.Model.Enums.*;
 
 import src.com.BTO.Service.Filter.*;
 import src.com.BTO.Service.MenuInputService;
@@ -71,49 +72,67 @@ public class ApplicantController {
     }
 
     private void applyProject() {
-    	System.out.println("Applying for project...");
-    	
     	Application applied = applicant.getApplied();
     	if (applied != null) {
-    		System.out.println("ERROR: Can only apply for one project!");
-    		return;
-    	}
-    	
-    	System.out.println("Which would you like to apply for?");
-    	
-    	// Choose a project
-    	ArrayList<Project> filtered = filterProjects();
-    	
-    	Project proj;
-    	for (int i=0; i<filtered.size(); i++) {
-    		proj = projects.get(i);
-    		if (proj.getVisibility()) {
-    			System.out.println(i + ". " + proj.getProjectName());
+        	if (applied.getReqBook()) {
+        		System.out.println("Already Booked!");
+        	}
+        	else if (applied.getAppStatus() == ApplicationStatus.SUCCESSFUL) {
+        		System.out.println("Booking project...");
+    			System.out.println("Would you like to make a booking? (YES = 1/ NO = 0)");
+    			int choice = MenuInputService.getMenuInput(sc); 
+    			
+    			if (choice == 0) {
+    				System.out.println("Terminating...");
+    			}
+    			else {
+    				applied.requestBooking();
+    				System.out.println("Booking requested!");
+    			}
     		}
+        	else {
+        		System.out.println("Already applied for project!");
+        	}
     	}
-    	
-    	int choice = MenuInputService.getMenuInput(sc);
-    	proj = filtered.get(choice);
-    	System.out.println();
-    	
-    	// Choose a unit
-    	ArrayList<Unit> allUnits = proj.getUnitTypes();
-    	
-    	Unit u;
-    	for (int i=0; i<allUnits.size(); i++) {
-    		u = allUnits.get(i);
-    		System.out.println(i + ". " + u.getRoomType());
-    	}
+    	else {
+    		System.out.println("Applying for project...");
+        	System.out.println("Which would you like to apply for?");
+        	
+        	// Choose a project
+        	ArrayList<Project> filtered = filterProjects();
+        	
+        	Project proj;
+        	for (int i=0; i<filtered.size(); i++) {
+        		proj = projects.get(i);
+        		if (proj.getVisibility()) {
+        			System.out.println(i + ". " + proj.getProjectName());
+        		}
+        	}
+        	
+        	int choice = MenuInputService.getMenuInput(sc);
+        	proj = filtered.get(choice);
+        	System.out.println();
+        	
+        	// Choose a unit
+        	ArrayList<Unit> allUnits = proj.getUnitTypes();
+        	
+        	Unit u;
+        	for (int i=0; i<allUnits.size(); i++) {
+        		u = allUnits.get(i);
+        		System.out.println(i + ". " + u.getRoomType());
+        	}
 
-    	choice = MenuInputService.getMenuInput(sc);
-    	u = allUnits.get(choice);
+        	choice = MenuInputService.getMenuInput(sc);
+        	u = allUnits.get(choice);
+        	System.out.println();
+        	
+        	// Create and send application
+        	Application appl = new Application(proj, u, applicant);
+        	// UPDATE APPLICATION IN DATABASE (CSV) YET TO DO
+        	applicant.setApplied(appl);
+        	System.out.println("Applied for project");
+    	}
     	System.out.println();
-    	
-    	// Create and send application
-    	Application appl = new Application(proj, u, applicant);
-    	// UPDATE APPLICATION IN DATABASE (CSV) YET TO DO
-    	applicant.setApplied(appl);
-    	System.out.println("Applied for project!\n");
     }
 
     private void viewAppliedProject() {

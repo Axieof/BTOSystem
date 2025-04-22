@@ -9,11 +9,14 @@ public class Application {
 	private ApplicationStatus appStatus;
 	private Applicant applicant;
 	
+	private boolean reqBooking;
+	
 	public Application(Project proj, Unit u, Applicant appl) {
 		project = proj;
 		unit = u;
 		applicant = appl;
 		appStatus = ApplicationStatus.PENDING;
+		reqBooking = false;
 	}
 	
 	// setters
@@ -21,10 +24,11 @@ public class Application {
 	public Unit getUnit() { return unit; }
 	public ApplicationStatus getAppStatus() { return appStatus; }
 	public Applicant getApplicant() { return applicant; }
+	public boolean getReqBook() { return reqBooking; }
 	
 	// getters
 	public void setProject(Project projListing) { project = projListing; }
 	public void setUnit(Unit u) { unit = u;}
 	public void setAppStatus(ApplicationStatus appStat) { appStatus = appStat; }
-	// not sure if need a getter for applicant (which should be unchanged)
+	public void requestBooking() { reqBooking = true; } 
 } 	
