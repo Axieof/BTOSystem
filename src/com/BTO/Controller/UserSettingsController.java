@@ -1,8 +1,10 @@
 package src.com.BTO.Controller;
 
 import java.util.Scanner;
+import java.util.HashMap;
 
 import src.com.BTO.Model.User;
+import src.com.BTO.Model.Applicant;
 import src.com.BTO.Service.MenuInputService;
 import src.com.BTO.View.UserView;
 
@@ -53,6 +55,29 @@ public class UserSettingsController  {
 	}
 	
 	private void editFilter() {
-		
+		if (user instanceof Applicant) {
+			Scanner sc = new Scanner(System.in);
+			
+			Applicant appl = (Applicant) user;
+			HashMap<String, String> filters = appl.getFilters();
+			UserView.displayFilters(filters);
+			
+			String key = sc.next();
+			System.out.println();
+			
+			System.out.println("Currently filter key set to: " + filters.get(key));
+			
+			System.out.println("What to change key to? (set NULL for none)");
+			String newKey = sc.next();
+			
+			appl.setFilter(key, newKey);
+			System.out.println("Filter added!");
+			
+			System.out.println();
+		}
+		else {
+			System.out.println("Not applicant so i havent added functionality");
+			// HAVENT ADDED FOR NON APPLICANTS, WILL GIVE THEM LATER
+		}
 	}
 }
