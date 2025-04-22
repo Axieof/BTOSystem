@@ -1,36 +1,37 @@
-package Model;
+package src.com.BTO.Model;
+
+import src.com.BTO.Model.Applicant;
 
 public class Enquiry {
-	private int enquiryID;
+	// variables
+	private int enquiryID; 
+
 	private String message;
-	private String response = null;
-	private Applicant applicant;
+	private String reply;
+	
+	private Applicant applicantName;
 	private User respondent;
-	private int projectID;
+	private Applicant projectName;
 	
-	public Enquiry(int enquiryID, String message, Applicant applicant, int projectID) {
-		this.enquiryID = enquiryID;
+	//need date and time?
+
+	private boolean answered;
+	
+	public Enquiry(String message, Applicant applicantName) {
 		this.message = message;
-		this.applicant = applicant;
-		this.projectID = projectID;
+		this.applicantName = applicantName;
+		this.answered = false;
 	}
-	
-	public Enquiry(int enquiryID, String response, User respondent) {
-		this.enquiryID = enquiryID;
-		this.response = response;
-		this.respondent = respondent;
-	}
-	
 	
 	// getters
-	public int getEnquiryID() {return enquiryID;}
-	public String getMessage() {return message;}
-	public String getResponse() {return response;}
-	public User getRespondent() {return respondent;}
-	public Applicant getApplicant() {return applicant;}
-	public int getProjectID() {return projectID;}
+	public String getEnquiry() { return message; }
+	public Applicant getSender() { return applicantName; }
 	
-	// setters
-	public void setMessage(String message) {this.message = message;}
-	public void setResponse(String response) {this.response = response;}
+	public String getResponse() { return reply; }
+	public User getRespondent() { return respondent; }
+
+
+	public boolean isAnswered() { return answered; }
+	
+
 }
