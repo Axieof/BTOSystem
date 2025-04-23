@@ -9,14 +9,14 @@ public class Project {
 	// variable declaration
 	private String projectName;
 	private String neighbourhood;
-	private ArrayList<Unit> unitTypes = new ArrayList<Unit>();
-	
 	private LocalDate AppOpenDate;
 	private LocalDate AppCloseDate;
-	
-	private HDBManager manager;
-	private ArrayList<HDBOfficer> officers = new ArrayList<HDBOfficer>();
-	private int officerCount;
+
+    private HDBManager manager;
+    private int officerCount;
+    private ArrayList<HDBOfficer> officers = new ArrayList<HDBOfficer>();
+
+    private ArrayList<Unit> unitTypes = new ArrayList<Unit>();
 	
 	private boolean visibility;
 	

@@ -7,10 +7,11 @@ public class Unit {
 	private int sellingPrice;
 	private int unitCount;
 	
-	public Unit(RoomType room, int price, int count) {
+	public Unit(RoomType room, int count, int price) {
 		roomType = room;
+        unitCount = count;
 		sellingPrice = price;
-		unitCount = count;
+		
 	}
 	
 	// setters

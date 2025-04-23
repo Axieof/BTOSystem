@@ -3,6 +3,8 @@ package src.com.BTO.View;
 import src.com.BTO.Model.Project;
 import src.com.BTO.Model.Unit;
 
+import java.util.List;
+
 public class ProjectView {
 	public static void displayProject(Project proj) {
 		System.out.println("--- Project information ---\n"
@@ -17,5 +19,33 @@ public class ProjectView {
 			System.out.println(unit);
 		}
 		System.out.println();
+    }
+
+    public void displayProjectList(List<Project> projects) {
+        System.out.println("===== All Project Listings =====");
+
+        for (Project project : projects) {
+            System.out.println("\nProject: " + project.getProjectName());
+            System.out.println("Location: " + project.getNeighbourhood());
+            System.out.println("Application Period: " +
+                    project.getAppOpenDate() + " to " + project.getAppCloseDate());
+            System.out.println("Managed by: " + project.getManager().getName());
+
+            System.out.println("Units Available:");
+            for (Unit unit : project.getUnitTypes()) {
+                System.out.println(" - " + unit.getRoomType() +
+                        ": " + unit.getUnitCount() +
+                        " units @ $" + unit.getSellingPrice());
+            }
+
+            System.out.println("Assigned Officers:");
+            project.getOfficers().forEach(officer ->
+                    System.out.println(" - " + officer.getName()));
+
+            System.out.println("Visible to Applicants: " + (project.getVisibility() ? "Yes" : "No"));
+            System.out.println("--------------------------------------------------");
+        }
+
+        System.out.println("===== End of Project List =====\n");
     }
 }

@@ -1,7 +1,6 @@
 package src.com.BTO.Model;
 
 import src.com.BTO.Model.Enums.MaritalStatus;
-import java.util.ArrayList;
 import java.util.List;
 
 public class HDBOfficer extends Applicant {

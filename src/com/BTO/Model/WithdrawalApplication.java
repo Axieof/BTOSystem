@@ -3,7 +3,7 @@ package src.com.BTO.Model;
 import src.com.BTO.Model.Enums.ApplicationStatus;
 
 public class WithdrawalApplication {
-	private Application withdrawing;
+	public Application withdrawing;
 	private ApplicationStatus status;
 	
 	public WithdrawalApplication(Application a) { 
