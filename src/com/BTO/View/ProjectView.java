@@ -6,20 +6,25 @@ import src.com.BTO.Model.Unit;
 import java.util.List;
 
 public class ProjectView {
-	public static void displayProject(Project proj) {
+	public void displayProject(Project proj) {
+		displayPureProject(proj);
+		
+		int count = 1;
+		for (Unit unit : proj.getUnitTypes()) {
+			displayUnit(unit, count);
+			count += 1;
+		}
+		System.out.println();
+    }
+	
+	public void displayPureProject(Project proj) {
 		System.out.println("--- Project information ---\n"
  				+ "Name: \t\t\t" + proj.getProjectName() + "\n"
 				+ "Neighbourhood: \t\t" + proj.getNeighbourhood() + "\n"
 				+ "Application Open: \t" + proj.getAppOpenDate() + "\n"
 				+ "Application Close: \t" + proj.getAppCloseDate() + "\n"
 		 		+ "Manager IC: \t\t" + proj.getManager().getName() + "\n");
-		
-		System.out.println("--- Unit information ---"); // MIGHT WANT TO HAVE A NICER UNIT PRINT LATER ON
-		for (Unit unit : proj.getUnitTypes()) {
-			System.out.println(unit);
-		}
-		System.out.println();
-    }
+	}
 
     public void displayProjectList(List<Project> projects) {
         System.out.println("===== All Project Listings =====");
@@ -47,5 +52,19 @@ public class ProjectView {
         }
 
         System.out.println("===== End of Project List =====\n");
+    }
+    
+    public void displayUnit(Unit u) { displayUnit(u, -1); }
+    public void displayUnit(Unit u, int i) {
+    	if (i >= 0) {
+    		System.out.println("--- Unit " + i + " information ---\n"
+     				+ "Unit Type: \t\t\t" + u.getRoomType() + "\n"
+    				+ "Selling Price: \t\t" + u.getSellingPrice() + "\n");
+    	}
+    	else {
+    		System.out.println("--- Unit information ---\n"
+     				+ "Unit Type: \t" + u.getRoomType() + "\n"
+    				+ "Selling Price: \t" + u.getSellingPrice() + "\n");
+    	}
     }
 }

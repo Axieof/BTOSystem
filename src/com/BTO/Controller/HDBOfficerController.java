@@ -176,9 +176,7 @@ public class HDBOfficerController extends ApplicantController{
     }
     
     private void genReceipts(Application appl) {
-    	// Able to generate receipt of the applicants with their respective flat
-    	/// booking details – Applicant’s Name, NRIC, age, marital status, flat type
-    	// booked and its project details.
+    	offView.displayReceipt(appl.getApplicant(), appl.getProject(), appl.getUnit());
     }
 }
 

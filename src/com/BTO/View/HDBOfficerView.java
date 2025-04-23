@@ -1,6 +1,9 @@
 package src.com.BTO.View;
 
 import src.com.BTO.Model.Application;
+import src.com.BTO.Model.Applicant;
+import src.com.BTO.Model.Project;
+import src.com.BTO.Model.Unit;
 import java.util.ArrayList;
 
 public class HDBOfficerView extends ApplicantView{
@@ -28,7 +31,23 @@ public class HDBOfficerView extends ApplicantView{
     						+ "Applicant: " + appl.getApplicant().getName() + ", "
     						+ appl.getApplicant().getAge() + ", "
     						+ appl.getApplicant().getMaritalStatus() + "\n");
-			count += 1;
+    		count += 1;
     	}
+	}
+	
+	public void displayReceipt(Applicant a, Project p, Unit u) {
+		System.out.println("\n--- Receipt ---");
+		System.out.println();
+		
+		UserView usrview = new UserView();
+		usrview.displayUser(a);
+		System.out.println();
+		
+		ProjectView projview = new ProjectView();
+		projview.displayPureProject(p);
+		System.out.println();
+		
+		projview.displayUnit(u);
+		System.out.println();
 	}
 }
