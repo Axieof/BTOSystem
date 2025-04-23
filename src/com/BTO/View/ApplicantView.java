@@ -6,7 +6,7 @@ import src.com.BTO.Model.Project;
 
 public class ApplicantView {
     
-	public static void displayOptions() {
+	public void displayOptions() {
 		System.out.println("--- Applicant Options ---\n"
 				+ "1) Personal settings\n"
 				+ "2) View projects\n"
@@ -17,7 +17,7 @@ public class ApplicantView {
 				+ "0) LOGOUT\n");
 	}
 	
-	public static void displayAppliedProject(Application applied) {
+	public void displayAppliedProject(Application applied) {
 		System.out.println("--- Applicaiton information ---");
 		Project proj = applied.getProject();
 		System.out.println("Project Name: " + proj.getProjectName());

@@ -21,13 +21,15 @@ public class ApplicantController {
 	
 	// Tools
 	private UserSettingsController settings;
-	private Scanner sc = new Scanner(System.in);
+	protected Scanner sc = new Scanner(System.in);
+	protected ApplicantView applView;
 
     // Constructor
     public ApplicantController(Applicant appl, ArrayList<Project> projs) {
     	applicant = appl;
     	projects = projs;
     	settings = new UserSettingsController(appl);
+    	applView = new ApplicantView();
     }
 
     public void viewLandingPage() {
@@ -43,7 +45,7 @@ public class ApplicantController {
     		case 6-> handleEnquiry();
     		}
 
-    		ApplicantView.displayOptions();
+    		applView.displayOptions();
     		choice = MenuInputService.getMenuInput(sc);
     	}
     	
@@ -52,7 +54,7 @@ public class ApplicantController {
 
     private ArrayList<Project> filterProjects() { return filterProjects(this.projects); }
     private ArrayList<Project> filterProjects(ArrayList<Project> projs) {
-    	return FilterProjectManager.applFilterProjects(projs, applicant);
+    	return FilterManager.filterProjects(projs, applicant);
     }
 
     private void viewProjects() {
@@ -143,7 +145,7 @@ public class ApplicantController {
     		return;
     	}
 
-    	ApplicantView.displayAppliedProject(applied);
+    	applView.displayAppliedProject(applied);
     }
 
     private void requestAppWithdrawal() {
