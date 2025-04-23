@@ -75,25 +75,17 @@ public class HDBOfficerController extends ApplicantController{
     private void regJoinProj() {
     	Application applied = officer.getApplied();
     	if (applied != null) {
-        	if (applied.getReqBook()) {
-        		System.out.println("Already Booked!");
-        	}
-        	else if (applied.getAppStatus() == ApplicationStatus.SUCCESSFUL) {
-        		System.out.println("Booking project...");
-    			System.out.println("Would you like to make a booking? (YES = 1/ NO = 0)");
-    			int choice = MenuInputService.getMenuInput(sc); 
-    			
-    			if (choice == 0) {
-    				System.out.println("Terminating...");
-    			}
-    			else {
-    				applied.requestBooking();
-    				System.out.println("Booking requested!");
-    			}
+        	if (applied.getAppStatus() == ApplicationStatus.SUCCESSFUL && applied.getUnit() == null) {
+        		System.out.println("Project registration successful!");
+
+        		Project proj = applied.getProject();
+        		proj.addOfficer(officer);
+        		officer.setCurrProj(proj);
+        		officer.setApplied(null);
+        		
+        		System.out.println("Completed registration!");
     		}
-        	else {
-        		System.out.println("Already applied for project!");
-        	}
+        	else System.out.println("Already registered for project!");
     	}
     	else {
     		System.out.println("Registering for project...");
@@ -112,6 +104,7 @@ public class HDBOfficerController extends ApplicantController{
         	projView.displayProjectNames(filtered);
         	int choice = MenuInputService.getMenuInput(sc);
         	
+        	// null unit marks difference between officer registration application and normal application
         	Application appl = new Application(filtered.get(choice), null, officer); // Create and send application
         	// UPDATE APPLICATION IN DATABASE (CSV) YET TO DO
         	officer.setApplied(appl);

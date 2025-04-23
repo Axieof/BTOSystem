@@ -84,11 +84,11 @@ public class ApplicantController {
 
     private void applyProject() {
     	Application applied = applicant.getApplied();
-    	if (applied != null) {
+    	if (applied != null && applied.getAppStatus() != ApplicationStatus.UNSUCCESSFUL) {
         	if (applied.getReqBook()) {
         		System.out.println("Already Booked!");
         	}
-        	else if (applied.getAppStatus() == ApplicationStatus.SUCCESSFUL) {
+        	else if (applied.getAppStatus() == ApplicationStatus.SUCCESSFUL && applied.getUnit() != null) {
         		System.out.println("Booking project...");
     			System.out.println("Would you like to make a booking? (YES = 1/ NO = 0)");
     			int choice = MenuInputService.getMenuInput(sc); 
@@ -148,7 +148,7 @@ public class ApplicantController {
     private void viewAppliedProject() {
     	System.out.println("Viewing applied project...");
     	Application applied = applicant.getApplied();
-    	if (applied == null) {
+    	if (applied == null || applied.getUnit() == null) {
     		System.out.println("ERROR: Yet to apply for project!");
     		return;
     	}
@@ -159,7 +159,7 @@ public class ApplicantController {
     private void requestAppWithdrawal() {
     	System.out.println("Withdrawing from applied project...");
     	Application applied = applicant.getApplied();
-    	if (applied == null) {
+    	if (applied == null || applied.getUnit() == null) {
     		System.out.println("ERROR: Yet to apply for project!\\n");
     		return;
     	}
