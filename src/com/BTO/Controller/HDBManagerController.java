@@ -4,10 +4,12 @@ package src.com.BTO.Controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
 import src.com.BTO.Model.Enums.RoomType;
 import src.com.BTO.Model.HDBManager;
 import src.com.BTO.Model.Project;
 import src.com.BTO.Model.Unit;
+import src.com.BTO.Model.User;
 import src.com.BTO.View.HDBManagerView;
 
 
@@ -38,6 +40,20 @@ public class HDBManagerController {
                 default -> view.showInvalidOption();
             }
         }
+    }
+
+    public static HDBManager findManager(List<User> users, String managerName) {
+        
+        HDBManager manager = null;
+
+            for (User user : users) {
+                if (user instanceof HDBManager && user.getName().equalsIgnoreCase(managerName.trim())) {
+                    manager = (HDBManager) user;
+                    return manager;
+                }
+            }
+
+            return manager;
     }
 
     private void projectManagementMenu() {

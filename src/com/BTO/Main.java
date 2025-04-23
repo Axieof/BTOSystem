@@ -52,39 +52,19 @@ public class Main {
 //      				return a;
 //      			});
 
+        
         projects.addAll(csvLoader.loadcsv("Data/ProjectList.csv", columns -> {
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-            int totalColumns = columns.length - 1;
-
-            //System.out.println(totalColumns);
-
-            int unitEndIndex = totalColumns - 6;
 
             String projectName = columns[0];
             String neighbourhood = columns[1];
-
-            List<Unit> unitList = UnitService.createUnitList(columns, 2, unitEndIndex);
-
-            //System.out.println(columns[unitEndIndex]);
-
-            LocalDate openDate = LocalDate.parse(columns[unitEndIndex + 1], formatter);
-            LocalDate closeDate = LocalDate.parse(columns[unitEndIndex + 2], formatter);
-            String managerName = columns[unitEndIndex + 3];
+            List<Unit> unitList = UnitService.createUnitList(columns, 2, 7);
+            LocalDate openDate = LocalDate.parse(columns[8], formatter);
+            LocalDate closeDate = LocalDate.parse(columns[9], formatter);
+            HDBManager manager = HDBManagerController.findManager(users, columns[10]);
             //int officerSlots = Integer.parseInt(columns[unitEndIndex + 3]);
-            String[] officerNames = columns[totalColumns - 1].split(",");
-
-            //System.out.println(Arrays.toString(officerNames));
-
-            HDBManager manager = null;
-            for (User user : users) {
-                if (user instanceof HDBManager && user.getName().equalsIgnoreCase(managerName.trim())) {
-                    manager = (HDBManager) user;
-                    break;
-                }
-            }
-            if (manager == null) {
-                throw new RuntimeException("Manager not found: " + managerName);
-            }
+            String[] officerNames = columns[12].split(",");
 
             Project project = new Project(projectName, neighbourhood, openDate, closeDate, manager);
             for (Unit unit : unitList) {
@@ -101,8 +81,7 @@ public class Main {
             }
 
             return project;
-
-        }));
+        } ));
 
         ProjectView projectView = new ProjectView();
         projectView.displayProjectList(projects);
@@ -119,10 +98,9 @@ public class Main {
         if (loggedInUser instanceof HDBOfficer) {
             System.out.println("\nRedirecting to HDB Officer Dashboard...");
             // new OfficerController((HDBOfficer) loggedInUser).run();
-        else if (loggedInUser instanceof Applicant) {
+        } else if (loggedInUser instanceof Applicant) {
             System.out.println("\nRedirecting to Applicant Dashboard...");
             // new ApplicantController((Applicant) loggedInUser).run();
-        } 
         } else if (loggedInUser instanceof HDBManager) {
             System.out.println("\nRedirecting to HDB Manager Dashboard...");
             // new ManagerController((HDBManager) loggedInUser).run();
