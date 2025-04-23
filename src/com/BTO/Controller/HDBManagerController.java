@@ -3,8 +3,8 @@ package src.com.BTO.Controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.List;
+import java.util.Scanner;
 import src.com.BTO.Model.Enums.RoomType;
 import src.com.BTO.Model.HDBManager;
 import src.com.BTO.Model.Project;
@@ -154,20 +154,46 @@ public class HDBManagerController {
     }
 
     private void officerMenu() {
-        view.displayOfficerMenu();
-        System.out.println("[Placeholder] Officer Registration Menu");
+        boolean back = false;
+        while (!back) {
+            view.displayOfficerMenu();
+            int choice = Integer.parseInt(sc.nextLine());
+            switch (choice) {
+                case 1 -> System.out.println("[TODO] Display pending officer registrations");
+                case 2 -> System.out.println("[TODO] Approve/reject officer registration");
+                case 0 -> back = true;
+                default -> view.showInvalidOption();
+            }
+        }
     }
-
+    
     private void applicantMenu() {
-        view.displayApplicantMenu();
-        System.out.println("[Placeholder] Applicant Applications Menu");
+        boolean back = false;
+        while (!back) {
+            view.displayApplicantMenu();
+            int choice = Integer.parseInt(sc.nextLine());
+            switch (choice) {
+                case 1 -> System.out.println("[TODO] View applicant applications");
+                case 2 -> System.out.println("[TODO] Approve/reject applicant applications");
+                case 0 -> back = true;
+                default -> view.showInvalidOption();
+            }
+        }
     }
 
     private void enquiryMenu() {
-        view.displayEnquiryMenu();
-        System.out.println("[Placeholder] Enquiries Menu");
+        boolean back = false;
+        while (!back) {
+            view.displayEnquiryMenu();
+            int choice = Integer.parseInt(sc.nextLine());
+            switch (choice) {
+                case 1 -> System.out.println("[TODO] View all enquiries");
+                case 2 -> System.out.println("[TODO] Respond to enquiries for my projects");
+                case 0 -> back = true;
+                default -> view.showInvalidOption();
+            }
+        }
     }
-
     private void generateReport() {
         System.out.println("Filter by? (marital/flat/all): ");
         String filterType = sc.nextLine().toLowerCase();
@@ -181,6 +207,6 @@ public class HDBManagerController {
     }
 
     private void handleWithdrawals() {
-        System.out.println("[Placeholder] Handle Withdrawals");
+        System.out.println("[TODO] Handle withdrawal requests from applicants");
     }
 }
