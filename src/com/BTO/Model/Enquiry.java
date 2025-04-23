@@ -15,7 +15,6 @@ public class Enquiry {
 	private int projectID = -1;
 	
 	private static List<Enquiry> allEnquiry = new ArrayList<>();
-	//need date and time?
 
 	
 	public Enquiry(int enquiryID, Applicant applicant, String message, int projectID) {

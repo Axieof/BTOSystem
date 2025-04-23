@@ -124,7 +124,7 @@ public class HDBOfficerController extends ApplicantController{
     	Project currProj = officer.getCurrProj();
     	if (currProj == null) {
     		System.out.println("ERROR: No registered project!");
-    		//return;
+    		return; 
     	}
     	
     	// filter applications

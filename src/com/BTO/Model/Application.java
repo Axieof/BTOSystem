@@ -26,19 +26,6 @@ public class Application {
 		reqBooking = false;
 	}
 	
-	public Application(int ID, Project proj, RoomType rt, 
-			ApplicationStatus stat, Applicant appl, boolean booking) 
-	{
-		project = proj;
-		ArrayList<Unit> units = proj.getUnitTypes();
-		for (Unit u : units) {
-			if (u.getRoomType() == rt) unit = u;
-		}
-		appStatus = stat;
-		applicant = appl;
-		reqBooking = booking;
-	}
-	
 	// getters
 	public int getID() { return id; }
 	public static int getApplCount() { return applCount; }

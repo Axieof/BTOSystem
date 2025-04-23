@@ -23,7 +23,7 @@ public class ApplicantController {
 	
 	// Tools
 	private UserSettingsController settings;
-	private ApplicantEnquiryController applEnquiryCtrl;
+	private ApplicantEnquiryController callController;
 	protected Scanner sc = new Scanner(System.in);
 	protected ApplicantView applView;
 	protected ProjectView projView;
@@ -38,7 +38,7 @@ public class ApplicantController {
     	settings = new UserSettingsController(appl);
     	filtMgr = new FilterManager();
     	
-    	// applEnquiryCtrl = new ApplicantEnquiryController(); // NOT WORKING YET
+    	callController = new ApplicantEnquiryController(applicant, projects);;
     }
 
     public void viewLandingPage() {
@@ -178,8 +178,6 @@ public class ApplicantController {
     }
 
     private void handleEnquiry() {
-		ApplicantEnquiryController callController = new ApplicantEnquiryController(applicant, projects);
     	callController.displayOptionsController();
-
     }
 }
