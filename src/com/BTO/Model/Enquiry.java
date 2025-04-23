@@ -1,5 +1,8 @@
 package src.com.BTO.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import src.com.BTO.Model.Applicant;
 
 public class Enquiry {
@@ -9,16 +12,17 @@ public class Enquiry {
 	private String response = null;
 	private Applicant applicant;
 	private User respondent;
-	private int projectID;
+	private int projectID = -1;
 	
+	private static List<Enquiry> allEnquiry = new ArrayList<>();
 	//need date and time?
 
-	private boolean answered;
 	
-	public Enquiry(String message, Applicant applicant) {
+	public Enquiry(int enquiryID, Applicant applicant, String message, int projectID) {
+		this.enquiryID = enquiryID;
 		this.message = message;
 		this.applicant = applicant;
-		this.answered = false;
+		this.projectID = projectID;
 	}
 	
 	// getters
@@ -28,10 +32,13 @@ public class Enquiry {
 	public User getRespondent() {return respondent;}
 	public Applicant getApplicant() {return applicant;}
 	public int getProjectID() {return projectID;}
-	
+	public List<Enquiry> getAllEnquiry(){return allEnquiry;}
+
 	// setters
 	public void setMessage(String message) {this.message = message;}
 	public void setResponse(String response) {this.response = response;}
 	
-	
+	public String toString(){
+		return "Enquiry{Enquiry: '" + message + "', Response:" + response + "}";
+	}
 }
