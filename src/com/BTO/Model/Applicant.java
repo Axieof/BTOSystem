@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import src.com.BTO.Model.Enums.MaritalStatus;
+import src.com.BTO.Service.*;
 
-public class Applicant extends User {
+public class Applicant extends User implements ICSVWritable {
 
     private Application appliedProject = null; // Project user has applied for
 	private Project bookedProject = null;
@@ -33,5 +34,16 @@ public class Applicant extends User {
     public void setBookedProject(Project booked, Unit u) { 
     	bookedProject = booked; 
     	bookedUnit = u;
+    }
+
+    @Override
+    public String toCSV() {
+        return String.join(",",
+            getName(),
+            getNric(),
+            String.valueOf(getAge()),
+            String.valueOf(getMaritalStatus()),
+            getPassword()
+        );
     }
 }

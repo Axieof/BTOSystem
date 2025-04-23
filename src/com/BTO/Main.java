@@ -86,6 +86,7 @@ public class Main {
         ProjectView projectView = new ProjectView();
         //projectView.displayProjectList(projects);
 
+
         // Step [2] - Show landing page
         LandingPageController landingController = new LandingPageController(users);
         User loggedInUser = landingController.run(mainScanner);
@@ -107,6 +108,31 @@ public class Main {
         } else {
             System.out.println("No User has logged in. Exiting program");
         }
+
+
+        // Step [4] - Write Everything back to file
+        List<String> userHeaders = List.of("Name", "NRIC", "Age", "Marital Status", "Password");
+        List<ICSVWritable> finalApplicants = new ArrayList<>();
+        List<ICSVWritable> finalHDBOfficers = new ArrayList<>();
+        List<ICSVWritable> finalHDBManagers = new ArrayList<>();
+
+        for (User user : users) {
+            if (user instanceof HDBOfficer) {
+                finalHDBOfficers.add((HDBOfficer) user);
+            } else if (user instanceof Applicant) {
+                finalApplicants.add((Applicant) user);
+            } else if (user instanceof HDBManager) {
+                finalHDBManagers.add((HDBManager) user);
+            }
+        }
+
+        CSVWriterService csvWriter = new CSVWriterService();
+        csvWriter.writeCSV(finalApplicants, "Data/ApplicantList.csv", userHeaders);
+        csvWriter.writeCSV(finalHDBOfficers, "Data/HDBOfficerList.csv", userHeaders);
+        csvWriter.writeCSV(finalHDBManagers, "Data/HDBManagerList.csv", userHeaders);
+
+        //List<String> projectHeaders = List.of("Project Name", "Neighbourhood", "Type 1", "Units 1", "Price 1", "Type 2", "Units 2", "Price 2", "Open Date", "Close Date", "Manager", "Officer Slots", "Officers");
+        //CSVWriterService.writeCSV(projectList, "Data/ProjectList.csv", projectHeaders);
 
         
     }

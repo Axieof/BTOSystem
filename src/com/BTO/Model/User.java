@@ -41,6 +41,14 @@ public class User {
         return "****" + nric.substring(nric.length() - 4);
     }
 
+    protected String getNric() {
+        return nric;
+    }
+
+    protected String getPassword() {
+        return password;
+    }
+
     public boolean checkPassword(String input) {
         return password.equals(input);
     }

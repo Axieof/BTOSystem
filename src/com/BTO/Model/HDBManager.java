@@ -3,10 +3,11 @@ package src.com.BTO.Model;
 import src.com.BTO.Model.Enums.MaritalStatus;
 import src.com.BTO.Model.Enums.ApplicationStatus;
 import src.com.BTO.Model.Enums.RoomType;
+import src.com.BTO.Service.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HDBManager extends User {
+public class HDBManager extends User implements ICSVWritable {
 
     private ArrayList<Project> ownedProjects = new ArrayList<>();
 
@@ -95,5 +96,16 @@ public class HDBManager extends User {
                 }
             }
         }
+    }
+
+    @Override
+    public String toCSV() {
+        return String.join(",",
+            getName(),
+            getNric(),
+            String.valueOf(getAge()),
+            String.valueOf(getMaritalStatus()),
+            getPassword()
+        );
     }
 }
