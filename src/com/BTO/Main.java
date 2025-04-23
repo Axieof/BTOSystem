@@ -116,12 +116,13 @@ public class Main {
         //HDBOfficerController hdbOfficerController = new HDBofficerController();
         //HDBManagerController hdbManagerController = new HDBManagerController();
 
-        if (loggedInUser instanceof Applicant) {
-            System.out.println("\nRedirecting to Applicant Dashboard...");
-            // new ApplicantController((Applicant) loggedInUser).run();
-        } else if (loggedInUser instanceof HDBOfficer) {
+        if (loggedInUser instanceof HDBOfficer) {
             System.out.println("\nRedirecting to HDB Officer Dashboard...");
             // new OfficerController((HDBOfficer) loggedInUser).run();
+        else if (loggedInUser instanceof Applicant) {
+            System.out.println("\nRedirecting to Applicant Dashboard...");
+            // new ApplicantController((Applicant) loggedInUser).run();
+        } 
         } else if (loggedInUser instanceof HDBManager) {
             System.out.println("\nRedirecting to HDB Manager Dashboard...");
             // new ManagerController((HDBManager) loggedInUser).run();
