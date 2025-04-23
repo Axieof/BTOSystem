@@ -9,13 +9,15 @@ import src.com.BTO.Model.Project;
 import src.com.BTO.Model.Unit;
 import src.com.BTO.Model.Enums.RoomType;
 
-public class FilterFlatType implements IFilterViewProject{
+public class FilterFlatType implements IFilterProject{
 	private RoomType flatType = null;
 	
 	// set flat type to null if want no effect
 	public void setCondition(String roomtype) {
 		try {
-			RoomType rt = RoomType.valueOf(roomtype);
+			RoomType rt;
+			if (roomtype.equals("NULL")) rt = null;
+			else rt = RoomType.valueOf(roomtype);
 			setRoomType(rt);
 		}
 		catch (IllegalArgumentException e){
@@ -24,6 +26,7 @@ public class FilterFlatType implements IFilterViewProject{
 	}
 	public void setRoomType(RoomType roomtype) { flatType = roomtype; }
 	
+	@Override
 	public ArrayList<Project> filter(ArrayList<Project> projects) {
 		ArrayList<Unit> toDelete;
 		

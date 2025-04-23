@@ -6,7 +6,7 @@ import src.com.BTO.Model.Project;
 import src.com.BTO.Model.Enums.*;
 import src.com.BTO.Model.Applicant;
 
-public class FilterUserGroup implements IFilterViewProject{
+public class FilterUserGroup implements IFilterProject{
 	private Applicant applicant = null; 
 	
 	public void setCondition(Applicant a) { applicant = a; }

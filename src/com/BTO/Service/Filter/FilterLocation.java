@@ -7,12 +7,14 @@ import java.util.stream.Collectors;
 
 import src.com.BTO.Model.Project;
 
-public class FilterLocation implements IFilterViewProject{
+public class FilterLocation implements IFilterProject{
 	private String location; 
 	
 	public void setCondition(String loc) { location = loc; }
 	
 	public ArrayList<Project> filter(ArrayList<Project> projects) {
+		if (location.equals("NULL")) return projects;
+		
 		List<Project> filteredList = projects.stream()
 				.filter(o -> o.getNeighbourhood().equals(location)).collect(Collectors.toList());
 		ArrayList<Project> filteredArrList = new ArrayList<>(filteredList);

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import src.com.BTO.Model.Project;
 import src.com.BTO.Model.Unit;
 
-public class FilterVisibility implements IFilterViewProject{
+public class FilterVisibility implements IFilterProject{
 	public ArrayList<Project> filter(ArrayList<Project> projects) {
 		
 		// Filter visibility off
