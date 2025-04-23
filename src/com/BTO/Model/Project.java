@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class Project {
 	// variable declaration
-	private int id; // ID SHOULD BE SET WHEN SAVING/ LOADING
+	private int ID; // ID SHOULD BE SET WHEN SAVING/ LOADING
 	private static int projCount = 0;
 	
 	private String projectName;
@@ -39,8 +39,19 @@ public class Project {
 		visibility = true;
 	}
 	
+	// constructor for when first initialising projects
+	public Project(int ID, String name, String neighb, 
+			LocalDate appOpen, LocalDate appClose, int offCount) {
+		this.ID = ID;
+		this.projectName = name;
+		this.neighbourhood = neighb;
+		this.AppOpenDate = appOpen;
+		this.AppCloseDate = appClose;
+		this.officerCount = offCount;
+	}
+	
 	// getters
-	public int getID() { return id; }
+	public int getID() { return ID; }
 	public static int getProjCount() { return projCount; }
 	
 	public String getProjectName() { return projectName; }
@@ -59,8 +70,8 @@ public class Project {
 	// setters
 	public void setID() { setID(-1); }
 	public void setID(int id) { 
-		if (id == -1) this.id = projCount++;
-		else this.id = id;
+		if (id == -1) this.ID = projCount++;
+		else this.ID = id;
 	}
 	public static void setProjCount(int count) { projCount = count; }
 	

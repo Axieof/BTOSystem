@@ -24,6 +24,7 @@ public class ApplicantController {
 	private ApplicantEnquiryController applEnquiryCtrl;
 	protected Scanner sc = new Scanner(System.in);
 	protected ApplicantView applView;
+	protected ProjectView projView;
 	protected FilterManager filtMgr;
 
     // Constructor
@@ -73,7 +74,7 @@ public class ApplicantController {
     	else {
     		for (Project proj : filtered) {
         		if (proj.getVisibility()) {
-        			ProjectView.displayProject(proj);
+        			projView.displayProject(proj);
         		}
         	}
     	}
