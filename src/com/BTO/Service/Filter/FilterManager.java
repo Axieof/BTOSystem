@@ -43,7 +43,6 @@ public class FilterManager<T> {
     	filterGrp.setCondition(appl);
     	filtered = filterGrp.filter(filtered);
     	
-    	
     	// THEN FILTER ACCORDING TO PREFERENCE (SHOULD BE STORED PER USER)
     	filtered = prefFilter(filtered, appl, IFilterProject.class);
     	

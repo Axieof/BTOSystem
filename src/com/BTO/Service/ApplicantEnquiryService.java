@@ -19,8 +19,8 @@ public class ApplicantEnquiryService{
 
     public void selectOptionsService(int enquiryChoice){
         
-        switch(enquiryChoice){
-            case 0 -> callController.returnLandingPageController();
+    	while (enquiryChoice != 0) {
+    		switch(enquiryChoice){
 			case 1 -> callController.createEnquiryController();
 			case 2 -> callController.viewProjectEnquiryController();
 			case 3 -> callController.editEnquiryController();
@@ -28,8 +28,9 @@ public class ApplicantEnquiryService{
 			case 5 -> callController.viewAnsweredController();
 			default -> callController.defaultEnquiryMessageController();
 			}
-			
-		while (enquiryChoice !=0);}
+    	}
+    	System.out.println("Exiting enquiry view...");
+    }
     
  
     // creating enquiry
@@ -89,13 +90,6 @@ public class ApplicantEnquiryService{
             }
         }
         return true;
-    }
-
-    
-
-    public void returnLandingPageService(){
-        ApplicantView.displayOptions();
-        // get input num -> carry out new function
     }
 
     public int generateEnquiryIDService(){

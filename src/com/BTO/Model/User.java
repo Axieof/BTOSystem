@@ -23,6 +23,11 @@ public class User {
         this.age = age;
         this.maritalStatus = maritalStatus;
         this.password = password;
+        
+        // default filter null
+        for (String filt : FILTERTYPES) { 
+        	filters.put(filt, "NULL");
+        }
     }
 
     // === Getters ===

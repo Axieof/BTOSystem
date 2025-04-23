@@ -9,8 +9,8 @@ public class HDBOfficerView extends ApplicantView{
 							+ "3) View Project and Enquiries\n");
 	}
 	public void displayOptions() {
-		super.displayOptions();
 		System.out.println("--- Officer Options ---\n"
+				+ "0) LOGOUT\n"
 				+ "1) Register to join project\n"
 				+ "2) Manage bookings\n"
 				+ "3) Generate receipt\n");

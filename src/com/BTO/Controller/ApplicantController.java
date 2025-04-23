@@ -23,6 +23,7 @@ public class ApplicantController {
 	private UserSettingsController settings;
 	protected Scanner sc = new Scanner(System.in);
 	protected ApplicantView applView;
+	private ApplicantEnquiryController applEnquiryCtrl;
 
     // Constructor
     public ApplicantController(Applicant appl, ArrayList<Project> projs) {
@@ -30,6 +31,7 @@ public class ApplicantController {
     	projects = projs;
     	settings = new UserSettingsController(appl);
     	applView = new ApplicantView();
+    	// applEnquiryCtrl = new ApplicantEnquiryController(); // NOT WORKING YET
     }
 
     public void viewLandingPage() {
@@ -49,11 +51,11 @@ public class ApplicantController {
     		choice = MenuInputService.getMenuInput(sc);
     	}
     	
-    	System.out.println("Exiting applicant view...");
+    	System.out.println("Exiting applicant view...\n");
     }
 
-    private ArrayList<Project> filterProjects() { return filterProjects(this.projects); }
-    private ArrayList<Project> filterProjects(ArrayList<Project> projs) {
+    protected ArrayList<Project> filterProjects() { return filterProjects(this.projects); }
+    protected ArrayList<Project> filterProjects(ArrayList<Project> projs) {
     	return FilterManager.filterProjects(projs, applicant);
     }
 
@@ -62,7 +64,7 @@ public class ApplicantController {
     	
     	ArrayList<Project> filtered = filterProjects();
     	if (filtered.size() <= 0) {
-    		System.out.println("No projects available.");
+    		System.out.println("No projects available.\n");
     	}
     	else {
     		for (Project proj : filtered) {
@@ -98,21 +100,20 @@ public class ApplicantController {
     	}
     	else {
     		System.out.println("Applying for project...");
-        	System.out.println("Which would you like to apply for?");
         	
         	// Choose a project
         	ArrayList<Project> filtered = filterProjects();
         	
-        	Project proj;
-        	for (int i=0; i<filtered.size(); i++) {
-        		proj = projects.get(i);
-        		if (proj.getVisibility()) {
-        			System.out.println(i + ". " + proj.getProjectName());
-        		}
+        	if (filtered.size() == 0) {
+        		System.out.println("ERROR: No open projects!");
+        		return;
         	}
         	
+        	System.out.println("Which would you like to apply for?");
+        	applView.displayProjectNames(filtered);
+        	
         	int choice = MenuInputService.getMenuInput(sc);
-        	proj = filtered.get(choice);
+        	Project proj = filtered.get(choice);
         	System.out.println();
         	
         	// Choose a unit
@@ -170,13 +171,7 @@ public class ApplicantController {
     }
 
     private void handleEnquiry() {
-    	// Possible things to do 
-    	// SEND ENQUIRY
-    	// EDIT ENQUIRY
-    	// DELETE ENQUIRY
-    	// GET RESPONSE TO ENQURIY
-    	// MIGHT NEED FILTER TOO (answered/ unanswered)
-    	
-    	// MIGHT WANT TO HAVE A NEW CLASS TO HANDLE ENQUIRY
+    	// NOT WORKING YET
+    	// applEnquiryCtrl.displayOptionsController();
     }
 }

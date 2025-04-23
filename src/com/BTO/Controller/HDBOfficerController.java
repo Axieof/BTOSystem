@@ -11,21 +11,22 @@ import src.com.BTO.View.HDBOfficerView;
 public class HDBOfficerController extends ApplicantController{
     
     private HDBOfficer officer;
-    private HDBOfficerView offview;
+    private HDBOfficerView offView;
 
     public HDBOfficerController(HDBOfficer officer, ArrayList<Project> projs) {
     	super(officer, projs);
         this.officer = officer;
+        offView = new HDBOfficerView();
     }
     
     public void viewLandingPage() {
     	int choice = -1;
     	
     	while (choice != 0) {
-	    	offview.displayStarter();
+    		offView.displayStarter();
 	    	choice = MenuInputService.getMenuInput(sc);
 	    	
-	    	System.out.println("Redirecting...");
+	    	System.out.println("Redirecting...\n");
 	    	switch(choice) {
 	    	case 1-> super.viewLandingPage();
 	    	case 2-> viewOfficerPage();
@@ -33,7 +34,7 @@ public class HDBOfficerController extends ApplicantController{
 	    	}
     	}
     	
-    	System.out.println("Exiting officer menu...");
+    	System.out.println("Exiting officer menu...\n");
     }
     	
     private void viewOfficerPage() {
@@ -42,22 +43,38 @@ public class HDBOfficerController extends ApplicantController{
     	while (choice != 0) {
     		switch (choice) {
     		case 1-> regJoinProj();
-    		case 2-> menageBookings();
+    		case 2-> manageBookings();
     		case 3-> genReceipts();
     		}
 
-    		applView.displayOptions();
+    		offView.displayOptions();
     		choice = MenuInputService.getMenuInput(sc);
     	}
     	
-    	System.out.println("Exiting officer view...");
+    	System.out.println("Exiting officer view...\n");
     }
     
     private void regJoinProj() {
+    	System.out.println("Registering for project...");
+    	Project currProj = officer.getCurrProj();
+    	if (currProj != null) {
+    		System.out.println("ERROR: Cannot register for multiple open projects!\n");
+    		return;
+    	}
     	
+    	ArrayList<Project> filtered = super.filterProjects();
+    	if (filtered.size() == 0) {
+    		System.out.println("ERROR: No open projects!");
+    		return;
+    	}
+    	System.out.println("Which would you like to register for?");
+    	applView.displayProjectNames(filtered);
+    	// continue
     }
     
-    private void menageBookings() {
+    private void manageBookings() {
+    	Project currProj = officer.getCurrProj();
+    	
     	
     }
     

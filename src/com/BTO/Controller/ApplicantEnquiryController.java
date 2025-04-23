@@ -53,10 +53,6 @@ public class ApplicantEnquiryController{
         useService.viewAnsweredService();
     }
 
-    public void returnLandingPageController(){
-        useService.returnLandingPageService();
-    }
-
     public void defaultEnquiryMessageController(){
         displayOptionsController();
     }
