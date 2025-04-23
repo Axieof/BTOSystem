@@ -117,7 +117,7 @@ public class ApplicantController {
         	}
         	
         	System.out.println("Which would you like to apply for?");
-        	applView.displayProjectNames(filtered);
+        	projView.displayProjectNames(filtered);
         	
         	int choice = MenuInputService.getMenuInput(sc);
         	Project proj = filtered.get(choice);
@@ -178,7 +178,7 @@ public class ApplicantController {
     }
 
     private void handleEnquiry() {
-		ApplicantEnquiryController callController = new ApplicantEnquiryController(applicant);
+		ApplicantEnquiryController callController = new ApplicantEnquiryController(applicant, projects);
     	callController.displayOptionsController();
 
     }

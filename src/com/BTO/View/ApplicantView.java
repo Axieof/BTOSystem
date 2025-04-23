@@ -19,21 +19,11 @@ public class ApplicantView extends UserView{
 	}
 	
 	public void displayAppliedProject(Application applied) {
-		System.out.println("--- Applicaiton information ---");
+		System.out.println("--- Application information ---");
 		Project proj = applied.getProject();
 		System.out.println("Project Name: " + proj.getProjectName());
 		System.out.println(applied.getUnit());
     	System.out.println("Application Status: " + applied.getAppStatus());
     	System.out.println();
-	}
-	
-	public void displayProjectNames(ArrayList<Project> projects) {
-		Project proj;
-    	for (int i=0; i<projects.size(); i++) {
-    		proj = projects.get(i);
-    		if (proj.getVisibility()) {
-    			System.out.println(i + ". " + proj.getProjectName());
-    		}
-    	}
 	}
 }
