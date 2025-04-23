@@ -1,10 +1,13 @@
 package src.com.BTO.View;
 
+import src.com.BTO.Model.Enquiry;
+import java.util.List;
+
 public class ApplicantEnquiryView {
 
     public void showdefaultEnquiryPrompt() {
-        System.out.println("===Choose your enquiry option===\n"
-                + "0) Return\n"
+        System.out.println("--- Enquiry option ---\n"
+                + "0) RETURN\n"
                 + "1) Create an Enquiry\n"
                 + "2) View Enquiry\n"
                 + "3) Edit Enquiry\n"
@@ -41,5 +44,12 @@ public class ApplicantEnquiryView {
 
     public void viewProjectEnquiryErrorView() {
         System.out.println("No enquiries found");
+    }
+    
+    public void viewEnquiries(List<Enquiry> enqs) {
+    	int count = 0;
+    	for (Enquiry e : enqs) {
+            System.out.println(count++ + ". " + e.toString());
+        }
     }
 }

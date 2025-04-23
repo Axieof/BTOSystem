@@ -19,6 +19,7 @@ public class Enquiry {
 
 	
 	public Enquiry(int enquiryID, Applicant applicant, String message, int projectID) {
+		if (enquiryID < 0) enquiryID = allEnquiry.size() + 1;
 		this.enquiryID = enquiryID;
 		this.message = message;
 		this.applicant = applicant;
@@ -37,6 +38,7 @@ public class Enquiry {
 	// setters
 	public void setMessage(String message) {this.message = message;}
 	public void setResponse(String response) {this.response = response;}
+	public static void addEnquiry(Enquiry enq) { allEnquiry.add(enq); }
 	
 	public String toString(){
 		return "Enquiry{Enquiry: '" + message + "', Response:" + response + "}";

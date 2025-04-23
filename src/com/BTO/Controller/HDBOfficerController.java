@@ -109,7 +109,7 @@ public class HDBOfficerController extends ApplicantController{
         		return;
         	}
         	System.out.println("Which would you like to register for?");
-        	applView.displayProjectNames(filtered);
+        	projView.displayProjectNames(filtered);
         	int choice = MenuInputService.getMenuInput(sc);
         	
         	Application appl = new Application(filtered.get(choice), null, officer); // Create and send application

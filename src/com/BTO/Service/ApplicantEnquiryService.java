@@ -25,34 +25,20 @@ public class ApplicantEnquiryService {
     }
 
     public boolean createEnquiryService(Applicant applicant, String message, int projectID) {
-        if (projectID != -1 && !validateUser(projectID, applicant)) {
-            return false;
-        }
+    	if (0 > projectID) { // out of range
+    		return false;
+    	}
+    	
         Enquiry enquiry = new Enquiry(generateEnquiryIDService(), applicant, message, projectID);
         applicant.getEnquiryList().add(enquiry);
         enquiry.getAllEnquiry().add(enquiry);
         return true;
     }
 
-    public boolean validateUser(int projectID, Applicant applicant) {
-        if (applicant.getProjectID() != projectID) {
-            return false;
-        }
-        return true;
-    }
-
     // view Enquiry
     public boolean viewProjectEnquiryService(Applicant applicant) {
         List<Enquiry> enquiries = applicant.getEnquiryList();
-        if (enquiries == null) {
-            return false;
-        } else {
-            for (Enquiry e : enquiries) {
-                System.out.println(e.toString());
-            }
-        }
-        return true;
-
+        return enquiries != null;
     }
 
 }

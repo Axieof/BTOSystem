@@ -4,6 +4,7 @@ import src.com.BTO.Model.Project;
 import src.com.BTO.Model.Unit;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class ProjectView {
 	public void displayProject(Project proj) {
@@ -24,6 +25,16 @@ public class ProjectView {
 				+ "Application Open: \t" + proj.getAppOpenDate() + "\n"
 				+ "Application Close: \t" + proj.getAppCloseDate() + "\n"
 		 		+ "Manager IC: \t\t" + proj.getManager().getName() + "\n");
+	}
+
+	public void displayProjectNames(ArrayList<Project> projects) {
+		Project proj;
+	   	for (int i=0; i<projects.size(); i++) {
+	   		proj = projects.get(i);
+	   		if (proj.getVisibility()) {
+	   			System.out.println(i + ". " + proj.getProjectName());
+	   		}
+	   	}
 	}
 
     public void displayProjectList(List<Project> projects) {

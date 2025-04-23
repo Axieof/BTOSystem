@@ -23,6 +23,7 @@ public class Applicant extends User {
 
     public List<Enquiry> getEnquiryList(){return enquiryList;}
     public void setEnquiryList(List<Enquiry> enquiryList){this.enquiryList = enquiryList;}
+    public void addEnquiry(Enquiry enq) { enquiryList.add(enq); }
 
     public int getProjectID(){return projectID;}
     public void setProjectID(){this.projectID = projectID;}
