@@ -84,7 +84,7 @@ public class Main {
         } ));
 
         ProjectView projectView = new ProjectView();
-        projectView.displayProjectList(projects);
+        //projectView.displayProjectList(projects);
 
         // Step [2] - Show landing page
         LandingPageController landingController = new LandingPageController(users);
