@@ -97,11 +97,17 @@ public class ApplicantEnquiryController {
             List<Enquiry> enquiries = applicant.getEnquiryList();
         	callView.viewEnquiries(enquiries);
         }
-
+        System.out.println();
     }
     
     public void editEnquiry() {
         List<Enquiry> enquiries = applicant.getEnquiryList();
+        
+        if (enquiries.size() == 0) {
+        	System.out.println("ERROR: No enquiries created!");
+        	return;
+        }
+        
 		System.out.println("Which enquiry to edit?");
         callView.viewEnquiries(enquiries);
     	int choice = MenuInputService.getMenuInput(sc);
@@ -122,11 +128,62 @@ public class ApplicantEnquiryController {
     }
     
     public void deleteEnquiry() {
+    	List<Enquiry> enquiries = applicant.getEnquiryList();
     	
+    	if (enquiries.size() == 0) {
+    		System.out.println("ERROR: No enquiries created!");
+        	return;
+    	}
+    	
+		System.out.println("Which enquiry to delete?");
+        callView.viewEnquiries(enquiries);
+    	int choice = MenuInputService.getMenuInput(sc);
+        
+    	if (0 > choice || choice >= enquiries.size()) {
+    		System.out.println("ERROR: Index out of range!");
+    		System.out.println("Terminating...\n");
+    		return;
+    	}
+    	
+    	Enquiry chosen = enquiries.get(choice);
+    	System.out.println("Are you sure you want to delete: " + chosen.toString());
+    	System.out.println("(YES = 1/ NO = 0)");
+    	choice = MenuInputService.getMenuInput(sc);
+		
+    	if (choice == 1) {
+    		// ALSO DELETE FROM CSV
+    		Enquiry e = new Enquiry(-1,applicant,"",-1);
+    		
+    		if (e.getAllEnquiry().size() <= 1) e.clearEnquiries();
+    		else e.getAllEnquiry().remove(enquiries.get(choice));
+    		
+    		if (enquiries.size() <= 1) applicant.setEnquiryList(new ArrayList<Enquiry>());
+    		else enquiries.remove(enquiries.get(choice)); 
+    		
+        	System.out.println("Deleted enquiry!\n");
+    	}
+    	else {
+    		System.out.println("Terminating...\n");
+    	}
     }
     
     public void viewAnswered() {
+    	List<Enquiry> enquiries = applicant.getEnquiryList();
     	
+    	if (enquiries.size() == 0) {
+    		System.out.println("No answered enquiries.");
+    	}
+    	else {
+    		System.out.println("All answered enquiries:");
+    		ArrayList<Enquiry> filtered = new ArrayList<>();
+        	
+        	for (Enquiry e : enquiries) {
+        		if (e.getResponse() != null) filtered.add(e);
+        	}
+        	
+        	callView.viewEnquiries(filtered);
+    	}
+        System.out.println();
     }
 
 }

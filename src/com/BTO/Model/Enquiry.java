@@ -15,7 +15,6 @@ public class Enquiry {
 	private int projectID = -1;
 	
 	private static List<Enquiry> allEnquiry = new ArrayList<>();
-	//need date and time?
 
 	
 	public Enquiry(int enquiryID, Applicant applicant, String message, int projectID) {
@@ -38,7 +37,9 @@ public class Enquiry {
 	// setters
 	public void setMessage(String message) {this.message = message;}
 	public void setResponse(String response) {this.response = response;}
+	
 	public static void addEnquiry(Enquiry enq) { allEnquiry.add(enq); }
+	public void clearEnquiries() { allEnquiry = new ArrayList<Enquiry>(); }
 	
 	public String toString(){
 		return "Enquiry{Enquiry: '" + message + "', Response:" + response + "}";
