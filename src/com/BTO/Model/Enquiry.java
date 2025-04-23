@@ -38,7 +38,9 @@ public class Enquiry {
 	// setters
 	public void setMessage(String message) {this.message = message;}
 	public void setResponse(String response) {this.response = response;}
+	
 	public static void addEnquiry(Enquiry enq) { allEnquiry.add(enq); }
+	public void clearEnquiries() { allEnquiry = new ArrayList<Enquiry>(); }
 	
 	public String toString(){
 		return "Enquiry{Enquiry: '" + message + "', Response:" + response + "}";

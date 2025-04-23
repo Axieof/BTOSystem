@@ -44,7 +44,6 @@ public class HDBOfficerController extends ApplicantController{
 	    	switch(choice) {
 	    	case 1-> super.viewLandingPage();
 	    	case 2-> viewOfficerPage();
-	    	// case 3-> continue; // SHOULD LINK TO COMMON OFFICER-MANAGER INTERFACE
 	    	}
     	}
     	
@@ -58,6 +57,7 @@ public class HDBOfficerController extends ApplicantController{
     		switch (choice) {
     		case 1-> regJoinProj();
     		case 2-> manageBookings();
+    		// case 3-> continue; // SHOULD LINK TO COMMON OFFICER-MANAGER INTERFACE
     		}
 
     		offView.displayOptions();
