@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import src.com.BTO.Model.User;
+import src.com.BTO.Model.Enums.ApplicationStatus;
+
 import src.com.BTO.Model.Applicant;
 import src.com.BTO.Model.HDBOfficer;
 import src.com.BTO.Model.HDBManager;
+
 import src.com.BTO.Model.Project;
+import src.com.BTO.Model.Application;
 
 public class FilterManager<T> {
 	private <T>  ArrayList<T> prefFilter(ArrayList<T> items, User user, Class<? extends IFilterGeneral<T>> target){
@@ -35,6 +39,7 @@ public class FilterManager<T> {
     	return filtered;
 	}
 	
+	// Applicant, Officer, Manager Project Filter calls
 	public ArrayList<Project> applFilterProjects(ArrayList<Project> projs, Applicant appl){
 		ArrayList<Project> filtered;
     	
@@ -66,6 +71,7 @@ public class FilterManager<T> {
     	return prefFilter(projs, mgr, IFilterProject.class);
 	}
 	
+	// Project filter methods
 	public ArrayList<Project> callFilterVis(ArrayList<Project> projs) {
 		FilterVisibility filterVis = new FilterVisibility();  
     	return filterVis.filter(projs);
@@ -74,5 +80,29 @@ public class FilterManager<T> {
 		FilterUserGroup filterGrp = new FilterUserGroup(); // user group
     	filterGrp.setCondition(appl);
     	return filterGrp.filter(projs);
+	}
+	
+	// Officer, Manager application filter calls
+	public ArrayList<Application> offManageApplication(ArrayList<Application> appls, HDBOfficer off){
+		ArrayList<Application> filtered;
+		
+		// FILTER THE COMPULSORY STUFF
+		FilterApplicationState filterState = new FilterApplicationState();  // application state
+		filterState.setCondition(ApplicationStatus.SUCCESSFUL);
+		filtered = filterState.filter(appls);
+		
+		// AND SHOULD FILTER FOR BOOKNG REQUESTED
+		
+		return filtered; // probably no need preference filter
+	}
+	public ArrayList<Application> mgrManageApplication(ArrayList<Application> appls){
+		ArrayList<Application> filtered;
+		
+		// FILTER THE COMPULSORY STUFF
+		FilterApplicationState filterState = new FilterApplicationState(); 
+		filterState.setCondition(ApplicationStatus.PENDING);
+		filtered = filterState.filter(appls);
+		
+		return filtered; // probably no need preference filter
 	}
 }

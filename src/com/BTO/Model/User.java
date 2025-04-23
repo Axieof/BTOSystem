@@ -13,7 +13,7 @@ public class User {
     private MaritalStatus maritalStatus;
     private String password;
     
-    private static final String[] FILTERTYPES = {"FilterFlatType", "FilterLocation"};
+    private static final String[] FILTERTYPES = {"FilterProjectFlatType", "FilterProjectLocation"};
     private HashMap<String, String> filters = new HashMap<>(); 
 
     // Constructor

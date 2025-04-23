@@ -9,7 +9,7 @@ import src.com.BTO.Model.Project;
 import src.com.BTO.Model.Unit;
 import src.com.BTO.Model.Enums.RoomType;
 
-public class FilterFlatType implements IFilterProject{
+public class FilterProjectFlatType implements IFilterProject{
 	private RoomType flatType = null;
 	
 	// set flat type to null if want no effect

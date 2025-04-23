@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import src.com.BTO.Model.Project;
 
-public class FilterLocation implements IFilterProject{
+public class FilterProjectLocation implements IFilterProject{
 	private String location; 
 	
 	public void setCondition(String loc) { location = loc; }
