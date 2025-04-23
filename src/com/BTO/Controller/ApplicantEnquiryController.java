@@ -4,64 +4,60 @@ import src.com.BTO.View.ApplicantEnquiryView;
 import src.com.BTO.Service.ApplicantEnquiryService;
 import src.com.BTO.Service.UserEnquiryService;
 import src.com.BTO.Model.Enquiry;
+import src.com.BTO.Model.Applicant;
 
-public class ApplicantEnquiryController{
-    private Enquiry enquiry;
+public class ApplicantEnquiryController {
+    private Applicant applicant;
+    private ApplicantEnquiryService callService;
+    private ApplicantEnquiryView callView;
+    private UserEnquiryService callUserService;
 
-    ApplicantEnquiryView callView = new ApplicantEnquiryView();
-    ApplicantEnquiryService useService = new ApplicantEnquiryService();
-    UserEnquiryService useUserService = new UserEnquiryService();
+    public ApplicantEnquiryController(Applicant applicant) {
+        this.applicant = applicant;
+        this.callService = new ApplicantEnquiryService(applicant);
+        this.callView = new ApplicantEnquiryView();
+        this.callUserService = new UserEnquiryService();
+    }
 
-    public void displayOptionsController(){
+    public void displayOptionsController() {
         callView.showdefaultEnquiryPrompt();
-        int enquiryChoice = useUserService.getInteger();
-        useService.selectOptionsService(enquiryChoice);
+        int enquiryChoice = callUserService.getInteger();
+
+        switch (enquiryChoice) {
+            case 1 -> createEnquiryController();
+            case 2 -> viewEnquiryController();
+            case 3 -> System.out.println("3");
+            case 4 -> System.out.println("4");
+            case 5 -> System.out.println("5");
+            default -> choiceOutOfIndexController();
+
+        }
     }
 
-    public void createEnquiryController(){
-        callView.showCreateEnquiryPrompt();
-        String message = useUserService.getString();
-        callView.showCreateEnquiryGetProject();
-        int projectID = useUserService.getInteger();
-        if(useService.createEnquiryService(useService.generateEnquiryIDService(), message , projectID)){callView.showCreateEnquiryError();}
-        else{callView.showCreateEnquirySuccess();}
-    }
-
-    public void viewProjectEnquiryController(){
-        callView.viewProjectEnquiry();
-        useService.viewProjectEnquiryService();
-    }
-
-    public void editEnquiryController(){
-        callView.showEditEnquiryPrompt();
-        int enquiryID = useUserService.getInteger();
-        callView.showEditEnquiryGetEnquiry();
-        String message = useUserService.getString();
-        if (useService.editEnquiryService(enquiryID, message)){callView.showEditEnquirySuccess();}
-        else{callView.showEditEnquiryError();}
-    }
-
-    public void deleteEnquiryController(){
-        callView.showDeleteEnquiry();
-        int enquiryID = useUserService.getInteger();
-        if (useService.deleteEnquiryService(enquiryID, enquiry.getAllEnquiry() )) {callView.showDeleteEnquirySuccess();}
-        else{callView.showDeleteEnquiryError();}        
-    }
-
-    public void viewAnsweredController(){
-        callView.viewAnsweredEnquiry();
-        useService.viewAnsweredService();
-    }
-
-    public void defaultEnquiryMessageController(){
+    public void choiceOutOfIndexController() {
+        callView.choiceOutOfIndexView();
         displayOptionsController();
     }
 
+    public void createEnquiryController() {
+        callView.createEnquiryProjectView();
+        int projectID = callUserService.getInteger();
+        callView.createEnquiryMessageView();
+        String message = callUserService.getString();
+        if (callService.createEnquiryService(applicant, message, projectID)) {
+            callView.createEnquirySuccessView();
+        } else {
+            callView.createEnquiryErrorView();
+        }
 
+    }
 
+    public void viewEnquiryController() {
+        callView.viewProjectEnquiryView();
+        if (!callService.viewProjectEnquiryService(applicant)) {
+            callView.viewProjectEnquiryErrorView();
+        }
+
+    }
 
 }
-
-
-
-
