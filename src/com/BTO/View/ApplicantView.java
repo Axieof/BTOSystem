@@ -1,13 +1,12 @@
 package src.com.BTO.View;
 
-import src.com.BTO.Model.Applicant;
 import src.com.BTO.Model.Application;
 import src.com.BTO.Model.Project;
 
 import java.util.ArrayList;
 
-public class ApplicantView {
-    
+public class ApplicantView extends UserView{
+	@Override
 	public void displayOptions() {
 		System.out.println("--- Applicant Options ---\n"
 				+ "0) LOGOUT\n"

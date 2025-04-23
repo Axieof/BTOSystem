@@ -12,9 +12,11 @@ public class UserSettingsController  {
 	
 	private User user;
 	private Scanner sc = new Scanner(System.in);
+	private UserView usrView;
 	
 	public UserSettingsController(User u) {
 		user = u;
+		usrView = new UserView();
     }
 	
 	public void viewLandingPage() {
@@ -22,12 +24,12 @@ public class UserSettingsController  {
     	
     	while (choice != 0) {
     		switch (choice) {
-    		case 1-> UserView.displayUser(user);
+    		case 1-> usrView.displayUser(user);
     		case 2-> changePassword();
     		case 3-> editFilter();
     		}
 
-    		UserView.displayOptions();
+    		usrView.displayOptions();
     		choice = MenuInputService.getMenuInput(sc);
     	}
     	
@@ -59,7 +61,7 @@ public class UserSettingsController  {
 			
 		HashMap<String, String> filters = user.getFilters();
 		String[] ALLFILTERS = User.getAllFilterTypes();
-		UserView.displayFilters(ALLFILTERS);
+		usrView.displayFilters(ALLFILTERS);
 			
 		int i = MenuInputService.getMenuInput(sc);
 		System.out.println();

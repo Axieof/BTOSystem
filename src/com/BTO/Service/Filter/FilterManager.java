@@ -3,13 +3,16 @@ package src.com.BTO.Service.Filter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import src.com.BTO.Model.User;
 import src.com.BTO.Model.Applicant;
+import src.com.BTO.Model.HDBOfficer;
+import src.com.BTO.Model.HDBManager;
 import src.com.BTO.Model.Project;
 
 public class FilterManager<T> {
-	private static <T> ArrayList<T> prefFilter(ArrayList<T> items, Applicant appl, Class<? extends IFilterGeneral<T>> target){
+	private <T>  ArrayList<T> prefFilter(ArrayList<T> items, User user, Class<? extends IFilterGeneral<T>> target){
 		ArrayList<T> filtered = new ArrayList<>();
-		HashMap<String, String> filters = appl.getFilters();
+		HashMap<String, String> filters = user.getFilters();
 
 		try {
 			for (String filtName : filters.keySet()) {
@@ -32,20 +35,44 @@ public class FilterManager<T> {
     	return filtered;
 	}
 	
-	public static ArrayList<Project> filterProjects(ArrayList<Project> projs, Applicant appl){
+	public ArrayList<Project> applFilterProjects(ArrayList<Project> projs, Applicant appl){
 		ArrayList<Project> filtered;
     	
     	// FILTER THE COMPULSORY STUFF
-    	FilterVisibility filterVis = new FilterVisibility();  // visibility
-    	filtered = filterVis.filter(projs);
-    	
-    	FilterUserGroup filterGrp = new FilterUserGroup(); // user group
-    	filterGrp.setCondition(appl);
-    	filtered = filterGrp.filter(filtered);
+    	filtered = callFilterVis(projs); // visibility
+    	filtered = callFilterUserGrp(filtered, appl); // user group
     	
     	// THEN FILTER ACCORDING TO PREFERENCE (SHOULD BE STORED PER USER)
     	filtered = prefFilter(filtered, appl, IFilterProject.class);
     	
     	return filtered;
+	}
+	
+	public ArrayList<Project> offFilterProjects(ArrayList<Project> projs, HDBOfficer off){
+		ArrayList<Project> filtered;
+    	
+    	// FILTER THE COMPULSORY STUFF
+    	filtered = callFilterVis(projs); // visibility
+    	
+    	// THEN FILTER ACCORDING TO PREFERENCE (SHOULD BE STORED PER USER)
+    	filtered = prefFilter(filtered, off, IFilterProject.class);
+    	
+    	return filtered;
+	}
+	
+	public ArrayList<Project> mgrFilterProjects(ArrayList<Project> projs, HDBManager mgr){
+    	// FILTER THE COMPULSORY STUFF (None)
+    	// THEN FILTER ACCORDING TO PREFERENCE (SHOULD BE STORED PER USER)
+    	return prefFilter(projs, mgr, IFilterProject.class);
+	}
+	
+	public ArrayList<Project> callFilterVis(ArrayList<Project> projs) {
+		FilterVisibility filterVis = new FilterVisibility();  
+    	return filterVis.filter(projs);
+	}
+	public ArrayList<Project> callFilterUserGrp(ArrayList<Project> projs, Applicant appl) {
+		FilterUserGroup filterGrp = new FilterUserGroup(); // user group
+    	filterGrp.setCondition(appl);
+    	return filterGrp.filter(projs);
 	}
 }

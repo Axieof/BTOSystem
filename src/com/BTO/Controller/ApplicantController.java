@@ -21,16 +21,20 @@ public class ApplicantController {
 	
 	// Tools
 	private UserSettingsController settings;
+	private ApplicantEnquiryController applEnquiryCtrl;
 	protected Scanner sc = new Scanner(System.in);
 	protected ApplicantView applView;
-	private ApplicantEnquiryController applEnquiryCtrl;
+	protected FilterManager filtMgr;
 
     // Constructor
     public ApplicantController(Applicant appl, ArrayList<Project> projs) {
     	applicant = appl;
     	projects = projs;
-    	settings = new UserSettingsController(appl);
+ 
     	applView = new ApplicantView();
+    	settings = new UserSettingsController(appl);
+    	filtMgr = new FilterManager();
+    	
     	// applEnquiryCtrl = new ApplicantEnquiryController(); // NOT WORKING YET
     }
 
@@ -56,7 +60,7 @@ public class ApplicantController {
 
     protected ArrayList<Project> filterProjects() { return filterProjects(this.projects); }
     protected ArrayList<Project> filterProjects(ArrayList<Project> projs) {
-    	return FilterManager.filterProjects(projs, applicant);
+    	return filtMgr.applFilterProjects(projs, applicant);
     }
 
     private void viewProjects() {

@@ -8,6 +8,7 @@ import src.com.BTO.Model.Enums.MaritalStatus;
 public class Applicant extends User {
 
     private Application appliedProject = null; // Project user has applied for
+	private Project bookedProject = null;
     private List<Enquiry> enquiryList = new ArrayList<>();
     private int projectID = -1;
 
@@ -16,14 +17,14 @@ public class Applicant extends User {
     }
     
     public Application getApplied() { return appliedProject; }
-    
     public void setApplied(Application app) { appliedProject = app; }
 
     public List<Enquiry> getEnquiryList(){return enquiryList;}
-    
     public void setEnquiryList(List<Enquiry> enquiryList){this.enquiryList = enquiryList;}
 
     public int getProjectID(){return projectID;}
-
     public void setProjectID(){this.projectID = projectID;}
+    
+    public Project getBookedProject() { return bookedProject; }
+    public void setBookedProject(Project booked) { bookedProject = booked; }
 }
