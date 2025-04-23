@@ -54,7 +54,7 @@ public class Main {
             //int officerSlots = Integer.parseInt(columns[unitEndIndex + 3]);
             String[] officerNames = columns[totalColumns - 1].split(",");
 
-            System.out.println(Arrays.toString(officerNames));
+            //System.out.println(Arrays.toString(officerNames));
 
             HDBManager manager = null;
             for (User user : users) {
