@@ -128,8 +128,8 @@ public class Main {
 
         CSVWriterService csvWriter = new CSVWriterService();
         csvWriter.writeCSV(finalApplicants, "Data/ApplicantList.csv", userHeaders);
-        csvWriter.writeCSV(finalHDBOfficers, "Data/HDBOfficerList.csv", userHeaders);
-        csvWriter.writeCSV(finalHDBManagers, "Data/HDBManagerList.csv", userHeaders);
+        csvWriter.writeCSV(finalHDBOfficers, "Data/OfficerList.csv", userHeaders);
+        csvWriter.writeCSV(finalHDBManagers, "Data/ManagerList.csv", userHeaders);
 
         //List<String> projectHeaders = List.of("Project Name", "Neighbourhood", "Type 1", "Units 1", "Price 1", "Type 2", "Units 2", "Price 2", "Open Date", "Close Date", "Manager", "Officer Slots", "Officers");
         //CSVWriterService.writeCSV(projectList, "Data/ProjectList.csv", projectHeaders);
