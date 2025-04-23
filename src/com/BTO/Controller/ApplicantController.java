@@ -9,6 +9,8 @@ import src.com.BTO.Service.MenuInputService;
 import src.com.BTO.View.ApplicantView;
 import src.com.BTO.View.ProjectView;
 
+import src.com.BTO.Controller.ApplicantEnquiryController;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.HashMap;
@@ -176,7 +178,8 @@ public class ApplicantController {
     }
 
     private void handleEnquiry() {
-    	// NOT WORKING YET
-    	// applEnquiryCtrl.displayOptionsController();
+		ApplicantEnquiryController callController = new ApplicantEnquiryController(applicant);
+    	callController.displayOptionsController();
+
     }
 }

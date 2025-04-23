@@ -11,95 +11,48 @@ import src.com.BTO.Controller.ApplicantEnquiryController;
 
 import src.com.BTO.Model.Enquiry;
 
-public class ApplicantEnquiryService{
-    private Applicant applicant;
-    private Enquiry enquiry;
-    UserEnquiryService callService = new UserEnquiryService();
-    ApplicantEnquiryController callController = new ApplicantEnquiryController();
+public class ApplicantEnquiryService {
+    public static int enquiryID = 0;
+    private UserEnquiryService callService;
+    private ApplicantEnquiryController callController;
 
-    public void selectOptionsService(int enquiryChoice){
-        
-    	while (enquiryChoice != 0) {
-    		switch(enquiryChoice){
-			case 1 -> callController.createEnquiryController();
-			case 2 -> callController.viewProjectEnquiryController();
-			case 3 -> callController.editEnquiryController();
-			case 4 -> callController.deleteEnquiryController();
-			case 5 -> callController.viewAnsweredController();
-			default -> callController.defaultEnquiryMessageController();
-			}
-    	}
-    	System.out.println("Exiting enquiry view...");
+    public ApplicantEnquiryService(Applicant applicant) {
+        this.callService = new UserEnquiryService();
     }
-    
- 
-    // creating enquiry
-    public boolean createEnquiryService(int enquiryID, String message, int projectID){
-        //checking Applicant with given details
-        if (!validateEnquiry(enquiryID, projectID)){return false;}
-        // creating new enquiry 
+
+    public int generateEnquiryIDService() {
+        return ++enquiryID;
+    }
+
+    public boolean createEnquiryService(Applicant applicant, String message, int projectID) {
+        if (projectID != -1 && !validateUser(projectID, applicant)) {
+            return false;
+        }
         Enquiry enquiry = new Enquiry(generateEnquiryIDService(), applicant, message, projectID);
         applicant.getEnquiryList().add(enquiry);
         enquiry.getAllEnquiry().add(enquiry);
         return true;
     }
 
-    public boolean validateEnquiry(int enquiryID, int projectID){
-        if (applicant.getProjectID() != projectID){return false;}
-        for (Enquiry enquiry : enquiry.getAllEnquiry()){
-            if (enquiry.getEnquiryID() == enquiryID){return true;}
-        }
-        return false;
-    }
-
-    // view project enquiry service
-    public boolean viewProjectEnquiryService(){
-        for (Enquiry enquiry : enquiry.getAllEnquiry()){
-            System.out.println(enquiry.toString());
+    public boolean validateUser(int projectID, Applicant applicant) {
+        if (applicant.getProjectID() != projectID) {
+            return false;
         }
         return true;
     }
 
-    public boolean editEnquiryService(int enquiryID, String message){
-        
-        if(!validateEnquiry(enquiryID, applicant.getProjectID())){return false;}
-        for (Enquiry enquiry : enquiry.getAllEnquiry()){
-            if (enquiry.getEnquiryID() == enquiryID){
-                enquiry.setMessage(message);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean deleteEnquiryService(int enquiryID, List<Enquiry> enquiryList){
-        if(!validateEnquiry(enquiryID, applicant.getProjectID())){return false;}
-        for (Enquiry enquiry : enquiry.getAllEnquiry()){
-            if (enquiry.getEnquiryID() == enquiryID){
-                enquiry.setMessage(null);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean viewAnsweredService(){
-        for (Enquiry enquiry : enquiry.getAllEnquiry()){
-            if (enquiry.getResponse() != null){
-            System.out.println(enquiry.toString());
+    // view Enquiry
+    public boolean viewProjectEnquiryService(Applicant applicant) {
+        List<Enquiry> enquiries = applicant.getEnquiryList();
+        if (enquiries == null) {
+            return false;
+        } else {
+            for (Enquiry e : enquiries) {
+                System.out.println(e.toString());
             }
         }
         return true;
-    }
 
-    public int generateEnquiryIDService(){
-        int index = 0;
-        return ++index ;
     }
-
 
 }
-
-
-
-
