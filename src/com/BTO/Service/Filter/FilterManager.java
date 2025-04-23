@@ -91,7 +91,9 @@ public class FilterManager<T> {
 		filterState.setCondition(ApplicationStatus.SUCCESSFUL);
 		filtered = filterState.filter(appls);
 		
-		// AND SHOULD FILTER FOR BOOKNG REQUESTED
+		FilterApplicationBooking filterBk = new FilterApplicationBooking(); // booking requested
+		filterBk.setCondition(true);
+		filtered = filterBk.filter(filtered);
 		
 		return filtered; // probably no need preference filter
 	}
