@@ -83,7 +83,7 @@ public class FilterManager<T> {
 	}
 	
 	// Officer, Manager application filter calls
-	public ArrayList<Application> offManageApplication(ArrayList<Application> appls, HDBOfficer off){
+	public ArrayList<Application> offManageApplication(ArrayList<Application> appls){
 		ArrayList<Application> filtered;
 		
 		// FILTER THE COMPULSORY STUFF

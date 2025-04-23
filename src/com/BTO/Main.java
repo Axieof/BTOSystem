@@ -33,6 +33,25 @@ public class Main {
         users.addAll(csvLoader.loadcsv("Data/OfficerList.csv", columns -> new HDBOfficer(columns[0], columns[1], Integer.parseInt(columns[2]), MaritalStatus.valueOf(columns[3].toUpperCase()), columns[4])));
         users.addAll(csvLoader.loadcsv("Data/ManagerList.csv", columns -> new HDBManager(columns[0], columns[1], Integer.parseInt(columns[2]), MaritalStatus.valueOf(columns[3].toUpperCase()), columns[4])));
         
+        // INCOMPLETE LOAD APPLICATION
+//    	List<Application> l = csvloader.loadcsv("Data/ApplicationList.csv", 
+//      			columns -> {
+//      				int ID = Integer.parseInt(columns[0]);
+//    			int projID = Integer.parseInt(columns[1]); 
+//    			RoomType rt = RoomType.valueOf(columns[2]);
+//    			ApplicationStatus stat = ApplicationStatus.valueOf(columns[3]); 
+//    			int applID = Integer.parseInt(columns[4]);
+//    			boolean book = Boolean.valueOf(columns[5]);
+//      				
+//    			if (stat == ApplicationStatus.SUCCESSFUL) {
+//    				
+//    				
+//    			}
+//    			//Application a = new Application();
+//      				
+//      				return a;
+//      			});
+
         projects.addAll(csvLoader.loadcsv("Data/ProjectList.csv", columns -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             int totalColumns = columns.length - 1;

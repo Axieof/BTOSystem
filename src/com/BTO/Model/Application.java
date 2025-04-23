@@ -1,6 +1,10 @@
 package src.com.BTO.Model;
+
 import src.com.BTO.Model.Applicant;
 import src.com.BTO.Model.Enums.ApplicationStatus;
+import src.com.BTO.Model.Enums.RoomType;
+
+import java.util.ArrayList;
 
 public class Application {
 	// variables
@@ -20,6 +24,19 @@ public class Application {
 		applicant = appl;
 		appStatus = ApplicationStatus.PENDING;
 		reqBooking = false;
+	}
+	
+	public Application(int ID, Project proj, RoomType rt, 
+			ApplicationStatus stat, Applicant appl, boolean booking) 
+	{
+		project = proj;
+		ArrayList<Unit> units = proj.getUnitTypes();
+		for (Unit u : units) {
+			if (u.getRoomType() == rt) unit = u;
+		}
+		appStatus = stat;
+		applicant = appl;
+		reqBooking = booking;
 	}
 	
 	// getters

@@ -38,6 +38,8 @@ public class UserView {
 		if (user.getBookedProject() != null) {
 			System.out.println("Booked project: " 
 					+ user.getBookedProject().getProjectName());
+			System.out.println("Booked unit: " 
+					+ user.getBookedUnit().getRoomType());
 		}
 		else {
 			System.out.println("Booked project: NULL");

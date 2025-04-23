@@ -9,6 +9,8 @@ public class Applicant extends User {
 
     private Application appliedProject = null; // Project user has applied for
 	private Project bookedProject = null;
+	private Unit bookedUnit = null;
+	
     private List<Enquiry> enquiryList = new ArrayList<>();
     private int projectID = -1;
 
@@ -26,5 +28,9 @@ public class Applicant extends User {
     public void setProjectID(){this.projectID = projectID;}
     
     public Project getBookedProject() { return bookedProject; }
-    public void setBookedProject(Project booked) { bookedProject = booked; }
+    public Unit getBookedUnit() { return bookedUnit; }
+    public void setBookedProject(Project booked, Unit u) { 
+    	bookedProject = booked; 
+    	bookedUnit = u;
+    }
 }

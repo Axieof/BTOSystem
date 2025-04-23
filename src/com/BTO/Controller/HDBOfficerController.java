@@ -1,22 +1,36 @@
 package src.com.BTO.Controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import src.com.BTO.Model.Applicant;
+import src.com.BTO.Model.Application;
 import src.com.BTO.Model.HDBOfficer;
 import src.com.BTO.Model.Project;
+import src.com.BTO.Model.Unit;
+import src.com.BTO.Model.Enums.*;
+
 import src.com.BTO.Service.MenuInputService;
+import src.com.BTO.Service.CSVLoaderService;
+
 import src.com.BTO.View.HDBOfficerView;
 
 public class HDBOfficerController extends ApplicantController{
     
+	// attributes
     private HDBOfficer officer;
+    private ArrayList<Application> applications;
+    
+    // tools
     private HDBOfficerView offView;
+    private CSVLoaderService csvloader;
 
-    public HDBOfficerController(HDBOfficer officer, ArrayList<Project> projs) {
+    public HDBOfficerController(HDBOfficer officer, ArrayList<Project> projs, ArrayList<Application> appls) {
     	super(officer, projs);
         this.officer = officer;
+        applications = appls;
         offView = new HDBOfficerView();
+        csvloader = new CSVLoaderService();
     }
     
     public void viewLandingPage() {
@@ -44,7 +58,6 @@ public class HDBOfficerController extends ApplicantController{
     		switch (choice) {
     		case 1-> regJoinProj();
     		case 2-> manageBookings();
-    		case 3-> genReceipts();
     		}
 
     		offView.displayOptions();
@@ -54,32 +67,118 @@ public class HDBOfficerController extends ApplicantController{
     	System.out.println("Exiting officer view...\n");
     }
     
+    @Override
+    protected ArrayList<Project> filterProjects(ArrayList<Project> projs) {
+    	return filtMgr.offFilterProjects(projs, officer);
+    }
+    
     private void regJoinProj() {
-    	System.out.println("Registering for project...");
-    	Project currProj = officer.getCurrProj();
-    	if (currProj != null) {
-    		System.out.println("ERROR: Cannot register for multiple open projects!\n");
-    		return;
+    	Application applied = officer.getApplied();
+    	if (applied != null) {
+        	if (applied.getReqBook()) {
+        		System.out.println("Already Booked!");
+        	}
+        	else if (applied.getAppStatus() == ApplicationStatus.SUCCESSFUL) {
+        		System.out.println("Booking project...");
+    			System.out.println("Would you like to make a booking? (YES = 1/ NO = 0)");
+    			int choice = MenuInputService.getMenuInput(sc); 
+    			
+    			if (choice == 0) {
+    				System.out.println("Terminating...");
+    			}
+    			else {
+    				applied.requestBooking();
+    				System.out.println("Booking requested!");
+    			}
+    		}
+        	else {
+        		System.out.println("Already applied for project!");
+        	}
     	}
-    	
-    	ArrayList<Project> filtered = super.filterProjects();
-    	if (filtered.size() == 0) {
-    		System.out.println("ERROR: No open projects!");
-    		return;
+    	else {
+    		System.out.println("Registering for project...");
+        	
+        	if (officer.getCurrProj() != null || officer.getApplied() != null) {
+        		System.out.println("ERROR: Cannot register/ apply for multiple open projects!\n");
+        		return;
+        	}
+        	
+        	ArrayList<Project> filtered = super.filterProjects();
+        	if (filtered.size() == 0) {
+        		System.out.println("ERROR: No open projects!\n");
+        		return;
+        	}
+        	System.out.println("Which would you like to register for?");
+        	applView.displayProjectNames(filtered);
+        	int choice = MenuInputService.getMenuInput(sc);
+        	
+        	Application appl = new Application(filtered.get(choice), null, officer); // Create and send application
+        	// UPDATE APPLICATION IN DATABASE (CSV) YET TO DO
+        	officer.setApplied(appl);
+        	
+        	System.out.println("Registered for project\n");
     	}
-    	System.out.println("Which would you like to register for?");
-    	applView.displayProjectNames(filtered);
-    	// continue
     }
     
     private void manageBookings() {
     	Project currProj = officer.getCurrProj();
+    	if (currProj == null) {
+    		System.out.println("ERROR: No registered project!");
+    		//return;
+    	}
     	
+    	// filter applications
+    	ArrayList<Application> appls = filtMgr.offManageApplication(applications);
+    	
+    	// display applications
+    	offView.displayApplications(appls);
+    	int choice = MenuInputService.getMenuInput(sc);
+    	Application curr = appls.get(choice); 
+    	
+    	System.out.println("Confirm booking? (YES = 1/ NO = 0)");
+    	choice = MenuInputService.getMenuInput(sc);
+    	
+    	if (choice == 0) {
+    		System.out.println("Exiting...\n");
+    		return;
+    	}
+    	
+    	ArrayList<Unit> units = curr.getProject().getUnitTypes();
+    	Unit chosen = null;
+    	for (Unit u : units) {
+    		if (u.getRoomType() == curr.getUnit().getRoomType()) {
+    			chosen = u;
+    			
+    			if (chosen.getUnitCount() <= 0) {
+    				System.out.println("ERROR: No flats remaining!");
+    				return;
+    			}
+    			chosen.setUnitCount(u.getUnitCount()-1);
+    			break;
+    		}
+    	}
+    	
+    	if (chosen != null) {
+    		curr.setAppStatus(ApplicationStatus.BOOKED);
+        	curr.getApplicant().setBookedProject(currProj, chosen);
+    		System.out.println("Booked successfully!\n");
+    		
+    		System.out.println("Generate receipt? (YES = 1/ NO = 0)");
+        	choice = MenuInputService.getMenuInput(sc);
+        	
+        	if (choice == 1) genReceipts(curr);
+        	else System.out.println("Exiting...\n");
+    	}
+    	else {
+    		System.out.println("ERROR: Invalid unit?");
+    	}
     	
     }
     
-    private void genReceipts() {
-    	
+    private void genReceipts(Application appl) {
+    	// Able to generate receipt of the applicants with their respective flat
+    	/// booking details – Applicant’s Name, NRIC, age, marital status, flat type
+    	// booked and its project details.
     }
 }
 
