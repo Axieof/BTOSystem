@@ -34,7 +34,9 @@ public class Project {
 		AppOpenDate = appOpen;
 		AppCloseDate = appClose;
 		
-		this.manager = manager;
+		if (manager != null) {
+            this.setManager(manager);
+        }
 		officerCount = 0;
 		visibility = true;
 	}
