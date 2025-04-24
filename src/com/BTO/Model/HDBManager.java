@@ -61,16 +61,25 @@ public class HDBManager extends User implements ICSVWritable {
     }
 
     // Approve or reject withdrawal requests
-    public void reviewWithdrawal(WithdrawalApplication withdrawal, boolean approve) {
-        if (!ownedProjects.contains(withdrawal.withdrawing.getProject())) return;
+    public void reviewWithdrawal(Application withdrawal, boolean approve) {
+        if (!ownedProjects.contains(withdrawal.getAppStatus() != ApplicationStatus.REQWITHDRAWAL)) return;
 
         if (approve) {
-            withdrawal.setApplicationStatus(ApplicationStatus.UNSUCCESSFUL);
-            // restore flat count
-            Unit u = withdrawal.withdrawing.getUnit();
-            u.setUnitCount(u.getUnitCount() + 1);
+            withdrawal.setAppStatus(ApplicationStatus.SUCWITHDRAWAL);
+            
+            if (withdrawal.getApplicant().getBookedUnit() != null) {
+            	// restore flat count
+                Unit u = withdrawal.getUnit();
+                u.setUnitCount(u.getUnitCount() + 1);
+            }
+            
         } else {
-            withdrawal.setApplicationStatus(ApplicationStatus.SUCCESSFUL);
+        	// Lecturer said to assume it will always be successful for now
+        	// So if unapproved we assume it is set back to PENGING or back to BOOKED
+        	
+        	// originally booked
+        	if (withdrawal.getApplicant().getBookedUnit() != null) withdrawal.setAppStatus(ApplicationStatus.BOOKED);
+        	else withdrawal.setAppStatus(ApplicationStatus.PENDING);
         }
     }
 
