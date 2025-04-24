@@ -30,6 +30,7 @@ public class HDBManagerController {
             System.out.println("Welcome, " + hdbManager.getName() + "!\n");
             view.displayOptions();
 
+            System.out.println("\nPlease enter your choice: ");
             String input = scanner.nextLine();
 
             switch (input) {

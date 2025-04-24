@@ -7,6 +7,7 @@ import BTO.Model.HDBOfficer;
 import BTO.Model.SystemData;
 import BTO.Model.User;
 import BTO.View.HDBOfficerView;
+import BTO.View.SystemView;
 
 public class HDBOfficerController {
 
@@ -21,6 +22,7 @@ public class HDBOfficerController {
             System.out.println("Welcome, " + hdbOfficer.getName() + "!\n");
             view.displayOptions();
 
+            System.out.println("\nPlease enter your choice: ");
             String input = scanner.nextLine();
 
             switch (input) {
@@ -31,7 +33,7 @@ public class HDBOfficerController {
                     // Personal settings logic
                     break;
                 case "2":
-                    // View projects logic
+                    SystemView.displayProjects(data.getProjects());
                     break;
                 case "3":
                     // Apply/Book project logic
