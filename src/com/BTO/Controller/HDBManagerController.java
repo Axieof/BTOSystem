@@ -106,7 +106,6 @@ public class HDBManagerController {
         allProjects.add(p);
         view.showProjectCreated(p);
     
-        // Save immediately
         List<ICSVWritable> writable = new ArrayList<>(allProjects);
         List<String> headers = List.of(
             "Project Name", "Neighbourhood", "Type1", "Units1", "Price1",
@@ -114,19 +113,25 @@ public class HDBManagerController {
         );
         new CSVWriterService().writeCSV(writable, "Data/ProjectList.csv", headers);
     }
+    
     
     
 
     private void editProject() {
         Project p = selectProject();
         if (p == null) return;
-        System.out.print("New name: "); p.setProjectName(sc.nextLine());
-        System.out.print("New neighbourhood: "); p.setNeighbourhood(sc.nextLine());
-        System.out.print("New open date (YYYY-MM-DD): "); p.setAppOpenDate(LocalDate.parse(sc.nextLine()));
-        System.out.print("New close date (YYYY-MM-DD): "); p.setAppCloseDate(LocalDate.parse(sc.nextLine()));
+    
+        System.out.print("New name: ");
+        p.setProjectName(sc.nextLine());
+        System.out.print("New neighbourhood: ");
+        p.setNeighbourhood(sc.nextLine());
+        System.out.print("New open date (YYYY-MM-DD): ");
+        p.setAppOpenDate(LocalDate.parse(sc.nextLine()));
+        System.out.print("New close date (YYYY-MM-DD): ");
+        p.setAppCloseDate(LocalDate.parse(sc.nextLine()));
+    
         view.showProjectEdited(p);
     
-        // Save directly
         List<ICSVWritable> writable = new ArrayList<>(allProjects);
         List<String> headers = List.of(
             "Project Name", "Neighbourhood", "Type1", "Units1", "Price1",
@@ -134,6 +139,7 @@ public class HDBManagerController {
         );
         new CSVWriterService().writeCSV(writable, "Data/ProjectList.csv", headers);
     }
+    
     
     
 
@@ -146,21 +152,6 @@ public class HDBManagerController {
         view.showProjectDeleted(p);
     
         List<ICSVWritable> writable = new ArrayList<>(allProjects);
-        List<String> headers = List.of(...); // same as above
-        new CSVWriterService().writeCSV(writable, "Data/ProjectList.csv", headers);
-    }
-    
-    
-
-    private void toggleVisibility() {
-        Project p = selectProject();
-        if (p == null) return;
-    
-        p.setVisibility(!p.getVisibility());
-        view.showToggleVisibility(p, p.getVisibility());
-    
-        // Inline CSV write
-        List<ICSVWritable> writable = new ArrayList<>(allProjects);
         List<String> headers = List.of(
             "Project Name", "Neighbourhood", "Type1", "Units1", "Price1",
             "Type2", "Units2", "Price2", "Open Date", "Close Date", "Manager NRIC", "Officers"
@@ -171,25 +162,69 @@ public class HDBManagerController {
     
     
 
-    private void viewMyProjects() {
-        List<Project> filtered = new FilterManager<Project>().mgrFilterProjects(manager.getOwnedProjects(), manager);
-        projectView.displayProjectList(filtered);
+    private void toggleVisibility() {
+        Project p = selectProject();
+        if (p == null) return;
+    
+        p.setVisibility(!p.getVisibility());
+        view.showToggleVisibility(p, p.getVisibility());
+    
+        List<ICSVWritable> writable = new ArrayList<>(allProjects);
+        List<String> headers = List.of(
+            "Project Name", "Neighbourhood", "Type1", "Units1", "Price1",
+            "Type2", "Units2", "Price2", "Open Date", "Close Date", "Manager NRIC", "Officers"
+        );
+        new CSVWriterService().writeCSV(writable, "Data/ProjectList.csv", headers);
     }
+    
+    
+    
+    
+
+    private void viewMyProjects() {
+        List<Project> myProjects = new ArrayList<>();
+        for (Project p : allProjects) {
+            if (p.getManager().equals(manager)) {
+                myProjects.add(p);
+            }
+        }
+    
+        if (myProjects.isEmpty()) {
+            view.showNoProjects();
+        } else {
+            projectView.displayProjectList(myProjects);
+        }
+    }
+    
 
     private Project selectProject() {
-        List<Project> projects = manager.getOwnedProjects();
-        if (projects.isEmpty()) {
+        List<Project> myProjects = new ArrayList<>();
+        for (Project p : allProjects) {
+            if (p.getManager().equals(manager)) {
+                myProjects.add(p);
+            }
+        }
+    
+        if (myProjects.isEmpty()) {
             view.showNoProjects();
             return null;
         }
-
-        for (int i = 0; i < projects.size(); i++) {
-            System.out.println((i + 1) + ". " + projects.get(i).getProjectName());
+    
+        for (int i = 0; i < myProjects.size(); i++) {
+            System.out.println((i + 1) + ". " + myProjects.get(i).getProjectName());
         }
+    
         System.out.print("Select project #: ");
         int idx = Integer.parseInt(sc.nextLine());
-        return (idx < 1 || idx > projects.size()) ? null : projects.get(idx - 1);
+        if (idx < 1 || idx > myProjects.size()) {
+            System.out.println("Invalid selection.");
+            return null;
+        }
+    
+        return myProjects.get(idx - 1);
     }
+    
+    
 
     private void handleOfficerRegistrations() {
     boolean back = false;
