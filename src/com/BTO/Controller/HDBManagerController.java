@@ -14,18 +14,22 @@ import src.com.BTO.View.*;
 import java.time.LocalDate;
 import java.util.*;
 
+import src.com.BTO.Service.CSVWriterService;
+import src.com.BTO.Service.ICSVWritable;
 
 public class HDBManagerController {
     private final HDBManager manager;
     private final Scanner sc;
+    private final List<Project> allProjects; // shared list from Main
     private final HDBManagerView view = new HDBManagerView();
     private final ManagerEnquiryView enquiryView = new ManagerEnquiryView();
     private final ProjectView projectView = new ProjectView();
     private final UserView userView = new UserView();
 
-    public HDBManagerController(HDBManager manager, Scanner sc) {
+    public HDBManagerController(HDBManager manager, Scanner sc, List<Project> allProjects) {
         this.manager = manager;
         this.sc = sc;
+        this.allProjects = allProjects;
     }
 
     public static HDBManager findManager(List<User> users, String nric) {
@@ -73,6 +77,7 @@ public class HDBManagerController {
         }
     }
 
+    
     private void createProject() {
         System.out.print("Project name: ");
         String name = sc.nextLine();
@@ -82,8 +87,9 @@ public class HDBManagerController {
         LocalDate open = LocalDate.parse(sc.nextLine());
         System.out.print("Close date (YYYY-MM-DD): ");
         LocalDate close = LocalDate.parse(sc.nextLine());
-
+    
         Project p = new Project(name, hood, open, close, manager);
+    
         System.out.print("How many unit types? ");
         int count = Integer.parseInt(sc.nextLine());
         for (int i = 0; i < count; i++) {
@@ -95,10 +101,21 @@ public class HDBManagerController {
             int units = Integer.parseInt(sc.nextLine());
             p.addUnitType(new Unit(type, units, price));
         }
-
+    
         manager.addOwnedProject(p);
+        allProjects.add(p);
         view.showProjectCreated(p);
+    
+        // Save immediately
+        List<ICSVWritable> writable = new ArrayList<>(allProjects);
+        List<String> headers = List.of(
+            "Project Name", "Neighbourhood", "Type1", "Units1", "Price1",
+            "Type2", "Units2", "Price2", "Open Date", "Close Date", "Manager NRIC", "Officers"
+        );
+        new CSVWriterService().writeCSV(writable, "Data/ProjectList.csv", headers);
     }
+    
+    
 
     private void editProject() {
         Project p = selectProject();
@@ -108,21 +125,51 @@ public class HDBManagerController {
         System.out.print("New open date (YYYY-MM-DD): "); p.setAppOpenDate(LocalDate.parse(sc.nextLine()));
         System.out.print("New close date (YYYY-MM-DD): "); p.setAppCloseDate(LocalDate.parse(sc.nextLine()));
         view.showProjectEdited(p);
+    
+        // Save directly
+        List<ICSVWritable> writable = new ArrayList<>(allProjects);
+        List<String> headers = List.of(
+            "Project Name", "Neighbourhood", "Type1", "Units1", "Price1",
+            "Type2", "Units2", "Price2", "Open Date", "Close Date", "Manager NRIC", "Officers"
+        );
+        new CSVWriterService().writeCSV(writable, "Data/ProjectList.csv", headers);
     }
+    
+    
 
     private void deleteProject() {
         Project p = selectProject();
         if (p == null) return;
+    
         manager.getOwnedProjects().remove(p);
+        allProjects.remove(p);
         view.showProjectDeleted(p);
+    
+        List<ICSVWritable> writable = new ArrayList<>(allProjects);
+        List<String> headers = List.of(...); // same as above
+        new CSVWriterService().writeCSV(writable, "Data/ProjectList.csv", headers);
     }
+    
+    
 
     private void toggleVisibility() {
         Project p = selectProject();
         if (p == null) return;
+    
         p.setVisibility(!p.getVisibility());
         view.showToggleVisibility(p, p.getVisibility());
+    
+        // Inline CSV write
+        List<ICSVWritable> writable = new ArrayList<>(allProjects);
+        List<String> headers = List.of(
+            "Project Name", "Neighbourhood", "Type1", "Units1", "Price1",
+            "Type2", "Units2", "Price2", "Open Date", "Close Date", "Manager NRIC", "Officers"
+        );
+        new CSVWriterService().writeCSV(writable, "Data/ProjectList.csv", headers);
     }
+    
+    
+    
 
     private void viewMyProjects() {
         List<Project> filtered = new FilterManager<Project>().mgrFilterProjects(manager.getOwnedProjects(), manager);

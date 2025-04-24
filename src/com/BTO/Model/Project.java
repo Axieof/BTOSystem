@@ -1,5 +1,6 @@
 package src.com.BTO.Model;
 import java.util.ArrayList;
+import java.util.List;
 
 import src.com.BTO.Model.Enums.RoomType;
 
@@ -68,7 +69,7 @@ public class Project {
 	public int getOfficerCount() { return officerCount; }
 	
 	public boolean getVisibility() { return visibility; }
-	
+		
 	// setters
 	public void setID() { setID(-1); }
 	public void setID(int id) { 
@@ -119,6 +120,8 @@ public class Project {
 	
 	public void setVisibility(boolean vis) { visibility = vis; }
 	
+	
+
 	// other methods
 	@Override
     public String toString() {
