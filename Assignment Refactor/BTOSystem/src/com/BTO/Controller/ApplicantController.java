@@ -9,11 +9,7 @@ import BTO.View.ApplicantView;
 
 public class ApplicantController {
 
-    public static void run(SystemData data, User user) {
-        if (!(user instanceof Applicant)) {
-            System.out.println("Invalid user type for ApplicantController.");
-            return;
-        }
+    public static void run(SystemData data, User user, Scanner scanner) {
 
         Applicant applicant = (Applicant) user;
         ApplicantView view = new ApplicantView();
@@ -24,7 +20,6 @@ public class ApplicantController {
             System.out.println("Welcome, " + applicant.getName() + "!");
             view.displayOptions();
 
-            Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
 
             switch (input) {

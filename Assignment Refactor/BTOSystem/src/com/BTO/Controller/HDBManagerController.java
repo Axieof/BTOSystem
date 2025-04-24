@@ -19,10 +19,17 @@ public class HDBManagerController {
     }
 
     // Called by SystemController when manager logs in
-    public static void run(SystemData systemData, User user,Scanner scanner) {
+    public static void run(SystemData data, User user, Scanner scanner) {
+
+        HDBManager hdbManager = (HDBManager) user;
+        HDBManagerView view = new HDBManagerView();
+
         boolean running = true;
         while (running) {
-            HDBManagerView.displayMenu();
+            System.out.println("\n=== HDB Manager Dashboard ===");
+            System.out.println("Welcome, " + hdbManager.getName() + "!");
+            view.displayOptions();
+
             String input = scanner.nextLine();
 
             switch (input) {
@@ -30,40 +37,25 @@ public class HDBManagerController {
                     running = false;
                     break;
                 case "1":
-                    // Change password logic
+                    // Personal settings logic
                     break;
                 case "2":
-                    // View all projects logic
+                    // Manage BTO Projects
                     break;
                 case "3":
-                    // Create new project logic
+                    // Handle HDB Officer Registrations
                     break;
                 case "4":
-                    // Edit project logic
+                    // Handle Applicant Applications
                     break;
                 case "5":
-                    // Delete project logic
+                    // Handle Withdrawal Requests
                     break;
                 case "6":
-                    // Toggle project visibility logic
+                    // View & Respond to Enquiries
                     break;
                 case "7":
-                    // View pending/approved officer registrations logic
-                    break;
-                case "8":
-                    // Approve/reject officer registration logic
-                    break;
-                case "9":
-                    // Approve/reject applicant application logic
-                    break;
-                case "10":
-                    // Approve/reject withdrawal requests logic
-                    break;
-                case "11":
-                    // Generate applicant report logic
-                    break;
-                case "12":
-                    // View/reply to enquiries logic
+                    // Generate Reports
                     break;
                 default:
                     System.out.println("Invalid input. Please try again.");
