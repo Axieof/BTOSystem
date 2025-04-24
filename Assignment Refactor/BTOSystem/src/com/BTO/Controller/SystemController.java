@@ -118,10 +118,20 @@ public class SystemController {
 
                         switch (loggedInUser.getUserType().toString()) {
                             case "APPLICANT":
-                                ApplicantController.run(systemData, loggedInUser, scanner);
+                                ArrayList<Project> arrProjs = new ArrayList<>(systemData.getProjects());
+                                ArrayList<Application> arrAppls = new ArrayList<>(systemData.getApplications());
+                                ApplicantController applicantController = new ApplicantController((Applicant) loggedInUser, arrProjs, arrAppls);
+                                applicantController.viewLandingPage();
+                                
+
+                                //ApplicantController.run(systemData, loggedInUser, scanner);
                                 break;
                             case "HDBOFFICER":
-                                HDBOfficerController.run(systemData, loggedInUser, scanner);
+                                ArrayList<Project> arrProjs = new ArrayList<>(systemData.getProjects());
+                                ArrayList<Application> arrAppls = new ArrayList<>(systemData.getApplications());
+                                HDBOfficerController officerController = new HDBOfficerController((HDBOfficer) loggedInUser, arrProjs, arrAppls);
+                                officerController.viewLandingPage();
+                                //HDBOfficerController.run(systemData, loggedInUser, scanner);
                                 break;
                             case "HDBMANAGER":
                                 HDBManagerController.run(systemData, loggedInUser, scanner);

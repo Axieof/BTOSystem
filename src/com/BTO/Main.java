@@ -1,15 +1,20 @@
 package src.com.BTO;
 
 // Imports
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import src.com.BTO.Controller.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import src.com.BTO.Model.*;
 import src.com.BTO.Model.Enums.*;
 import src.com.BTO.Service.*;
+import src.com.BTO.Controller.*;
 import src.com.BTO.View.*;
 
 public class Main {
@@ -22,6 +27,7 @@ public class Main {
         CSVLoaderService csvLoader = new CSVLoaderService();
         List<User> users = new ArrayList<>();
         List<Project> projects = new ArrayList<>();
+        List<Application> applications = new ArrayList<>();
 
         // Load from csv files into a central list
         users.addAll(csvLoader.loadcsv("Data/ApplicantList.csv", columns -> new Applicant(columns[0], columns[1], Integer.parseInt(columns[2]), MaritalStatus.valueOf(columns[3].toUpperCase()), columns[4])));
@@ -94,15 +100,23 @@ public class Main {
         if (loggedInUser instanceof HDBOfficer) {
             System.out.println("\nRedirecting to HDB Officer Dashboard...");
             // new OfficerController((HDBOfficer) loggedInUser).run();
+            ArrayList<Project> arrProjs = new ArrayList<>(projects);
+            ArrayList<Application> arrAppls = new ArrayList<>(applications);
+            HDBOfficerController officerController = new HDBOfficerController((HDBOfficer) loggedInUser, arrProjs, arrAppls);
+            officerController.viewLandingPage();
+            
         } else if (loggedInUser instanceof Applicant) {
             System.out.println("\nRedirecting to Applicant Dashboard...");
             // new ApplicantController((Applicant) loggedInUser).run();
+            ArrayList<Project> arrProjs = new ArrayList<>(projects);
+            ArrayList<Application> arrAppls = new ArrayList<>(applications);
+            ApplicantController applicantController = new ApplicantController((Applicant) loggedInUser, arrProjs, arrAppls);
+            applicantController.viewLandingPage();
+            
         } else if (loggedInUser instanceof HDBManager) {
             System.out.println("\nRedirecting to HDB Manager Dashboard...");
-            HDBManagerController hdbManagerController = new HDBManagerController((HDBManager) loggedInUser, mainScanner);
-            hdbManagerController.run();
-        }
-         else {
+            // new ManagerController((HDBManager) loggedInUser).run();
+        } else {
             System.out.println("No User has logged in. Exiting program");
         }
 
