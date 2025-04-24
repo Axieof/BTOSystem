@@ -87,11 +87,30 @@ public class HDBOfficerController extends ApplicantController{
         		Project proj = register.getProject();
         		proj.addOfficer(officer);
         		officer.setCurrProj(proj);
+        		
+        		Iterator<Application> it = applications.iterator();
+        		while(it.hasNext()) {
+            		Application a = it.next();
+            		if (a.getID() == register.getID()) it.remove();
+            	}
         		officer.setProjReg(null);
         		
         		System.out.println("Completed registration!");
     		}
-        	else System.out.println("Already registered for project!");
+        	else if (register.getAppStatus() == ApplicationStatus.PENDING) System.out.println("Already registered for project!");
+        	else {
+        		System.out.println("Project registration unsuccessful!");
+        		System.out.println("Deleting registration...");
+        		
+        		Iterator<Application> it = applications.iterator();
+            	while(it.hasNext()) {
+            		Application a = it.next();
+            		if (a.getID() == register.getID()) it.remove();
+            	}
+        		officer.setProjReg(null);
+        		
+        		System.out.println("Done! Re-enter to register for another project.");
+        	}
     	}
     	else {
     		System.out.println("Registering for project...");
