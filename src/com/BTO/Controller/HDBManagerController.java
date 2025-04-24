@@ -179,8 +179,8 @@ public class HDBManagerController {
 
     private void handleWithdrawals() {
         for (Project project : manager.getOwnedProjects()) {
-            List<WithdrawalApplication> withdrawals = project.getWithdrawalApplications();
-            for (WithdrawalApplication withdrawal : withdrawals) {
+            List<Application> withdrawals = project.getWithdrawalApplications();
+            for (Application withdrawal : withdrawals) {
                 if (withdrawal.getApplicationStatus() == ApplicationStatus.REQWITHDRAWAL) {
                     userView.displayUser(withdrawal.getApplicant());
                     System.out.print("Approve withdrawal? (y/n): ");

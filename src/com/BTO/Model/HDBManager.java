@@ -62,7 +62,7 @@ public class HDBManager extends User implements ICSVWritable {
         }
     }
 
-    public void reviewWithdrawal(WithdrawalApplication withdrawal, boolean approve) {
+    public void reviewWithdrawal(Application withdrawal, boolean approve) {
         Application app = withdrawal;
     
         if (!ownedProjects.contains(app.getProject())) return;
