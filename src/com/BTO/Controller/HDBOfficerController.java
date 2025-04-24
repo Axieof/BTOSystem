@@ -1,6 +1,7 @@
 package src.com.BTO.Controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import src.com.BTO.Model.Applicant;
@@ -19,7 +20,6 @@ public class HDBOfficerController extends ApplicantController{
     
 	// attributes
     private HDBOfficer officer;
-    private ArrayList<Application> applications;
     
     // tools
     private HDBOfficerView offView;
@@ -73,15 +73,15 @@ public class HDBOfficerController extends ApplicantController{
     }
     
     private void regJoinProj() {
-    	Application applied = officer.getApplied();
-    	if (applied != null) {
-        	if (applied.getAppStatus() == ApplicationStatus.SUCCESSFUL && applied.getUnit() == null) {
+    	Application register = officer.getProjReg();
+    	if (register != null) {
+        	if (register.getAppStatus() == ApplicationStatus.SUCCESSFUL) {
         		System.out.println("Project registration successful!");
 
-        		Project proj = applied.getProject();
+        		Project proj = register.getProject();
         		proj.addOfficer(officer);
         		officer.setCurrProj(proj);
-        		officer.setApplied(null);
+        		officer.setProjReg(null);
         		
         		System.out.println("Completed registration!");
     		}
@@ -90,8 +90,8 @@ public class HDBOfficerController extends ApplicantController{
     	else {
     		System.out.println("Registering for project...");
         	
-        	if (officer.getCurrProj() != null || officer.getApplied() != null) {
-        		System.out.println("ERROR: Cannot register/ apply for multiple open projects!\n");
+        	if (officer.getCurrProj() != null) {
+        		System.out.println("ERROR: Cannot register for multiple open projects!\n");
         		return;
         	}
         	
@@ -106,8 +106,14 @@ public class HDBOfficerController extends ApplicantController{
         	
         	// null unit marks difference between officer registration application and normal application
         	Application appl = new Application(filtered.get(choice), null, officer); // Create and send application
-        	// UPDATE APPLICATION IN DATABASE (CSV) YET TO DO
-        	officer.setApplied(appl);
+
+        	Iterator<Application> it = applications.iterator();
+        	while(it.hasNext()) {
+        		Application a = it.next();
+        		if (a.getID() == appl.getID()) it.remove();
+        	}
+        	
+        	officer.setProjReg(appl);
         	
         	System.out.println("Registered for project\n");
     	}
