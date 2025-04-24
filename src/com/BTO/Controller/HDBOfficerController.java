@@ -84,6 +84,13 @@ public class HDBOfficerController extends ApplicantController{
         	if (register.getAppStatus() == ApplicationStatus.SUCCESSFUL) {
         		System.out.println("Project registration successful!");
 
+        		if (officer.getBookedProject().getID() == register.getProject().getID()) {
+    				System.out.println("ERROR: Cannot apply for project as officer of project!");
+    				System.out.println("Setting application status to UNSUCCESSFUL...");
+    				register.setAppStatus(ApplicationStatus.UNSUCCESSFUL);
+    				System.out.println("Terminating...\n");
+    				return;
+    			}
         		Project proj = register.getProject();
         		proj.addOfficer(officer);
         		officer.setCurrProj(proj);
