@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import src.com.BTO.Model.Enums.RoomType;
+
 import src.com.BTO.Model.*;
 import src.com.BTO.Model.Enums.*;
 import src.com.BTO.Service.Filter.FilterManager;
@@ -145,22 +145,93 @@ public class HDBManagerController {
     }
 
     private void handleOfficerRegistrations() {
-        for (Project project : manager.getOwnedProjects()) {
-            List<HDBOfficer> pending = project.getPendingOfficerList();
-            if (pending.isEmpty()) continue;
-            System.out.println("Pending officers for " + project.getProjectName() + ":");
-            for (int i = 0; i < pending.size(); i++) {
-                System.out.println((i + 1) + ". " + pending.get(i).getName());
-            }
-            System.out.print("Approve officer # or 0 to skip: ");
-            int index = Integer.parseInt(sc.nextLine());
-            if (index > 0 && index <= pending.size()) {
-                HDBOfficer selected = pending.get(index - 1);
-                manager.reviewOfficerRegistration(project, selected, true);
-                System.out.println("Officer approved.");
+    boolean back = false;
+        while (!back) {
+            view.displayOfficerMenu();
+            int choice = Integer.parseInt(sc.nextLine());
+            switch (choice) {
+                case 1 -> viewAllPendingOfficers();
+                case 2 -> approveOrRejectOfficers();
+                case 0 -> back = true;
+                default -> view.showInvalidOption();
             }
         }
     }
+
+    // In HDBManagerController.java
+    private void viewAllPendingOfficers() {
+        boolean found = false;
+
+        for (Project project : manager.getOwnedProjects()) {
+            ArrayList<HDBOfficer> allOfficers = project.getOfficers();
+
+            for (HDBOfficer officer : allOfficers) {
+                Application reg = officer.getProjReg();
+
+                if (reg != null &&
+                    reg.getAppStatus() == ApplicationStatus.PENDING &&
+                    reg.getProject() == project) {
+
+                    found = true;
+                    System.out.println("\nPending registration:");
+                    System.out.println("- Officer: " + officer.getName());
+                    System.out.println("- Project: " + project.getProjectName());
+                }
+            }
+        }
+
+        if (!found) {
+            System.out.println("No pending officer registrations.");
+        }
+    }
+
+    
+
+    private void approveOrRejectOfficers() {
+        for (Project project : manager.getOwnedProjects()) {
+            ArrayList<HDBOfficer> allOfficers = project.getOfficers();
+    
+            List<HDBOfficer> pending = new ArrayList<>();
+            for (HDBOfficer officer : allOfficers) {
+                Application reg = officer.getProjReg();
+                if (reg != null &&
+                    reg.getAppStatus() == ApplicationStatus.PENDING &&
+                    reg.getProject() == project) {
+                    pending.add(officer);
+                }
+            }
+    
+            if (pending.isEmpty()) continue;
+    
+            System.out.println("\nPending officers for " + project.getProjectName() + ":");
+            for (int i = 0; i < pending.size(); i++) {
+                System.out.println((i + 1) + ". " + pending.get(i).getName());
+            }
+    
+            System.out.print("Select officer # to review (0 to skip): ");
+            int index = Integer.parseInt(sc.nextLine());
+    
+            if (index > 0 && index <= pending.size()) {
+                HDBOfficer officer = pending.get(index - 1);
+                System.out.print("Approve (a) / Reject (r): ");
+                String input = sc.nextLine().toLowerCase();
+    
+                boolean approved = input.equals("a");
+                manager.reviewOfficerRegistration(project, officer, approved);
+    
+                if (approved) {
+                    System.out.println("Approved " + officer.getName());
+                } else {
+                    System.out.println("Rejected " + officer.getName());
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+
 
     private void handleApplicantApplications() {
         for (Project project : manager.getOwnedProjects()) {
