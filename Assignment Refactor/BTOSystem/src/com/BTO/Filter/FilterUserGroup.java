@@ -19,7 +19,7 @@ public class FilterUserGroup implements IFilterProject{
 		
 		ArrayList<Project> filtered = new ArrayList<>();
 		
-		FilterFlatType filterFlat = new FilterFlatType();
+		FilterProjectFlatType filterFlat = new FilterProjectFlatType();
 		if (applicant.getMaritalStatus() == MaritalStatus.SINGLE && applicant.getAge() >= 35) {
 			filterFlat.setRoomType(RoomType.TWOROOM); // only gets two room
 		}
