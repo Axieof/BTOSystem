@@ -3,7 +3,12 @@ package BTO.Model;
 import BTO.Enum.MaritalStatus;
 import BTO.Enum.UserType;
 
+import java.util.HashMap;
+
 public class User {
+
+    private static final String[] FILTERTYPES = {"FilterProjectFlatType", "FilterProjectLocation"};
+    private HashMap<String, String> filters = new HashMap<>(); 
     
     // Attributes
     private String name;
@@ -21,6 +26,11 @@ public class User {
         this.maritalStatus = maritalStatus;
         this.password = password;
         this.userType = userType;
+
+        // Default filter null
+        for (String filt : FILTERTYPES) { 
+        	filters.put(filt, "NULL");
+        }
         
     }
 
@@ -41,6 +51,8 @@ public class User {
         return prefix + "****" + visible + suffix;
     }
 
+    public static String[] getAllFilterTypes() { return FILTERTYPES; }
+
     // === Setters ===
     public void setName(String name) { this.name = name; }
 
@@ -54,6 +66,10 @@ public class User {
         this.password = newPassword;
     }
 
+    public void setFilter(String filterType, String key) {
+    	filters.put(filterType, key);
+    }
+
     // === Methods ===
     public boolean checkPassword(String input) {
         return password.equals(input);
@@ -62,5 +78,7 @@ public class User {
     public boolean checkNric(String input) {
         return nric.equals(input);
     }
+
+    public HashMap<String, String> getFilters() { return filters; }
 
 }

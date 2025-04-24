@@ -31,25 +31,43 @@ public class ApplicantController {
                     break;
                 case "1":
                     // Personal settings logic
+                    UserSettingsController.run(applicant, scanner);
                     break;
                 case "2":
+                    // View projects logic
                     SystemView.displayProjects(data.getProjects());
                     break;
                 case "3":
                     // Apply/Book project logic
+                    applyForProject(data, applicant, scanner);
                     break;
                 case "4":
                     // View applied project logic
+                    //view.displayAppliedProjects(applicant.getAppliedProjects());
                     break;
                 case "5":
                     // Request withdrawal logic
+                    //requestWithdrawal(data, applicant, scanner);
                     break;
                 case "6":
                     // Handle enquiries logic
+                    //andleEnquiries(data, applicant, scanner);
                     break;
                 default:
                     System.out.println("Invalid input. Please try again.");
             }
         }
+    }
+
+    private static void applyForProject(SystemData data, Applicant applicant, Scanner scanner) {
+        // Logic to apply for a project
+    }
+
+    private static void requestWithdrawal(Applicant applicant, Scanner scanner) {
+        // Logic to request withdrawal
+    }
+
+    private static void handleEnquiries(Applicant applicant, Scanner scanner) {
+        // Logic to handle enquiries
     }
 }
