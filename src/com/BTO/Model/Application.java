@@ -16,14 +16,11 @@ public class Application {
 	private ApplicationStatus appStatus;
 	private Applicant applicant;
 	
-	private boolean reqBooking;
-	
 	public Application(Project proj, Unit u, Applicant appl) {
 		project = proj;
 		unit = u;
 		applicant = appl;
 		appStatus = ApplicationStatus.PENDING;
-		reqBooking = false;
 	}
 	
 	// getters
@@ -34,7 +31,6 @@ public class Application {
 	public Unit getUnit() { return unit; }
 	public ApplicationStatus getAppStatus() { return appStatus; }
 	public Applicant getApplicant() { return applicant; }
-	public boolean getReqBook() { return reqBooking; }
 	
 	// setters
 	public void setID() { setID(-1); }
@@ -46,5 +42,4 @@ public class Application {
 	public void setProject(Project projListing) { project = projListing; }
 	public void setUnit(Unit u) { unit = u;}
 	public void setAppStatus(ApplicationStatus appStat) { appStatus = appStat; }
-	public void requestBooking() { reqBooking = true; } 
 } 	

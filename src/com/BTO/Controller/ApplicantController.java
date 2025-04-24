@@ -9,17 +9,17 @@ import src.com.BTO.Service.MenuInputService;
 import src.com.BTO.View.ApplicantView;
 import src.com.BTO.View.ProjectView;
 
-import src.com.BTO.Controller.ApplicantEnquiryController;
-
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.HashMap;
+import java.util.Iterator;
 
 public class ApplicantController {
     
 	// General attributes
 	private ArrayList<Project> projects = new ArrayList<Project>();
 	private Applicant applicant;
+	private ArrayList<Application> applications;
+	private ArrayList<WithdrawalApplication> withdrawA;
 	
 	// Tools
 	private UserSettingsController settings;
@@ -33,6 +33,8 @@ public class ApplicantController {
     public ApplicantController(Applicant appl, ArrayList<Project> projs) {
     	applicant = appl;
     	projects = projs;
+    	applications = new ArrayList<>(); // SHOULD BE PASSED IN FROM CALLER
+    	withdrawA = new ArrayList<>(); // SHOULD BE PASSED IN FROM CALLER
  
     	applView = new ApplicantView();
     	settings = new UserSettingsController(appl);
@@ -59,6 +61,7 @@ public class ApplicantController {
     	}
     	
     	System.out.println("Exiting applicant view...\n");
+    	// SHOULD RETURN ALL NECESSARY ITEMS? UNLESS ALREADY MUTABLE ITEMS
     }
 
     protected ArrayList<Project> filterProjects() { return filterProjects(this.projects); }
@@ -85,25 +88,24 @@ public class ApplicantController {
     private void applyProject() {
     	Application applied = applicant.getApplied();
     	if (applied != null && applied.getAppStatus() != ApplicationStatus.UNSUCCESSFUL) {
-        	if (applied.getReqBook()) {
-        		System.out.println("Already Booked!");
-        	}
-        	else if (applied.getAppStatus() == ApplicationStatus.SUCCESSFUL && applied.getUnit() != null) {
+    		
+    		if (applied.getAppStatus() == ApplicationStatus.BOOKED) System.out.println("Already Booked!");
+    		else if (applied.getAppStatus() == ApplicationStatus.REQBOOKING) System.out.println("Already requested booking!");
+    		else if (applied.getAppStatus() == ApplicationStatus.REQWITHDRAWAL) System.out.println("Wait for withdrawal approval!");
+    		else if (applied.getAppStatus() == ApplicationStatus.SUCWITHDRAWAL) System.out.println("Withdrawal approved! Go to 'withdraw application' function.");
+        	
+    		else if (applied.getAppStatus() == ApplicationStatus.SUCCESSFUL) {
         		System.out.println("Booking project...");
     			System.out.println("Would you like to make a booking? (YES = 1/ NO = 0)");
     			int choice = MenuInputService.getMenuInput(sc); 
     			
-    			if (choice == 0) {
-    				System.out.println("Terminating...");
-    			}
+    			if (choice == 0) System.out.println("Terminating...\n");
     			else {
-    				applied.requestBooking();
+    				applied.setAppStatus(ApplicationStatus.REQBOOKING);
     				System.out.println("Booking requested!");
     			}
     		}
-        	else {
-        		System.out.println("Already applied for project!");
-        	}
+        	else System.out.println("Already applied for project!");
     	}
     	else {
     		System.out.println("Applying for project...");
@@ -138,7 +140,8 @@ public class ApplicantController {
         	
         	// Create and send application
         	Application appl = new Application(proj, u, applicant);
-        	// UPDATE APPLICATION IN DATABASE (CSV) YET TO DO
+        	
+        	applications.add(appl);
         	applicant.setApplied(appl);
         	System.out.println("Applied for project");
     	}
@@ -159,21 +162,33 @@ public class ApplicantController {
     private void requestAppWithdrawal() {
     	System.out.println("Withdrawing from applied project...");
     	Application applied = applicant.getApplied();
-    	if (applied == null || applied.getUnit() == null) {
-    		System.out.println("ERROR: Yet to apply for project!\\n");
-    		return;
+    	if (applied == null) {
+    		System.out.println("ERROR: Yet to apply for project!\n");
     	}
-    	
-    	System.out.println("Are you sure? (YES = 1/ NO = 0)");
-    	int choice = MenuInputService.getMenuInput(sc); 
-    	
-    	if (choice == 0) {
-    		System.out.println("Terminating...\n");
+    	else if (applied.getAppStatus() == ApplicationStatus.REQWITHDRAWAL) {
+    		System.out.println("ERROR: Already requested withdrawal!\n");
+    	}
+    	else if (applied.getAppStatus() == ApplicationStatus.SUCWITHDRAWAL) {
+    		System.out.println("Successful withdrawal!");
+    		
+    		Iterator<Application> it = applications.iterator();
+        	while(it.hasNext()) {
+        		Application a = it.next();
+        		if (a.getID() == applied.getID()) it.remove();
+        	}
+    		applicant.setApplied(null);
+        	
+    		System.out.println("Deleted original application!\n");
     	}
     	else {
-    		WithdrawalApplication w = new WithdrawalApplication(applied);
-    		// SAVE APPLICATION WITHDRAWAL SOMEWHERE
-        	System.out.println("Sent withdrawal application!\\n");
+    		System.out.println("Are you sure? (YES = 1/ NO = 0)");
+        	int choice = MenuInputService.getMenuInput(sc); 
+        	
+        	if (choice == 0) System.out.println("Terminating...\n");
+        	else {
+        		applied.setAppStatus(ApplicationStatus.REQWITHDRAWAL);
+            	System.out.println("Sent withdrawal application!\\n");
+        	}
     	}
     }
 

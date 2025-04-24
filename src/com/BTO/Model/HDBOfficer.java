@@ -9,6 +9,7 @@ public class HDBOfficer extends Applicant implements ICSVWritable {
 
 	private ArrayList<Project> closedProjs;
 	private Project currProj;
+	private Application projReg;
 	
     public HDBOfficer(String name, String nric, int age, MaritalStatus maritalStatus, String password) {
         super(name, nric, age, maritalStatus, password);
@@ -18,9 +19,11 @@ public class HDBOfficer extends Applicant implements ICSVWritable {
     
     public ArrayList<Project> getClosedProjs() { return closedProjs; }
     public Project getCurrProj() { return currProj; }
+    public Application getProjReg() { return projReg; }
     
     public void addClosedProj(Project proj) { closedProjs.add(proj); }
     public void setCurrProj(Project proj) { currProj = proj; }
+    public void setProjReg(Application a) { projReg = a; }
 
     @Override
     public String toCSV() {

@@ -88,12 +88,8 @@ public class FilterManager<T> {
 		
 		// FILTER THE COMPULSORY STUFF
 		FilterApplicationState filterState = new FilterApplicationState();  // application state
-		filterState.setCondition(ApplicationStatus.SUCCESSFUL);
+		filterState.setCondition(ApplicationStatus.REQBOOKING);
 		filtered = filterState.filter(appls);
-		
-		FilterApplicationBooking filterBk = new FilterApplicationBooking(); // booking requested
-		filterBk.setCondition(true);
-		filtered = filterBk.filter(filtered);
 		
 		return filtered; // probably no need preference filter
 	}
