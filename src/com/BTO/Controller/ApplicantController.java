@@ -35,6 +35,7 @@ public class ApplicantController {
     	applications = new ArrayList<>(); // SHOULD BE PASSED IN FROM CALLER
  
     	applView = new ApplicantView();
+    	projView = new ProjectView();
     	settings = new UserSettingsController(appl);
     	filtMgr = new FilterManager();
     	
@@ -92,6 +93,14 @@ public class ApplicantController {
         	
     		else if (applied.getAppStatus() == ApplicationStatus.SUCCESSFUL) {
         		System.out.println("Booking project...");
+        		
+        		if (applicant instanceof HDBOfficer) {
+        			if (((HDBOfficer) applicant).getCurrProj().getID() == applied.getProject().getID()) {
+        				System.out.println("ERROR: Cannot apply for project as officer of project!");
+        				System.out.println("Terminating...\n");
+        				return;
+        			}
+        		}
     			System.out.println("Would you like to make a booking? (YES = 1/ NO = 0)");
     			int choice = MenuInputService.getMenuInput(sc); 
     			
@@ -124,11 +133,18 @@ public class ApplicantController {
         		proj = filtered.get(choice);
         	}
         	catch(Exception e) {
-        		System.out.println("ERROR: Invalid value!");
+        		System.out.println("ERROR: Invalid value!\n");
         		return;
         	}
-        	
         	System.out.println();
+        	
+        	if (applicant instanceof HDBOfficer) {
+    			if (((HDBOfficer) applicant).getCurrProj().getID() == proj.getID()) {
+    				System.out.println("ERROR: Cannot apply for project as officer of project!");
+    				System.out.println("Terminating...\n");
+    				return;
+    			}
+    		}
         	
         	// Choose a unit
         	ArrayList<Unit> allUnits = proj.getUnitTypes();
