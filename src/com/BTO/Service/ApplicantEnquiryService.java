@@ -1,13 +1,8 @@
 package src.com.BTO.Service;
 
 import java.util.List;
-import java.util.Scanner;
-
-import src.com.BTO.Model.Applicant;
-import src.com.BTO.View.ApplicantEnquiryView;
-import src.com.BTO.View.ApplicantView;
 import src.com.BTO.Controller.ApplicantEnquiryController;
-
+import src.com.BTO.Model.Applicant;
 import src.com.BTO.Model.Enquiry;
 
 public class ApplicantEnquiryService {
