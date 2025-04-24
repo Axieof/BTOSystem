@@ -27,7 +27,7 @@ public class HDBManagerController {
         boolean running = true;
         while (running) {
             System.out.println("\n=== HDB Manager Dashboard ===");
-            System.out.println("Welcome, " + hdbManager.getName() + "!");
+            System.out.println("Welcome, " + hdbManager.getName() + "!\n");
             view.displayOptions();
 
             String input = scanner.nextLine();

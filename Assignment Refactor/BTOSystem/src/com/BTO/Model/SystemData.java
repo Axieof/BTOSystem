@@ -38,4 +38,8 @@ public class SystemData {
         all.addAll(hdbmanagerList);
         return all;
     }
+
+    public List<Project> getAllProjects() {
+        return projectList;
+    }
 }

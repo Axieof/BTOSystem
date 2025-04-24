@@ -18,7 +18,7 @@ public class HDBOfficerController {
         boolean running = true;
         while (running) {
             System.out.println("\n=== HDB Officer Dashboard ===");
-            System.out.println("Welcome, " + hdbOfficer.getName() + "!");
+            System.out.println("Welcome, " + hdbOfficer.getName() + "!\n");
             view.displayOptions();
 
             String input = scanner.nextLine();

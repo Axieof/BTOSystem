@@ -6,6 +6,7 @@ import BTO.Model.Applicant;
 import BTO.Model.SystemData;
 import BTO.Model.User;
 import BTO.View.ApplicantView;
+import BTO.View.SystemView;
 
 public class ApplicantController {
 
@@ -17,10 +18,12 @@ public class ApplicantController {
         boolean running = true;
         while (running) {
             System.out.println("\n=== Applicant Dashboard ===");
-            System.out.println("Welcome, " + applicant.getName() + "!");
+            System.out.println("Welcome, " + applicant.getName() + "!\n");
             view.displayOptions();
 
+            System.out.println("\nPlease enter your choice: ");
             String input = scanner.nextLine();
+            System.out.println("DEBUG: User entered: " + input);
 
             switch (input) {
                 case "0":
@@ -30,7 +33,7 @@ public class ApplicantController {
                     // Personal settings logic
                     break;
                 case "2":
-                    // View projects logic
+                    SystemView.displayProjects(data.getProjects());
                     break;
                 case "3":
                     // Apply/Book project logic
