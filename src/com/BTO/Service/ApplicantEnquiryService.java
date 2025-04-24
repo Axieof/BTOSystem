@@ -6,18 +6,17 @@ import java.util.Scanner;
 import src.com.BTO.Model.Applicant;
 import src.com.BTO.View.ApplicantEnquiryView;
 import src.com.BTO.View.ApplicantView;
-import src.com.BTO.Service.UserEnquiryService;
 import src.com.BTO.Controller.ApplicantEnquiryController;
 
 import src.com.BTO.Model.Enquiry;
 
 public class ApplicantEnquiryService {
     public static int enquiryID = 0;
-    private UserEnquiryService callService;
     private ApplicantEnquiryController callController;
+    private Applicant applicant;
 
     public ApplicantEnquiryService(Applicant applicant) {
-        this.callService = new UserEnquiryService();
+        this.applicant = applicant;
     }
 
     public int generateEnquiryIDService() {

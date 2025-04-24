@@ -42,6 +42,6 @@ public class Enquiry {
 	public void clearEnquiries() { allEnquiry = new ArrayList<Enquiry>(); }
 	
 	public String toString(){
-		return "Enquiry{Enquiry: '" + message + "', Response:" + response + "}";
+		return "Enquiry{EnquiryID: "+ enquiryID +"Enquiry: '" + message + "', Response:" + response + "}";
 	}
 }
