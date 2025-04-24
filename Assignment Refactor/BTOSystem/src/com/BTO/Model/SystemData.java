@@ -10,6 +10,7 @@ public class SystemData {
     private List<HDBOfficer> hdbOfficerList = new ArrayList<>();
     private List<HDBManager> hdbmanagerList = new ArrayList<>();
     private List<Project> projectList = new ArrayList<>();
+    private List<Application> applicationList = new ArrayList<>();
 
     public SystemData(List<Applicant> applicantList, List<HDBOfficer> hdbOfficerList, List<HDBManager> hdbmanagerList, List<Project> projectList) {
         this.applicantList = applicantList;
@@ -23,12 +24,14 @@ public class SystemData {
     public List<HDBOfficer> getOfficers() { return hdbOfficerList; }
     public List<HDBManager> getManagers() { return hdbmanagerList; }
     public List<Project> getProjects() { return projectList; }
+    public List<Application> getApplications() { return applicationList; }
 
     // Setters
     public void setApplicants(List<Applicant> applicantList) { this.applicantList = applicantList; }
     public void setOfficers(List<HDBOfficer> hdbOfficerList) { this.hdbOfficerList = hdbOfficerList; }
     public void setManagers(List<HDBManager> hdbmanagerList) { this.hdbmanagerList = hdbmanagerList; }
     public void setProjects(List<Project> projectList) { this.projectList = projectList; }
+    public void setApplications(List<Application> applicationList) { this.applicationList = applicationList; }
 
     // Methods
     public List<User> getAllUsers() {
