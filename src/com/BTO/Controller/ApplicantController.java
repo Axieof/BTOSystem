@@ -29,10 +29,10 @@ public class ApplicantController {
 	protected FilterManager filtMgr;
 
     // Constructor
-    public ApplicantController(Applicant appl, ArrayList<Project> projs) {
+    public ApplicantController(Applicant appl, ArrayList<Project> projs, ArrayList<Application> appls) {
     	applicant = appl;
     	projects = projs;
-    	applications = new ArrayList<>(); // SHOULD BE PASSED IN FROM CALLER
+    	applications = appls; 
  
     	applView = new ApplicantView();
     	projView = new ProjectView();
@@ -42,6 +42,9 @@ public class ApplicantController {
     	callController = new ApplicantEnquiryController(applicant, projects);;
     }
 
+    public void run() {
+    	
+    }
     public void viewLandingPage() {
 		applView.displayOptions();
     	int choice = MenuInputService.getMenuInput(sc);;
