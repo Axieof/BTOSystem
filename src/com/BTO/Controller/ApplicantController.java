@@ -18,8 +18,7 @@ public class ApplicantController {
 	// General attributes
 	private ArrayList<Project> projects = new ArrayList<Project>();
 	private Applicant applicant;
-	private ArrayList<Application> applications;
-	private ArrayList<WithdrawalApplication> withdrawA;
+	protected ArrayList<Application> applications;
 	
 	// Tools
 	private UserSettingsController settings;
@@ -34,7 +33,6 @@ public class ApplicantController {
     	applicant = appl;
     	projects = projs;
     	applications = new ArrayList<>(); // SHOULD BE PASSED IN FROM CALLER
-    	withdrawA = new ArrayList<>(); // SHOULD BE PASSED IN FROM CALLER
  
     	applView = new ApplicantView();
     	settings = new UserSettingsController(appl);
@@ -44,7 +42,8 @@ public class ApplicantController {
     }
 
     public void viewLandingPage() {
-    	int choice = -1;
+		applView.displayOptions();
+    	int choice = MenuInputService.getMenuInput(sc);;
     	
     	while (choice != 0) {
     		switch (choice) {
@@ -54,6 +53,7 @@ public class ApplicantController {
     		case 4-> viewAppliedProject();
     		case 5-> requestAppWithdrawal();
     		case 6-> handleEnquiry();
+    		default -> System.out.println("ERROR: Choice out of range!");
     		}
 
     		applView.displayOptions();
@@ -77,11 +77,7 @@ public class ApplicantController {
     		System.out.println("No projects available.\n");
     	}
     	else {
-    		for (Project proj : filtered) {
-        		if (proj.getVisibility()) {
-        			projView.displayProject(proj);
-        		}
-        	}
+    		for (Project proj : filtered) projView.displayProject(proj);
     	}
     }
 
@@ -99,13 +95,13 @@ public class ApplicantController {
     			System.out.println("Would you like to make a booking? (YES = 1/ NO = 0)");
     			int choice = MenuInputService.getMenuInput(sc); 
     			
-    			if (choice == 0) System.out.println("Terminating...\n");
-    			else {
+    			if (choice == 1) {
     				applied.setAppStatus(ApplicationStatus.REQBOOKING);
     				System.out.println("Booking requested!");
     			}
+    			else System.out.println("Terminating...\n");
     		}
-        	else System.out.println("Already applied for project!");
+        	else System.out.println("Already applied for project!\n");
     	}
     	else {
     		System.out.println("Applying for project...");
@@ -122,7 +118,16 @@ public class ApplicantController {
         	projView.displayProjectNames(filtered);
         	
         	int choice = MenuInputService.getMenuInput(sc);
-        	Project proj = filtered.get(choice);
+        	
+        	Project proj = null;
+        	try {
+        		proj = filtered.get(choice);
+        	}
+        	catch(Exception e) {
+        		System.out.println("ERROR: Invalid value!");
+        		return;
+        	}
+        	
         	System.out.println();
         	
         	// Choose a unit
@@ -135,7 +140,15 @@ public class ApplicantController {
         	}
 
         	choice = MenuInputService.getMenuInput(sc);
-        	u = allUnits.get(choice);
+        	
+        	try {
+        		u = allUnits.get(choice);
+        	}
+        	catch(Exception e) {
+        		System.out.println("ERROR: Invalid value!");
+        		return;
+        	}
+        	
         	System.out.println();
         	
         	// Create and send application

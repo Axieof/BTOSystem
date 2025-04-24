@@ -34,30 +34,36 @@ public class HDBOfficerController extends ApplicantController{
     }
     
     public void viewLandingPage() {
-    	int choice = -1;
+		offView.displayStarter();
+    	int choice = MenuInputService.getMenuInput(sc);
     	
     	while (choice != 0) {
-    		offView.displayStarter();
-	    	choice = MenuInputService.getMenuInput(sc);
 	    	
 	    	System.out.println("Redirecting...\n");
 	    	switch(choice) {
-	    	case 1-> super.viewLandingPage();
+	    	case 1-> {super.viewLandingPage();}
 	    	case 2-> viewOfficerPage();
+	    	default-> System.out.println("Invalid value!");
 	    	}
+	    	
+	    	offView.displayStarter();
+	    	choice = MenuInputService.getMenuInput(sc);
     	}
     	
+    	// should return whatever is necessary
     	System.out.println("Exiting officer menu...\n");
     }
-    	
+    
     private void viewOfficerPage() {
-    	int choice = -1;
+		offView.displayOptions();
+		int choice = MenuInputService.getMenuInput(sc);
     	
     	while (choice != 0) {
     		switch (choice) {
     		case 1-> regJoinProj();
     		case 2-> manageBookings();
     		// case 3-> continue; // SHOULD LINK TO COMMON OFFICER-MANAGER INTERFACE
+    		default->System.out.println("Invalid value!");
     		}
 
     		offView.displayOptions();
@@ -104,9 +110,15 @@ public class HDBOfficerController extends ApplicantController{
         	projView.displayProjectNames(filtered);
         	int choice = MenuInputService.getMenuInput(sc);
         	
-        	// null unit marks difference between officer registration application and normal application
-        	Application appl = new Application(filtered.get(choice), null, officer); // Create and send application
-
+        	Application appl = null;
+        	try {
+        		appl = new Application(filtered.get(choice), null, officer); // Create and send application
+        	}
+        	catch(Exception e) {
+        		System.out.println("ERROR: Invalid value!");
+        		return;
+        	}
+        	
         	Iterator<Application> it = applications.iterator();
         	while(it.hasNext()) {
         		Application a = it.next();
@@ -132,12 +144,21 @@ public class HDBOfficerController extends ApplicantController{
     	// display applications
     	offView.displayApplications(appls);
     	int choice = MenuInputService.getMenuInput(sc);
-    	Application curr = appls.get(choice); 
+    	
+    	Application curr = null;
+    	try {
+    		curr = appls.get(choice); 
+    	}
+    	catch(Exception e) {
+    		System.out.println("ERROR: Invalid value!");
+    		return;
+    	}
+    	
     	
     	System.out.println("Confirm booking? (YES = 1/ NO = 0)");
     	choice = MenuInputService.getMenuInput(sc);
     	
-    	if (choice == 0) {
+    	if (choice != 1) {
     		System.out.println("Exiting...\n");
     		return;
     	}
