@@ -12,6 +12,7 @@ public class Applicant extends User implements ICSVWritable {
 	private Project bookedProject = null;
 	private Unit bookedUnit = null;
 	
+    private static List<Applicant> allApplicants = new ArrayList<>();
     private List<Enquiry> enquiryList = new ArrayList<>();
     private int projectID = -1;
 
@@ -36,6 +37,10 @@ public class Applicant extends User implements ICSVWritable {
     	bookedUnit = u;
     }
 
+    public static List<Applicant> getAllApplicants() {
+        return allApplicants;
+    }
+    
     @Override
     public String toCSV() {
         return String.join(",",

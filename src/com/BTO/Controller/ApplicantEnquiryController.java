@@ -4,7 +4,6 @@ import src.com.BTO.View.ApplicantEnquiryView;
 import src.com.BTO.View.ProjectView;
 
 import src.com.BTO.Service.ApplicantEnquiryService;
-import src.com.BTO.Service.UserEnquiryService;
 import src.com.BTO.Service.MenuInputService;
 
 import src.com.BTO.Model.Enquiry;
@@ -25,7 +24,6 @@ public class ApplicantEnquiryController {
     private ApplicantEnquiryView callView;
     private ProjectView projView;
     private ApplicantEnquiryService callService;
-    private UserEnquiryService callUserService;
    
     private Scanner sc = new Scanner(System.in);
     
@@ -33,7 +31,6 @@ public class ApplicantEnquiryController {
     public ApplicantEnquiryController(Applicant applicant, ArrayList<Project> projs) {
         this.applicant = applicant;
         this.callService = new ApplicantEnquiryService(applicant);
-//        this.callUserService = new UserEnquiryService();
         
         projects = projs;
         
