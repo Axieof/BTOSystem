@@ -5,7 +5,7 @@ import src.com.BTO.Model.Enums.ApplicationStatus;
 import src.com.BTO.Model.Enums.RoomType;
 import src.com.BTO.Service.*;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class HDBManager extends User implements ICSVWritable {
 
@@ -23,78 +23,77 @@ public class HDBManager extends User implements ICSVWritable {
         return ownedProjects;
     }
 
-    // Toggle project visibility
     public void toggleProjectVisibility(Project project, boolean visible) {
-        if (ownedProjects.contains(project)) {
-            project.setVisibility(visible);
-        }
+        if (ownedProjects.contains(project)) project.setVisibility(visible);
     }
 
-    // Approve or reject HDBOfficer registration
     public void reviewOfficerRegistration(Project project, HDBOfficer officer, boolean approve) {
-        if (ownedProjects.contains(project)) {
-            if (approve) {
-                project.addOfficer(officer);
-            } else {
-                // handle rejected logic (if needed)
-            }
+        if (!ownedProjects.contains(project)) return;
+    
+        Application reg = officer.getProjReg();
+        if (reg == null || reg.getProject() != project) return;
+    
+        if (approve) {
+            project.addOfficer(officer);
+            officer.setCurrProj(project);
+            officer.setProjReg(null);
+            reg.setAppStatus(ApplicationStatus.SUCCESSFUL);
+            System.out.println("Officer " + officer.getName() + " approved and added to project: " + project.getProjectName());
+        } else {
+            officer.setProjReg(null);
+            reg.setAppStatus(ApplicationStatus.UNSUCCESSFUL);
+            System.out.println("Officer " + officer.getName() + " rejected for project: " + project.getProjectName());
         }
     }
 
-    // Approve or reject applicant’s BTO application
     public void reviewApplication(Application application, boolean approve) {
         if (!ownedProjects.contains(application.getProject())) return;
 
         if (approve) {
-            RoomType room = application.getUnit().getRoomType();
-            for (Unit u : application.getProject().getUnitTypes()) {
-                if (u.getRoomType() == room && u.getUnitCount() > 0) {
-                    u.setUnitCount(u.getUnitCount() - 1);
-                    application.setAppStatus(ApplicationStatus.SUCCESSFUL);
-                    return;
-                }
+            Unit selected = application.getUnit();
+            if (selected.getUnitCount() > 0) {
+                selected.setUnitCount(selected.getUnitCount() - 1);
+                application.setAppStatus(ApplicationStatus.SUCCESSFUL);
+            } else {
+                application.setAppStatus(ApplicationStatus.UNSUCCESSFUL);
             }
-            application.setAppStatus(ApplicationStatus.UNSUCCESSFUL);
         } else {
             application.setAppStatus(ApplicationStatus.UNSUCCESSFUL);
         }
     }
 
-    // Approve or reject withdrawal requests
-    public void reviewWithdrawal(Application withdrawal, boolean approve) {
-        if (!ownedProjects.contains(withdrawal.getAppStatus() != ApplicationStatus.REQWITHDRAWAL)) return;
-
+    public void reviewWithdrawal(WithdrawalApplication withdrawal, boolean approve) {
+        Application app = withdrawal;
+    
+        if (!ownedProjects.contains(app.getProject())) return;
+    
         if (approve) {
-            withdrawal.setAppStatus(ApplicationStatus.SUCWITHDRAWAL);
-            
-            if (withdrawal.getApplicant().getBookedUnit() != null) {
-            	// restore flat count
-                Unit u = withdrawal.getUnit();
-                u.setUnitCount(u.getUnitCount() + 1);
+            withdrawal.setApplicationStatus(ApplicationStatus.SUCWITHDRAWAL);
+            Unit unit = app.getUnit();
+            if (unit != null) {
+                unit.setUnitCount(unit.getUnitCount() + 1);
             }
-            
         } else {
-        	// Lecturer said to assume it will always be successful for now
-        	// So if unapproved we assume it is set back to PENGING or back to BOOKED
-        	
-        	// originally booked
-        	if (withdrawal.getApplicant().getBookedUnit() != null) withdrawal.setAppStatus(ApplicationStatus.BOOKED);
-        	else withdrawal.setAppStatus(ApplicationStatus.PENDING);
+            if (app.getApplicant().getBookedUnit() != null) {
+                withdrawal.setApplicationStatus(ApplicationStatus.BOOKED);
+            } else {
+                withdrawal.setApplicationStatus(ApplicationStatus.PENDING);
+            }
         }
     }
+    
 
-    // Generate report of booked applicants with filters
     public void generateReport(String filterType, String filterValue) {
         for (Project project : ownedProjects) {
             for (HDBOfficer officer : project.getOfficers()) {
                 Application app = officer.getApplied();
                 if (app != null && app.getAppStatus() == ApplicationStatus.BOOKED) {
-                    boolean matches = switch (filterType) {
+                    boolean match = switch (filterType.toLowerCase()) {
                         case "marital" -> officer.getMaritalStatus().toString().equalsIgnoreCase(filterValue);
                         case "flat" -> app.getUnit().getRoomType().toString().equalsIgnoreCase(filterValue);
                         default -> true;
                     };
-                    if (matches) {
+                    if (match) {
                         System.out.println("Name: " + officer.getName()
                                 + ", NRIC: " + officer.getMaskedNric()
                                 + ", Age: " + officer.getAge()

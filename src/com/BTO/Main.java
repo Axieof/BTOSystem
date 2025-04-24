@@ -1,20 +1,15 @@
 package src.com.BTO;
 
 // Imports
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import src.com.BTO.Controller.*;
 import src.com.BTO.Model.*;
 import src.com.BTO.Model.Enums.*;
 import src.com.BTO.Service.*;
-import src.com.BTO.Controller.*;
 import src.com.BTO.View.*;
 
 public class Main {
@@ -104,8 +99,10 @@ public class Main {
             // new ApplicantController((Applicant) loggedInUser).run();
         } else if (loggedInUser instanceof HDBManager) {
             System.out.println("\nRedirecting to HDB Manager Dashboard...");
-            // new ManagerController((HDBManager) loggedInUser).run();
-        } else {
+            HDBManagerController hdbManagerController = new HDBManagerController((HDBManager) loggedInUser, mainScanner);
+            hdbManagerController.run();
+        }
+         else {
             System.out.println("No User has logged in. Exiting program");
         }
 
