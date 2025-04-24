@@ -2,18 +2,13 @@ package src.com.BTO.Controller;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
-import src.com.BTO.Model.Applicant;
 import src.com.BTO.Model.Application;
+import src.com.BTO.Model.Enums.*;
 import src.com.BTO.Model.HDBOfficer;
 import src.com.BTO.Model.Project;
 import src.com.BTO.Model.Unit;
-import src.com.BTO.Model.Enums.*;
-
-import src.com.BTO.Service.MenuInputService;
 import src.com.BTO.Service.CSVLoaderService;
-
+import src.com.BTO.Service.MenuInputService;
 import src.com.BTO.View.HDBOfficerView;
 
 public class HDBOfficerController extends ApplicantController{
